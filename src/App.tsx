@@ -1,7 +1,12 @@
 import { useEffect, useMemo, useState } from 'react';
 import type { LangCode, Match, Mode, Variant } from './types';
 import { TEAMS } from './data/teams';
-import { MATCHES } from './data/schedule';
+import { MATCHES, isUpcoming, hasAnyVideo } from './data/schedule';
+
+// Show upcoming matches at most this far ahead.
+const UPCOMING_WINDOW_MS = 8 * 60 * 60 * 1000;
+// Keep showing a just-finished match (awaiting highlights) for this long.
+const AWAIT_WINDOW_MS = 12 * 60 * 60 * 1000;
 import { DaySection } from './components/DaySection';
 import { PlayerModal } from './components/PlayerModal';
 
@@ -42,11 +47,18 @@ export function App() {
       .sort((a, b) => a.name.localeCompare(b.name));
   }, []);
 
-  const filtered = useMemo(() => MATCHES.filter((m) => {
-    if (groupFilter && m.group !== groupFilter) return false;
-    if (teamFilter && m.home !== teamFilter && m.away !== teamFilter) return false;
-    return true;
-  }), [groupFilter, teamFilter]);
+  const filtered = useMemo(() => {
+    const now = Date.now();
+    return MATCHES.filter((m) => {
+      if (groupFilter && m.group !== groupFilter) return false;
+      if (teamFilter && m.home !== teamFilter && m.away !== teamFilter) return false;
+      // Upcoming within the window; played once a highlight exists; otherwise a
+      // recently-kicked-off match awaiting highlights ("coming soon").
+      if (isUpcoming(m, now)) return new Date(m.kickoff!).getTime() - now <= UPCOMING_WINDOW_MS;
+      if (hasAnyVideo(m)) return true;
+      return !!m.kickoff && now - new Date(m.kickoff).getTime() <= AWAIT_WINDOW_MS;
+    });
+  }, [groupFilter, teamFilter]);
 
   const days = useMemo(() => {
     const byDay = new Map<string, Match[]>();
@@ -102,8 +114,9 @@ export function App() {
         ))}
 
         <div className="footer-note">
-          <strong>About this data.</strong> Real FIFA World Cup 2026 highlights, played matches only — no upcoming or
-          live fixtures. <strong>English</strong> offers a short and an extended cut from FIFA / FOX on YouTube,
+          <strong>About this data.</strong> Real FIFA World Cup 2026 highlights. Matches kicking off within the next 8
+          hours show as <em>Upcoming</em>, just-finished ones as <em>Highlights coming soon</em>; all times are in your
+          local time zone. <strong>English</strong> offers a short and an extended cut from FIFA / FOX on YouTube,
           available in the <strong>US only</strong>. <strong>Dutch</strong> plays NOS Sport's summary, available in the
           <strong>Netherlands only</strong>. Everything runs in the spoiler-shield player: title, duration/timestamps
           and end screens hidden. An <strong>N/A</strong> button means no source yet (Spanish has no non-YouTube source).

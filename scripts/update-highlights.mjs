@@ -86,6 +86,7 @@ const TEAMS = {
   CUW: { en: ['curaçao', 'curacao'], nl: 'Curaçao' },
   CZE: { en: ['czechia', 'czech republic'], nl: 'Tsjechië' },
   BIH: { en: ['bosnia and herzegovina', 'bosnia & herzegovina', 'bosnia'], nl: 'Bosnië en Herzegovina' },
+  HAI: { en: ['haiti'], nl: 'Haïti' },
 };
 
 const norm = (s) => s.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().replace(/\s+/g, ' ').trim();

@@ -27,3 +27,19 @@ export function fmtDayShort(iso: string): string {
     month: 'short', day: 'numeric', timeZone: 'UTC',
   });
 }
+
+/** Kickoff instant rendered in the viewer's own local time zone. */
+export function fmtKickoffLocal(iso: string): string {
+  return new Date(iso).toLocaleString(undefined, {
+    weekday: 'short', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit',
+  });
+}
+
+/** A match is upcoming if its kickoff is still in the future. */
+export function isUpcoming(m: Match, now: number = Date.now()): boolean {
+  return !!m.kickoff && new Date(m.kickoff).getTime() > now;
+}
+
+export function hasAnyVideo(m: Match): boolean {
+  return Object.values(m.videos).some((c) => c && (c.short || c.extended));
+}
