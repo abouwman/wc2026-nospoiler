@@ -1,28 +1,26 @@
-import type { LangCode, LangInfo } from '../types';
+import type { LangCode, LangInfo, Match, Track, Variant } from '../types';
 
 // --- Commentary sources ---------------------------------------------------
 export const LANGS: Record<LangCode, LangInfo> = {
-  en: { label: 'EN', name: 'English', source: 'ESPN · YouTube', short: 'ESPN' },
-  es: { label: 'ES', name: 'Español', source: 'Telemundo · YouTube', short: 'Telemundo' },
-  nl: { label: 'NL', name: 'Nederlands', source: 'NOS · nos.nl', short: 'NOS' },
+  en: { label: 'EN', name: 'English', source: 'FIFA / FOX · YouTube', short: 'FIFA' },
+  es: { label: 'ES', name: 'Español', source: 'Telemundo', short: 'Telemundo' },
+  nl: { label: 'NL', name: 'Nederlands', source: 'NOS Sport · YouTube', short: 'NOS' },
 };
 
 export const LANG_ORDER: LangCode[] = ['en', 'es', 'nl'];
 
-// Stand-in embeddable videos (Blender open movies) — swap for real highlight
-// URLs per source in production.
-export const VIDEO_POOL = ['aqz-KE-bpKQ', 'eRsGyueVLvQ', 'R6MlUcmOul8', 'WhWc3b3KhnY', 'SkVqJ1SGeL0'];
+const VARIANT_ORDER: Variant[] = ['short', 'extended'];
 
-// --- Helpers ---------------------------------------------------------------
-export function hash(str: string): number {
-  let h = 2166136261;
-  for (let i = 0; i < str.length; i++) {
-    h ^= str.charCodeAt(i);
-    h = Math.imul(h, 16777619);
+// Flatten a match's clips into the individual playable tracks, in display order.
+export function tracksOf(match: Match): Track[] {
+  const out: Track[] = [];
+  for (const lang of LANG_ORDER) {
+    const clips = match.videos[lang];
+    if (!clips) continue;
+    for (const variant of VARIANT_ORDER) {
+      const source = clips[variant];
+      if (source) out.push({ lang, variant, source, key: lang + ':' + variant });
+    }
   }
-  return Math.abs(h);
-}
-
-export function videoFor(matchId: string, lang: LangCode): string {
-  return VIDEO_POOL[hash(matchId + ':' + lang) % VIDEO_POOL.length];
+  return out;
 }

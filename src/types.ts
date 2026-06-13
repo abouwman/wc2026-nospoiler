@@ -6,6 +6,7 @@ export interface Team {
 }
 
 export type LangCode = 'en' | 'es' | 'nl';
+export type Variant = 'short' | 'extended';
 
 export interface LangInfo {
   label: string;
@@ -15,25 +16,36 @@ export interface LangInfo {
 }
 
 export type Stage = 'group' | 'r32' | 'r16' | 'qf' | 'sf' | 'third' | 'final';
-export type MatchStatus = 'played' | 'today' | 'upcoming';
+
+// A highlight clip on YouTube. `geo` flags a viewing restriction (US- or NL-only).
+export interface VideoSource {
+  id: string;
+  geo?: 'US' | 'NL';
+}
+
+// Each language can offer a short cut and/or an extended cut.
+export type Clips = Partial<Record<Variant, VideoSource>>;
 
 export interface Match {
   id: string;
-  num: number;
   stage: Stage;
   group?: string;
-  dayIdx: number;
-  home: string | null;
-  away: string | null;
-  homeLabel?: string;
-  awayLabel?: string;
-  venue: string;
-  time: string;
-  status: MatchStatus;
-  langs: LangCode[];
-  played: boolean;
+  /** ISO calendar day of kickoff, 'YYYY-MM-DD' (UTC). */
+  date: string;
+  home: string;
+  away: string;
+  /** Optional — auto-discovered matches may not know the venue. */
+  venue?: string;
+  /** Per-language clips. A missing language has no source yet. */
+  videos: Partial<Record<LangCode, Clips>>;
+}
+
+// A single playable selection (one language + one cut), used by cards and player.
+export interface Track {
+  lang: LangCode;
+  variant: Variant;
+  source: VideoSource;
+  key: string;
 }
 
 export type Mode = 'light' | 'dark';
-export type Tab = 'highlights' | 'schedule';
-export type StageFilter = 'all' | Stage;

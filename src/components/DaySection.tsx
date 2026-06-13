@@ -1,24 +1,23 @@
-import type { LangCode, Match } from '../types';
+import type { LangCode, Match, Variant } from '../types';
 import { fmtDay, fmtDayShort } from '../data/schedule';
 import { MatchCard } from './MatchCard';
 
 interface DaySectionProps {
-  dayIdx: number;
+  date: string;
   matches: Match[];
-  defaultLang: LangCode;
-  onOpen: (match: Match, lang: LangCode) => void;
+  onOpen: (match: Match, lang: LangCode, variant: Variant) => void;
 }
 
-export function DaySection({ dayIdx, matches, defaultLang, onOpen }: DaySectionProps) {
+export function DaySection({ date, matches, onOpen }: DaySectionProps) {
   return (
-    <section className="day-section" data-screen-label={'Matchday ' + fmtDayShort(dayIdx)}>
+    <section className="day-section" data-screen-label={'Matchday ' + fmtDayShort(date)}>
       <div className="day-head">
-        <h2 className="day-title display">{fmtDay(dayIdx)}</h2>
+        <h2 className="day-title display">{fmtDay(date)}</h2>
         <span className="day-count mono">{matches.length} {matches.length === 1 ? 'MATCH' : 'MATCHES'}</span>
       </div>
       <div className="grid">
         {matches.map((m) => (
-          <MatchCard key={m.id} match={m} defaultLang={defaultLang} onOpen={onOpen} />
+          <MatchCard key={m.id} match={m} onOpen={onOpen} />
         ))}
       </div>
     </section>
