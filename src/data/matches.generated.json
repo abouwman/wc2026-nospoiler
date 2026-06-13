@@ -73,7 +73,18 @@
     "home": "QAT",
     "away": "SUI",
     "venue": "Levi's Stadium · SF Bay",
-    "videos": {}
+    "videos": {
+      "en": {
+        "extended": {
+          "id": "jSJs2nPJeLo",
+          "geo": "US"
+        },
+        "short": {
+          "id": "CUo5J7CUnCo",
+          "geo": "US"
+        }
+      }
+    }
   },
   {
     "id": "m-usa-par",
