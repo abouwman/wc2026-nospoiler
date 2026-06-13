@@ -5,11 +5,10 @@ import { MatchCard } from './MatchCard';
 interface DaySectionProps {
   date: string;
   matches: Match[];
-  defaultLang: LangCode;
   onOpen: (match: Match, lang: LangCode, variant: Variant) => void;
 }
 
-export function DaySection({ date, matches, defaultLang, onOpen }: DaySectionProps) {
+export function DaySection({ date, matches, onOpen }: DaySectionProps) {
   return (
     <section className="day-section" data-screen-label={'Matchday ' + fmtDayShort(date)}>
       <div className="day-head">
@@ -18,7 +17,7 @@ export function DaySection({ date, matches, defaultLang, onOpen }: DaySectionPro
       </div>
       <div className="grid">
         {matches.map((m) => (
-          <MatchCard key={m.id} match={m} defaultLang={defaultLang} onOpen={onOpen} />
+          <MatchCard key={m.id} match={m} onOpen={onOpen} />
         ))}
       </div>
     </section>

@@ -1,7 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import type { LangCode, Match, Mode, Variant } from './types';
 import { TEAMS } from './data/teams';
-import { LANGS, LANG_ORDER } from './data/languages';
 import { MATCHES } from './data/schedule';
 import { DaySection } from './components/DaySection';
 import { PlayerModal } from './components/PlayerModal';
@@ -23,13 +22,11 @@ interface Active {
 
 export function App() {
   const [mode, setMode] = useState<Mode>(() => loadLS('wcns-mode', 'light'));
-  const [defaultLang, setDefaultLang] = useState<LangCode>(() => loadLS('wcns-lang', 'en'));
   const [groupFilter, setGroupFilter] = useState<string | null>(null);
   const [teamFilter, setTeamFilter] = useState('');
   const [active, setActive] = useState<Active | null>(null);
 
   useEffect(() => { try { localStorage.setItem('wcns-mode', JSON.stringify(mode)); } catch { /* noop */ } }, [mode]);
-  useEffect(() => { try { localStorage.setItem('wcns-lang', JSON.stringify(defaultLang)); } catch { /* noop */ } }, [defaultLang]);
 
   const groups = useMemo(() => {
     const set = new Set<string>();
@@ -70,15 +67,6 @@ export function App() {
             <span className="mark display">NO<span className="accent">SPOILER</span>CUP</span>
             <span className="sub mono">World Cup 2026 · Spoiler-free highlights</span>
           </div>
-          <div className="seg-wrap">
-            <span className="seg-label mono">Commentary</span>
-            <div className="seg">
-              {LANG_ORDER.map((l) => (
-                <button key={l} className={defaultLang === l ? 'on' : ''} title={LANGS[l].name + ' — ' + LANGS[l].source}
-                  onClick={() => setDefaultLang(l)}>{LANGS[l].label}</button>
-              ))}
-            </div>
-          </div>
           <div className="seg">
             <button className={mode === 'light' ? 'on' : ''} onClick={() => setMode('light')}>Light</button>
             <button className={mode === 'dark' ? 'on' : ''} onClick={() => setMode('dark')}>Dark</button>
@@ -88,9 +76,16 @@ export function App() {
 
       <main className="shell" data-screen-label="Match browser">
         <div className="toolbar">
-          <div className="tabs">
-            <span className="tab on">Played highlights</span>
-          </div>
+          {groups.length > 0 ? (
+            <div className="chips">
+              <span className="chips-label">Filter by group</span>
+              <button className={'chip' + (!groupFilter ? ' on' : '')} onClick={() => setGroupFilter(null)}>All</button>
+              {groups.map((l) => (
+                <button key={l} className={'chip' + (groupFilter === l ? ' on' : '')}
+                  onClick={() => setGroupFilter(groupFilter === l ? null : l)}>Group {l}</button>
+              ))}
+            </div>
+          ) : null}
           <div className="filters">
             <select className="team-select" value={teamFilter} onChange={(e) => setTeamFilter(e.target.value)}>
               <option value="">All teams</option>
@@ -99,29 +94,20 @@ export function App() {
           </div>
         </div>
 
-        {groups.length > 0 ? (
-          <div className="chips">
-            <button className={'chip' + (!groupFilter ? ' on' : '')} onClick={() => setGroupFilter(null)}>ALL</button>
-            {groups.map((l) => (
-              <button key={l} className={'chip' + (groupFilter === l ? ' on' : '')}
-                onClick={() => setGroupFilter(groupFilter === l ? null : l)}>{l}</button>
-            ))}
-          </div>
-        ) : null}
-
         {days.length === 0 ? (
           <div className="empty-state">No played matches match these filters yet.</div>
         ) : days.map((d) => (
           <DaySection key={d.date} date={d.date} matches={d.matches}
-            defaultLang={defaultLang} onOpen={(m, l, v) => setActive({ match: m, lang: l, variant: v })} />
+            onOpen={(m, l, v) => setActive({ match: m, lang: l, variant: v })} />
         ))}
 
         <div className="footer-note">
           <strong>About this data.</strong> Real FIFA World Cup 2026 highlights, played matches only — no upcoming or
-          live fixtures. <strong>EN 🇺🇸 (US only)</strong> offers a <em>short</em> and an <em>extended</em> cut from
-          FIFA / FOX on YouTube. <strong>NL 🇳🇱 (NL only)</strong> plays NOS Sport's Dutch summary, which only streams in
-          the Netherlands. Everything runs in the spoiler-shield player: title, duration/timestamps and end screens
-          hidden. A 🚫 button means no source yet — <strong>ES</strong> has no non-YouTube source. No scores anywhere.
+          live fixtures. <strong>English</strong> offers a short and an extended cut from FIFA / FOX on YouTube,
+          available in the <strong>US only</strong>. <strong>Dutch</strong> plays NOS Sport's summary, available in the
+          <strong>Netherlands only</strong>. Everything runs in the spoiler-shield player: title, duration/timestamps
+          and end screens hidden. An <strong>N/A</strong> button means no source yet (Spanish has no non-YouTube source).
+          No scores anywhere.
         </div>
       </main>
 

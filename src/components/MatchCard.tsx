@@ -6,13 +6,16 @@ import { TeamPanel } from './TeamPanel';
 
 interface MatchCardProps {
   match: Match;
-  defaultLang: LangCode;
   onOpen: (match: Match, lang: LangCode, variant: Variant) => void;
 }
 
 const VARIANTS: Variant[] = ['short', 'extended'];
 
-export function MatchCard({ match, defaultLang, onOpen }: MatchCardProps) {
+function geoLabel(geo?: 'US' | 'NL'): string {
+  return geo === 'US' ? 'US only' : geo === 'NL' ? 'NL only' : 'Worldwide';
+}
+
+export function MatchCard({ match, onOpen }: MatchCardProps) {
   const stageLabel = match.group ? 'Group ' + match.group : STAGE_LABELS[match.stage];
   const homeT = TEAMS[match.home];
   const awayT = TEAMS[match.away];
@@ -43,30 +46,27 @@ export function MatchCard({ match, defaultLang, onOpen }: MatchCardProps) {
                   disabled
                   title={'No ' + LANGS[l].name + ' highlight available (' + LANGS[l].source + ')'}
                 >
-                  <span>🚫 {LANGS[l].label}</span>
-                  <small>N/A</small>
+                  <span className="lang-main">{LANGS[l].name}<span className="variant">no source</span></span>
+                  <span className="lang-geo">N/A</span>
                 </button>
               );
             }
 
             return cuts.map((v) => {
               const src = clips![v]!;
-              const flag = src.geo === 'US' ? '🇺🇸' : src.geo === 'NL' ? '🇳🇱' : '';
-              const main = l === 'en' ? 'EN · ' + (v === 'extended' ? 'Ext' : 'Short') : LANGS[l].label;
-              const geoText = src.geo ? src.geo + ' only' : LANGS[l].short;
-              const primary = l === defaultLang && v === 'short' ? ' primary' : '';
-              const where = src.geo === 'US' ? 'the United States' : src.geo === 'NL' ? 'the Netherlands' : '';
+              const variant = l === 'en' ? (v === 'extended' ? 'Extended highlights' : 'Short highlights') : 'Samenvatting';
+              const where = src.geo === 'US' ? 'the United States' : src.geo === 'NL' ? 'the Netherlands' : 'everywhere';
               const title = 'Watch ' + LANGS[l].name + ' ' + (v === 'extended' ? 'extended ' : '') +
-                'highlights — ' + LANGS[l].source + (where ? ' · only available in ' + where : '');
+                'highlights — ' + LANGS[l].source + ' · available in ' + where;
               return (
                 <button
                   key={l + ':' + v}
-                  className={'lang-btn' + primary}
+                  className="lang-btn"
                   title={title}
                   onClick={() => onOpen(match, l, v)}
                 >
-                  <span>▶ {main}</span>
-                  <small>{flag} {geoText}</small>
+                  <span className="lang-main">▶ {LANGS[l].name}<span className="variant">{variant}</span></span>
+                  <span className="lang-geo">{geoLabel(src.geo)}</span>
                 </button>
               );
             });
