@@ -7,13 +7,11 @@ export const STAGE_LABELS: Record<Stage, string> = {
 
 // Real FIFA World Cup 2026 matches that have already been played (played-only —
 // no upcoming or in-progress fixtures).
-//   EN → FIFA's own highlight (played in FIFA's embed; fifa.com watch id).
+//   EN → FIFA's own highlight (fifa.com watch id). Played in FIFA's embed when a
+//        partner credential is set (data/sources.ts); otherwise opens on fifa.com.
 //   NL → NOS Sport's Dutch summary on YouTube (@nossport).
 //   ES → no non-YouTube Spanish source provided, so it stays unavailable (🚫).
-// Only the USA–Paraguay FIFA watch id is known so far — the rest of the FIFA
-// watch ids live on fifa.com, which is currently blocked by the environment's
-// network egress allowlist, so EN shows as unavailable on those cards until the
-// ids are added. Add new matches to the top as they finish.
+// Add new matches to the top as they finish.
 export const MATCHES: Match[] = [
   {
     id: 'm-usa-par', stage: 'group', group: 'D', date: '2026-06-13',
@@ -27,6 +25,7 @@ export const MATCHES: Match[] = [
     id: 'm-can-bih', stage: 'group', group: 'B', date: '2026-06-12',
     home: 'CAN', away: 'BIH', venue: 'BMO Field · Toronto',
     videos: {
+      en: { kind: 'fifa', id: '5ekSKA6XJZqv9Fag9pI7sH' },
       nl: { kind: 'youtube', id: 'JepkqjGbVa4' },
     },
   },
@@ -34,6 +33,7 @@ export const MATCHES: Match[] = [
     id: 'm-mex-rsa', stage: 'group', group: 'A', date: '2026-06-11',
     home: 'MEX', away: 'RSA', venue: 'Estadio Azteca · Mexico City',
     videos: {
+      en: { kind: 'fifa', id: '7wv3jFr0T2wczSuQbhgrSW' },
       nl: { kind: 'youtube', id: 'axQsKUBbRiU' },
     },
   },
@@ -41,6 +41,7 @@ export const MATCHES: Match[] = [
     id: 'm-kor-cze', stage: 'group', group: 'A', date: '2026-06-11',
     home: 'KOR', away: 'CZE', venue: 'Estadio Akron · Guadalajara',
     videos: {
+      en: { kind: 'fifa', id: '1iidGe97khg8lmdSRopdh4' },
       nl: { kind: 'youtube', id: '84RGrVxrRF4' },
     },
   },
