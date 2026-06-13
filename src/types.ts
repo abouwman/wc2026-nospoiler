@@ -32,6 +32,9 @@ export interface Match {
   group?: string;
   /** ISO calendar day of kickoff, 'YYYY-MM-DD' (UTC). */
   date: string;
+  /** Exact kickoff instant (ISO 8601, e.g. '2026-06-13T22:00:00Z'); used for
+   *  local-time display and the upcoming/played distinction. */
+  kickoff?: string;
   home: string;
   away: string;
   /** Optional — auto-discovered matches may not know the venue. */

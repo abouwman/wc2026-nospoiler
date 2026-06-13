@@ -1,7 +1,10 @@
 import { useEffect, useMemo, useState } from 'react';
 import type { LangCode, Match, Mode, Variant } from './types';
 import { TEAMS } from './data/teams';
-import { MATCHES } from './data/schedule';
+import { MATCHES, isUpcoming, hasAnyVideo } from './data/schedule';
+
+// Show upcoming matches at most this far ahead.
+const UPCOMING_WINDOW_MS = 8 * 60 * 60 * 1000;
 import { DaySection } from './components/DaySection';
 import { PlayerModal } from './components/PlayerModal';
 
@@ -42,11 +45,16 @@ export function App() {
       .sort((a, b) => a.name.localeCompare(b.name));
   }, []);
 
-  const filtered = useMemo(() => MATCHES.filter((m) => {
-    if (groupFilter && m.group !== groupFilter) return false;
-    if (teamFilter && m.home !== teamFilter && m.away !== teamFilter) return false;
-    return true;
-  }), [groupFilter, teamFilter]);
+  const filtered = useMemo(() => {
+    const now = Date.now();
+    return MATCHES.filter((m) => {
+      if (groupFilter && m.group !== groupFilter) return false;
+      if (teamFilter && m.home !== teamFilter && m.away !== teamFilter) return false;
+      // Upcoming: only within the window. Played: only once a highlight exists.
+      if (isUpcoming(m, now)) return new Date(m.kickoff!).getTime() - now <= UPCOMING_WINDOW_MS;
+      return hasAnyVideo(m);
+    });
+  }, [groupFilter, teamFilter]);
 
   const days = useMemo(() => {
     const byDay = new Map<string, Match[]>();
@@ -102,8 +110,9 @@ export function App() {
         ))}
 
         <div className="footer-note">
-          <strong>About this data.</strong> Real FIFA World Cup 2026 highlights, played matches only — no upcoming or
-          live fixtures. <strong>English</strong> offers a short and an extended cut from FIFA / FOX on YouTube,
+          <strong>About this data.</strong> Real FIFA World Cup 2026 highlights. Matches kicking off within the next 8
+          hours are shown as <em>Upcoming</em> (no highlights yet); times are in your local time zone.
+          <strong>English</strong> offers a short and an extended cut from FIFA / FOX on YouTube,
           available in the <strong>US only</strong>. <strong>Dutch</strong> plays NOS Sport's summary, available in the
           <strong>Netherlands only</strong>. Everything runs in the spoiler-shield player: title, duration/timestamps
           and end screens hidden. An <strong>N/A</strong> button means no source yet (Spanish has no non-YouTube source).

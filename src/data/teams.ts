@@ -54,4 +54,5 @@ export const TEAMS: Record<string, Team> = {
   CUW: { name: 'Curaçao', flag: '🇨🇼', colors: ['#002B7F', '#F9E814'] },
   CZE: { name: 'Czechia', flag: '🇨🇿', colors: ['#D7141A', '#11457E'] },
   BIH: { name: 'Bosnia & Herzegovina', flag: '🇧🇦', colors: ['#002F6C', '#FECB00'] },
+  HAI: { name: 'Haiti', flag: '🇭🇹', colors: ['#00209F', '#D21034'] },
 };
