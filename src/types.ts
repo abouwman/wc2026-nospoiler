@@ -5,7 +5,7 @@ export interface Team {
   colors: [string, string];
 }
 
-export type LangCode = 'en' | 'es' | 'nl';
+export type LangCode = 'en' | 'nl';
 export type Variant = 'short' | 'extended';
 
 export interface LangInfo {
@@ -41,6 +41,8 @@ export interface Match {
   venue?: string;
   /** Per-language clips. A missing language has no source yet. */
   videos: Partial<Record<LangCode, Clips>>;
+  /** FIFA watch id for the International (fifa.com) link, when known. */
+  fifa?: string;
 }
 
 // A single playable selection (one language + one cut), used by cards and player.
