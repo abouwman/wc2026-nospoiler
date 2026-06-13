@@ -132,9 +132,10 @@ export function App() {
 
         <div className="footer-note">
           <strong>About this data.</strong> Groups, fixtures and standings are sample data — not the real 2026 draw.
-          Videos are stand-in embeds (Blender open movies); in production each language button maps to a real highlight
-          source (ESPN / Telemundo on YouTube, NOS for Dutch). The player hides the video title, shows no duration or
-          timestamps (extra time leaks), and blocks YouTube end screens. No scores anywhere.
+          Each language button now maps to a real World Cup 2026 highlight: EN from FIFA, ES from Telemundo, and NL from
+          NOS — all on YouTube. Because fixtures are sample data, clips are assigned to cards deterministically, so a
+          card's flags may not match the footage. The player hides the video title, shows no duration or timestamps
+          (extra time leaks), and blocks YouTube end screens. No scores anywhere.
         </div>
       </main>
 
