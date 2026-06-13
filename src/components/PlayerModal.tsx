@@ -34,8 +34,9 @@ export function PlayerModal({ match, initialLang, initialVariant, onClose }: Pla
   }, [onClose]);
 
   const home = TEAMS[match.home], away = TEAMS[match.away];
-  const stageLabel = match.stage === 'group' ? 'Group ' + match.group : STAGE_LABELS[match.stage];
+  const stageLabel = match.group ? 'Group ' + match.group : STAGE_LABELS[match.stage];
   const geoNote = track.source.geo ? ' · ' + track.source.geo + ' only' : '';
+  const subParts = [stageLabel, fmtDay(match.date), match.venue].filter(Boolean);
 
   return (
     <div className="modal-backdrop" onClick={onClose}>
@@ -47,7 +48,7 @@ export function PlayerModal({ match, initialLang, initialVariant, onClose }: Pla
               <span className="vs mono">VS</span>
               {match.away} <span className="mini-flag">{away.flag}</span>
             </div>
-            <div className="modal-sub">{stageLabel} · {fmtDay(match.date)} · {match.venue}</div>
+            <div className="modal-sub">{subParts.join(' · ')}</div>
           </div>
           <button className="close-btn" onClick={onClose} title="Close">✕</button>
         </div>

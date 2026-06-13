@@ -13,7 +13,7 @@ interface MatchCardProps {
 const VARIANTS: Variant[] = ['short', 'extended'];
 
 export function MatchCard({ match, defaultLang, onOpen }: MatchCardProps) {
-  const stageLabel = match.stage === 'group' ? 'Group ' + match.group : STAGE_LABELS[match.stage];
+  const stageLabel = match.group ? 'Group ' + match.group : STAGE_LABELS[match.stage];
   const homeT = TEAMS[match.home];
   const awayT = TEAMS[match.away];
 

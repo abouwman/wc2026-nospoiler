@@ -34,7 +34,8 @@ export interface Match {
   date: string;
   home: string;
   away: string;
-  venue: string;
+  /** Optional — auto-discovered matches may not know the venue. */
+  venue?: string;
   /** Per-language clips. A missing language has no source yet. */
   videos: Partial<Record<LangCode, Clips>>;
 }

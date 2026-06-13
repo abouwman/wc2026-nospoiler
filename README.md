@@ -23,3 +23,17 @@ The design medium is **HTML/CSS/JS** — these are prototypes, not production co
 - `README.md` — this file
 - `chats/` — conversation transcripts (read these!)
 - `project/` — the `World Cup No Spoiler` project files (HTML prototypes, assets, components)
+
+## Auto-updating highlights
+
+Played matches and their highlight clips live in `src/data/matches.generated.json`.
+That file is maintained automatically by `scripts/update-highlights.mjs`, run hourly
+by the **Update highlights** GitHub Action (`.github/workflows/update-highlights.yml`).
+When a match's highlight appears on YouTube it parses the FIFA / FOX Sports titles
+into a new card (EN short + extended, US-only) and finds the NOS Sport Dutch
+summary (NL-only), then commits the change — Vercel redeploys automatically.
+
+Setup: add a **`YOUTUBE_API_KEY`** repository secret (YouTube Data API v3 key).
+Optional repo *variables* `FIFA_HANDLE` / `FOX_HANDLE` / `NOS_HANDLE` override the
+channel handles (defaults: `fifa`, `foxsports`, `nossport`). Run it on demand from
+the Actions tab ("Run workflow"). Without the secret the Action no-ops with an error.
