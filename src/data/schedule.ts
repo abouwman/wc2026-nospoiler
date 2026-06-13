@@ -43,3 +43,16 @@ export function isUpcoming(m: Match, now: number = Date.now()): boolean {
 export function hasAnyVideo(m: Match): boolean {
   return Object.values(m.videos).some((c) => c && (c.short || c.extended));
 }
+
+/** Any playable/linkable source (YouTube clips or the FIFA international link). */
+export function hasAnySource(m: Match): boolean {
+  return hasAnyVideo(m) || !!m.fifa;
+}
+
+export const FIFA_HIGHLIGHTS_HUB =
+  'https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/highlights';
+
+/** Match-specific FIFA watch page when known, else the highlights hub. */
+export function fifaUrl(m: Match): string {
+  return m.fifa ? 'https://www.fifa.com/en/watch/' + m.fifa : FIFA_HIGHLIGHTS_HUB;
+}

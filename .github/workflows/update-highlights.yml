@@ -2,7 +2,7 @@ name: Update highlights
 
 on:
   schedule:
-    - cron: '17 * * * *'   # hourly, at :17
+    - cron: '*/5 * * * *'   # every 5 minutes (GitHub may run a little less often)
   workflow_dispatch: {}
 
 permissions:

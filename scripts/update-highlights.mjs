@@ -33,6 +33,10 @@ const HANDLES = {
 // How far back to look for new uploads.
 const LOOKBACK_DAYS = Number(process.env.LOOKBACK_DAYS || 4);
 
+// FIFA highlights hub — scraped (best-effort) for per-match watch ids.
+const FIFA_HUB = 'https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/highlights';
+const UA = 'Mozilla/5.0 (compatible; HoldTheScoreBot/1.0)';
+
 // --- Team metadata: code -> { en: [aliases], nl: 'Dutch name' } -------------
 // en aliases are matched case-insensitively against parsed title fragments.
 const TEAMS = {
@@ -146,6 +150,35 @@ function parseEnglish(title) {
   return { home, away, group, extended };
 }
 
+// Best-effort: scrape the FIFA highlights hub for "/en/watch/<id>" links and map
+// each to a match by the team names near the link. Non-fatal if the markup
+// changes or the page is JS-rendered — the app falls back to the hub URL.
+async function discoverFifa() {
+  const map = new Map();
+  let html;
+  try {
+    const res = await fetch(FIFA_HUB, { headers: { 'user-agent': UA, 'accept-language': 'en' } });
+    if (!res.ok) throw new Error('hub ' + res.status);
+    html = await res.text();
+  } catch (e) { console.warn('fifa hub fetch failed:', e.message); return map; }
+
+  const re = /\/en\/watch\/([A-Za-z0-9_-]{8,})([\s\S]{0,240})/g;
+  let m;
+  while ((m = re.exec(html))) {
+    const id = m[1];
+    const text = m[2].replace(/<[^>]+>/g, ' ').replace(/&amp;/g, '&').replace(/\s+/g, ' ').trim();
+    const tm = text.match(/(.+?)\s+(?:vs?|v)\.?\s+(.+?)(?:\s*[|–\-•]|$)/i);
+    if (!tm) continue;
+    const home = codeFromEnglish(tm[1]);
+    const away = codeFromEnglish(tm[2]);
+    if (home && away && home !== away) {
+      const key = `${home}-${away}`;
+      if (!map.has(key)) map.set(key, id);
+    }
+  }
+  return map;
+}
+
 // --- Merge helpers ----------------------------------------------------------
 function setClip(match, lang, variant, id, geo) {
   match.videos[lang] = match.videos[lang] || {};
@@ -199,6 +232,15 @@ async function main() {
       const hit = vids.find((v) => norm(v.title).includes(norm(home)) && norm(v.title).includes(norm(away)));
       if (hit) { setClip(match, 'nl', 'short', hit.id, 'NL'); console.log(`nl for ${match.id}: ${hit.id}`); }
     }
+  }
+
+  // 3) FIFA International links per match (best-effort scrape).
+  const fifaMap = await discoverFifa();
+  console.log(`fifa watch ids found: ${fifaMap.size}`);
+  for (const match of byId.values()) {
+    if (match.fifa) continue;
+    const id = fifaMap.get(`${match.home}-${match.away}`);
+    if (id) { match.fifa = id; console.log(`fifa for ${match.id}: ${id}`); }
   }
 
   const out = [...byId.values()].sort((a, b) => (a.date < b.date ? 1 : a.date > b.date ? -1 : 0));

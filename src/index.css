@@ -102,6 +102,15 @@ select { font: inherit; color: inherit; }
 .lang-geo { font-size: 9.5px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; white-space: nowrap;
   background: color-mix(in srgb, currentColor 16%, transparent); border-radius: 999px; padding: 3px 9px; }
 .lang-btn.unavailable { background: var(--surface2); color: var(--muted); cursor: not-allowed; }
+.lang-btn.intl { background: var(--surface2); color: var(--ink); border: 1.5px solid var(--accent); }
+.lang-btn.intl:hover { background: var(--accent); color: var(--accent-ink); }
+
+.leave-modal { width: min(440px, 100%); background: var(--surface); border: var(--card-border); border-radius: var(--radius);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.35); padding: 22px; display: flex; flex-direction: column; gap: 12px; }
+.leave-title { font-size: 19px; }
+.leave-body { font-size: 13.5px; color: var(--muted); line-height: 1.5; }
+.leave-list { font-size: 13.5px; color: var(--ink); line-height: 1.6; padding-left: 18px; display: flex; flex-direction: column; gap: 2px; }
+.leave-modal .overlay-actions { display: flex; gap: 10px; margin-top: 4px; }
 
 /* ===================== Player modal ===================== */
 .modal-backdrop { position: fixed; inset: 0; z-index: 100; background: rgba(8, 9, 8, 0.78); backdrop-filter: blur(6px);
