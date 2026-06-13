@@ -17,8 +17,18 @@ export function YouTubeHighlight({ videoId, onClose }: YouTubeHighlightProps) {
   const [ended, setEnded] = useState(false);
   const [muted, setMuted] = useState(false);
   const [progress, setProgress] = useState(0);
+  // Progress bar is hidden by default; toggle remembers the choice.
+  const [showProgress, setShowProgress] = useState(() => {
+    try { return localStorage.getItem('hts-progress') === '1'; } catch { return false; }
+  });
   const hostRef = useRef<HTMLDivElement>(null);
   const playerRef = useRef<YTPlayer | null>(null);
+
+  const toggleProgress = () => setShowProgress((v) => {
+    const next = !v;
+    try { localStorage.setItem('hts-progress', next ? '1' : '0'); } catch { /* noop */ }
+    return next;
+  });
 
   // Create the player once
   useEffect(() => {
@@ -102,12 +112,14 @@ export function YouTubeHighlight({ videoId, onClose }: YouTubeHighlightProps) {
         <button className="ctrl-btn play" onClick={togglePlay} title={playing ? 'Pause' : 'Play'}>{playing ? '❚❚' : '▶'}</button>
         <button className="ctrl-btn" onClick={() => skip(-10)} title="Back 10 seconds"><span className="skip-label">‹ 10s</span></button>
         <button className="ctrl-btn" onClick={() => skip(10)} title="Forward 10 seconds"><span className="skip-label">10s ›</span></button>
-        {playing ? (
-          <div className="progress-hidden mono" title="Progress is hidden while playing — pause to scrub">Progress hidden while playing</div>
-        ) : (
+        <button className={'ctrl-btn' + (showProgress ? ' on' : '')} onClick={toggleProgress}
+          title={showProgress ? 'Hide progress bar' : 'Show progress bar'}>👁</button>
+        {showProgress ? (
           <div className="progress" onClick={seekFrac} title="Seek (no timestamps — they spoil extra time)">
             <div className="progress-track"><div className="progress-fill" style={{ width: (progress * 100) + '%' }}></div></div>
           </div>
+        ) : (
+          <div className="progress-spacer" />
         )}
         <button className="ctrl-btn" onClick={toggleMute} title={muted ? 'Unmute' : 'Mute'}>{muted ? '🔇' : '🔊'}</button>
       </div>

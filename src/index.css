@@ -130,8 +130,8 @@ select { font: inherit; color: inherit; }
 .ctrl-btn:hover { filter: brightness(0.96); }
 .skip-label { font-size: 9px; letter-spacing: 0; }
 .progress { flex: 1 1 140px; height: 26px; display: flex; align-items: center; cursor: pointer; min-width: 120px; }
-.progress-hidden { flex: 1 1 140px; min-width: 120px; height: 26px; display: flex; align-items: center; justify-content: center;
-  font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+.progress-spacer { flex: 1 1 140px; min-width: 120px; height: 26px; }
+.ctrl-btn.on { color: var(--accent); }
 .progress-track { width: 100%; height: 6px; border-radius: 999px; background: var(--surface2); overflow: hidden; }
 .progress-fill { height: 100%; background: var(--accent); border-radius: 999px; transition: width 0.3s linear; }
 .modal-foot { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; padding: 0 16px 16px; }
