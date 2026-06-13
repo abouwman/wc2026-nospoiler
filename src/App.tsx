@@ -64,8 +64,8 @@ export function App() {
       <header className="header" data-screen-label="Header">
         <div className="header-inner">
           <div className="wordmark">
-            <span className="mark display">NO<span className="accent">SPOILER</span>CUP</span>
-            <span className="sub mono">World Cup 2026 · Spoiler-free highlights</span>
+            <span className="mark display">Hold<span className="accent">The</span>Score</span>
+            <span className="sub mono">holdthescore.com · World Cup 2026 · Spoiler-free highlights</span>
           </div>
           <div className="seg">
             <button className={mode === 'light' ? 'on' : ''} onClick={() => setMode('light')}>Light</button>

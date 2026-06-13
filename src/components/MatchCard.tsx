@@ -12,7 +12,7 @@ interface MatchCardProps {
 const VARIANTS: Variant[] = ['short', 'extended'];
 
 function geoLabel(geo?: 'US' | 'NL'): string {
-  return geo === 'US' ? 'US only' : geo === 'NL' ? 'NL only' : 'Worldwide';
+  return geo === 'US' ? '🇺🇸 US only' : geo === 'NL' ? '🇳🇱 NL only' : '🌍 Worldwide';
 }
 
 export function MatchCard({ match, onOpen }: MatchCardProps) {

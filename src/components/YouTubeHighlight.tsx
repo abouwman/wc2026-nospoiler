@@ -17,8 +17,24 @@ export function YouTubeHighlight({ videoId, onClose }: YouTubeHighlightProps) {
   const [ended, setEnded] = useState(false);
   const [muted, setMuted] = useState(false);
   const [progress, setProgress] = useState(0);
+  const [showControls, setShowControls] = useState(true);
   const hostRef = useRef<HTMLDivElement>(null);
   const playerRef = useRef<YTPlayer | null>(null);
+  const hideTimer = useRef<number | undefined>(undefined);
+
+  // Auto-hide the control bar (and its progress) while playing; reveal on mouse
+  // move and always show when paused/ended.
+  const revealControls = () => {
+    setShowControls(true);
+    if (hideTimer.current) window.clearTimeout(hideTimer.current);
+    if (playing) hideTimer.current = window.setTimeout(() => setShowControls(false), 2500);
+  };
+  useEffect(() => {
+    if (hideTimer.current) window.clearTimeout(hideTimer.current);
+    if (playing) hideTimer.current = window.setTimeout(() => setShowControls(false), 2500);
+    else setShowControls(true);
+    return () => { if (hideTimer.current) window.clearTimeout(hideTimer.current); };
+  }, [playing]);
 
   // Create the player once
   useEffect(() => {
@@ -77,7 +93,7 @@ export function YouTubeHighlight({ videoId, onClose }: YouTubeHighlightProps) {
 
   return (
     <>
-      <div className="video-wrap">
+      <div className="video-wrap" onMouseMove={revealControls}>
         <div className="yt-host" ref={hostRef}></div>
         <div className="click-layer" onClick={togglePlay} title={playing ? 'Pause' : 'Play'}></div>
         <div className="mask-top mono">
@@ -98,7 +114,7 @@ export function YouTubeHighlight({ videoId, onClose }: YouTubeHighlightProps) {
         ) : null}
       </div>
 
-      <div className="controls">
+      <div className={'controls' + (showControls ? '' : ' hidden')}>
         <button className="ctrl-btn play" onClick={togglePlay} title={playing ? 'Pause' : 'Play'}>{playing ? '❚❚' : '▶'}</button>
         <button className="ctrl-btn" onClick={() => skip(-10)} title="Back 10 seconds"><span className="skip-label">‹ 10s</span></button>
         <button className="ctrl-btn" onClick={() => skip(10)} title="Forward 10 seconds"><span className="skip-label">10s ›</span></button>
