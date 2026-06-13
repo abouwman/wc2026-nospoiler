@@ -6,6 +6,7 @@ export interface Team {
 }
 
 export type LangCode = 'en' | 'es' | 'nl';
+export type Variant = 'short' | 'extended';
 
 export interface LangInfo {
   label: string;
@@ -16,10 +17,14 @@ export interface LangInfo {
 
 export type Stage = 'group' | 'r32' | 'r16' | 'qf' | 'sf' | 'third' | 'final';
 
-// A highlight comes either from YouTube (NOS Sport) or FIFA's own player.
-export type VideoSource =
-  | { kind: 'youtube'; id: string }   // YouTube video id (spoiler-shield player)
-  | { kind: 'fifa'; id: string };     // FIFA watch id, played in FIFA's embed
+// A highlight clip on YouTube. `geo` flags a viewing restriction (e.g. US-only).
+export interface VideoSource {
+  id: string;
+  geo?: 'US';
+}
+
+// Each language can offer a short cut and/or an extended cut.
+export type Clips = Partial<Record<Variant, VideoSource>>;
 
 export interface Match {
   id: string;
@@ -30,8 +35,16 @@ export interface Match {
   home: string;
   away: string;
   venue: string;
-  /** Per-language highlight source. A missing language has no source yet. */
-  videos: Partial<Record<LangCode, VideoSource>>;
+  /** Per-language clips. A missing language has no source yet. */
+  videos: Partial<Record<LangCode, Clips>>;
+}
+
+// A single playable selection (one language + one cut), used by cards and player.
+export interface Track {
+  lang: LangCode;
+  variant: Variant;
+  source: VideoSource;
+  key: string;
 }
 
 export type Mode = 'light' | 'dark';

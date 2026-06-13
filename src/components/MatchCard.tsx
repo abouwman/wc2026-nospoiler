@@ -1,15 +1,16 @@
-import type { LangCode, Match } from '../types';
+import type { LangCode, Match, Variant } from '../types';
 import { TEAMS } from '../data/teams';
 import { LANGS, LANG_ORDER } from '../data/languages';
 import { STAGE_LABELS, fmtDayShort } from '../data/schedule';
-import { canEmbedFifa, fifaWatchUrl } from '../data/sources';
 import { TeamPanel } from './TeamPanel';
 
 interface MatchCardProps {
   match: Match;
   defaultLang: LangCode;
-  onOpen: (match: Match, lang: LangCode) => void;
+  onOpen: (match: Match, lang: LangCode, variant: Variant) => void;
 }
+
+const VARIANTS: Variant[] = ['short', 'extended'];
 
 export function MatchCard({ match, defaultLang, onOpen }: MatchCardProps) {
   const stageLabel = match.stage === 'group' ? 'Group ' + match.group : STAGE_LABELS[match.stage];
@@ -31,10 +32,10 @@ export function MatchCard({ match, defaultLang, onOpen }: MatchCardProps) {
       <div className="card-foot">
         <div className="lang-row">
           {LANG_ORDER.map((l) => {
-            const src = match.videos[l];
-            const primary = l === defaultLang ? ' primary' : '';
+            const clips = match.videos[l];
+            const cuts = clips ? VARIANTS.filter((v) => clips[v]) : [];
 
-            if (!src) {
+            if (cuts.length === 0) {
               return (
                 <button
                   key={l}
@@ -48,35 +49,25 @@ export function MatchCard({ match, defaultLang, onOpen }: MatchCardProps) {
               );
             }
 
-            // FIFA's player needs a partner credential to embed; without one we
-            // open the official fifa.com page in a new tab instead.
-            if (src.kind === 'fifa' && !canEmbedFifa) {
+            return cuts.map((v) => {
+              const src = clips![v]!;
+              const usOnly = src.geo === 'US';
+              const small = l === 'en' ? (v === 'extended' ? 'Extended' : 'Short') : LANGS[l].short;
+              const primary = l === defaultLang && v === 'short' ? ' primary' : '';
+              const title = 'Watch ' + LANGS[l].name + ' ' + (v === 'extended' ? 'extended ' : '') +
+                'highlights — ' + LANGS[l].source + (usOnly ? ' · only available from the United States' : '');
               return (
-                <a
-                  key={l}
+                <button
+                  key={l + ':' + v}
                   className={'lang-btn' + primary}
-                  href={fifaWatchUrl(src.id)}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  title={'Open ' + LANGS[l].name + ' highlight on fifa.com'}
+                  title={title}
+                  onClick={() => onOpen(match, l, v)}
                 >
-                  <span>↗ {LANGS[l].label}</span>
-                  <small>{LANGS[l].short}</small>
-                </a>
+                  <span>▶ {LANGS[l].label}{usOnly ? ' 🇺🇸' : ''}</span>
+                  <small>{small}</small>
+                </button>
               );
-            }
-
-            return (
-              <button
-                key={l}
-                className={'lang-btn' + primary}
-                title={'Watch with ' + LANGS[l].name + ' commentary — ' + LANGS[l].source}
-                onClick={() => onOpen(match, l)}
-              >
-                <span>▶ {LANGS[l].label}</span>
-                <small>{LANGS[l].short}</small>
-              </button>
-            );
+            });
           })}
         </div>
       </div>

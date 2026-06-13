@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
-import type { LangCode, Match, Mode } from './types';
+import type { LangCode, Match, Mode, Variant } from './types';
 import { TEAMS } from './data/teams';
 import { LANGS, LANG_ORDER } from './data/languages';
 import { MATCHES } from './data/schedule';
@@ -18,6 +18,7 @@ function loadLS<T>(key: string, fallback: T): T {
 interface Active {
   match: Match;
   lang: LangCode;
+  variant: Variant;
 }
 
 export function App() {
@@ -112,21 +113,21 @@ export function App() {
           <div className="empty-state">No played matches match these filters yet.</div>
         ) : days.map((d) => (
           <DaySection key={d.date} date={d.date} matches={d.matches}
-            defaultLang={defaultLang} onOpen={(m, l) => setActive({ match: m, lang: l })} />
+            defaultLang={defaultLang} onOpen={(m, l, v) => setActive({ match: m, lang: l, variant: v })} />
         ))}
 
         <div className="footer-note">
           <strong>About this data.</strong> Real FIFA World Cup 2026 highlights, played matches only — no upcoming or
-          live fixtures. <strong>NL</strong> plays NOS Sport's Dutch summary inside the spoiler-shield player (title,
-          duration and end screens hidden). <strong>EN</strong> (↗) opens FIFA's official highlight on fifa.com in a new
-          tab — FIFA's embeddable player needs an authorised partner credential, so it can't play in-app yet. A 🚫 button
-          means no highlight is wired up: <strong>ES</strong> has no non-YouTube source, and most EN clips still need
-          their fifa.com ids. No scores anywhere.
+          live fixtures. <strong>EN 🇺🇸</strong> offers a <em>short</em> and an <em>extended</em> cut from FIFA / FOX on
+          YouTube — these are <strong>only available from the United States</strong>. <strong>NL</strong> plays NOS
+          Sport's Dutch summary. Everything runs in the spoiler-shield player: title, duration/timestamps and end screens
+          hidden. A 🚫 button means no source yet — <strong>ES</strong> has no non-YouTube source. No scores anywhere.
         </div>
       </main>
 
       {active ? (
-        <PlayerModal match={active.match} initialLang={active.lang} onClose={() => setActive(null)} />
+        <PlayerModal match={active.match} initialLang={active.lang} initialVariant={active.variant}
+          onClose={() => setActive(null)} />
       ) : null}
     </div>
   );

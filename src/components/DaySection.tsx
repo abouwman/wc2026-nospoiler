@@ -1,4 +1,4 @@
-import type { LangCode, Match } from '../types';
+import type { LangCode, Match, Variant } from '../types';
 import { fmtDay, fmtDayShort } from '../data/schedule';
 import { MatchCard } from './MatchCard';
 
@@ -6,7 +6,7 @@ interface DaySectionProps {
   date: string;
   matches: Match[];
   defaultLang: LangCode;
-  onOpen: (match: Match, lang: LangCode) => void;
+  onOpen: (match: Match, lang: LangCode, variant: Variant) => void;
 }
 
 export function DaySection({ date, matches, defaultLang, onOpen }: DaySectionProps) {

@@ -1,35 +1,31 @@
 import { useEffect, useState } from 'react';
-import type { LangCode, Match } from '../types';
+import type { LangCode, Match, Variant } from '../types';
 import { TEAMS } from '../data/teams';
-import { LANGS, LANG_ORDER } from '../data/languages';
+import { LANGS, tracksOf } from '../data/languages';
 import { STAGE_LABELS, fmtDay } from '../data/schedule';
-import { canEmbedFifa } from '../data/sources';
-import type { VideoSource } from '../types';
 import { YouTubeHighlight } from './YouTubeHighlight';
-import { FifaHighlight } from './FifaHighlight';
-
-// FIFA sources can only play inside the modal when a partner credential is set;
-// otherwise they link out from the card and never reach here.
-const playsInModal = (s: VideoSource) => s.kind === 'youtube' || canEmbedFifa;
 
 interface PlayerModalProps {
   match: Match;
   initialLang: LangCode;
+  initialVariant: Variant;
   onClose: () => void;
 }
 
-// Modal chrome (header, commentary switch, footer). The actual player depends
-// on the selected language's source: NOS Sport → spoiler-shield YouTube player,
-// FIFA → FIFA's own embed. Keyed by lang so it remounts on a source switch.
-export function PlayerModal({ match, initialLang, onClose }: PlayerModalProps) {
-  const availableLangs = LANG_ORDER.filter((l) => {
-    const s = match.videos[l];
-    return !!s && playsInModal(s);
-  });
-  const initial = match.videos[initialLang];
-  const startLang = initial && playsInModal(initial) ? initialLang : availableLangs[0];
-  const [lang, setLang] = useState<LangCode>(startLang);
-  const source = match.videos[lang]!;
+function trackTitle(lang: LangCode, variant: Variant): string {
+  if (lang === 'en') return 'EN ' + (variant === 'extended' ? 'Extended' : 'Short');
+  return LANGS[lang].label;
+}
+
+// Modal chrome (header, track switch, footer). Every clip is a YouTube video, so
+// it always plays in the spoiler-shield player. The track selector lets you flip
+// between the available cuts/languages mid-watch.
+export function PlayerModal({ match, initialLang, initialVariant, onClose }: PlayerModalProps) {
+  const tracks = tracksOf(match);
+  const initialKey = initialLang + ':' + initialVariant;
+  const startKey = tracks.some((t) => t.key === initialKey) ? initialKey : tracks[0].key;
+  const [activeKey, setActiveKey] = useState(startKey);
+  const track = tracks.find((t) => t.key === activeKey)!;
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') onClose(); };
@@ -39,6 +35,7 @@ export function PlayerModal({ match, initialLang, onClose }: PlayerModalProps) {
 
   const home = TEAMS[match.home], away = TEAMS[match.away];
   const stageLabel = match.stage === 'group' ? 'Group ' + match.group : STAGE_LABELS[match.stage];
+  const geoNote = track.source.geo === 'US' ? ' · US only' : '';
 
   return (
     <div className="modal-backdrop" onClick={onClose}>
@@ -55,20 +52,19 @@ export function PlayerModal({ match, initialLang, onClose }: PlayerModalProps) {
           <button className="close-btn" onClick={onClose} title="Close">✕</button>
         </div>
 
-        {source.kind === 'youtube'
-          ? <YouTubeHighlight key={lang} videoId={source.id} onClose={onClose} />
-          : <FifaHighlight key={lang} watchId={source.id} />}
+        <YouTubeHighlight key={activeKey} videoId={track.source.id} onClose={onClose} />
 
         <div className="modal-foot">
           <div className="seg-wrap">
-            <span className="seg-label mono">Commentary</span>
+            <span className="seg-label mono">Highlights</span>
             <div className="seg">
-              {availableLangs.map((l) => (
-                <button key={l} className={lang === l ? 'on' : ''} onClick={() => setLang(l)}>{LANGS[l].label}</button>
+              {tracks.map((t) => (
+                <button key={t.key} className={t.key === activeKey ? 'on' : ''}
+                  onClick={() => setActiveKey(t.key)}>{trackTitle(t.lang, t.variant)}</button>
               ))}
             </div>
           </div>
-          <span className="source-label mono">Source: {LANGS[lang].source}</span>
+          <span className="source-label mono">Source: {LANGS[track.lang].source}{geoNote}</span>
           <span className="no-spoiler-note">No score shown anywhere. Enjoy the match.</span>
         </div>
       </div>
