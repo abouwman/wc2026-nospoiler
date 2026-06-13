@@ -5,6 +5,8 @@ import { MATCHES, isUpcoming, hasAnyVideo } from './data/schedule';
 
 // Show upcoming matches at most this far ahead.
 const UPCOMING_WINDOW_MS = 8 * 60 * 60 * 1000;
+// Keep showing a just-finished match (awaiting highlights) for this long.
+const AWAIT_WINDOW_MS = 12 * 60 * 60 * 1000;
 import { DaySection } from './components/DaySection';
 import { PlayerModal } from './components/PlayerModal';
 
@@ -50,9 +52,11 @@ export function App() {
     return MATCHES.filter((m) => {
       if (groupFilter && m.group !== groupFilter) return false;
       if (teamFilter && m.home !== teamFilter && m.away !== teamFilter) return false;
-      // Upcoming: only within the window. Played: only once a highlight exists.
+      // Upcoming within the window; played once a highlight exists; otherwise a
+      // recently-kicked-off match awaiting highlights ("coming soon").
       if (isUpcoming(m, now)) return new Date(m.kickoff!).getTime() - now <= UPCOMING_WINDOW_MS;
-      return hasAnyVideo(m);
+      if (hasAnyVideo(m)) return true;
+      return !!m.kickoff && now - new Date(m.kickoff).getTime() <= AWAIT_WINDOW_MS;
     });
   }, [groupFilter, teamFilter]);
 
@@ -111,8 +115,8 @@ export function App() {
 
         <div className="footer-note">
           <strong>About this data.</strong> Real FIFA World Cup 2026 highlights. Matches kicking off within the next 8
-          hours are shown as <em>Upcoming</em> (no highlights yet); times are in your local time zone.
-          <strong>English</strong> offers a short and an extended cut from FIFA / FOX on YouTube,
+          hours show as <em>Upcoming</em>, just-finished ones as <em>Highlights coming soon</em>; all times are in your
+          local time zone. <strong>English</strong> offers a short and an extended cut from FIFA / FOX on YouTube,
           available in the <strong>US only</strong>. <strong>Dutch</strong> plays NOS Sport's summary, available in the
           <strong>Netherlands only</strong>. Everything runs in the spoiler-shield player: title, duration/timestamps
           and end screens hidden. An <strong>N/A</strong> button means no source yet (Spanish has no non-YouTube source).
