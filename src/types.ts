@@ -16,6 +16,11 @@ export interface LangInfo {
 
 export type Stage = 'group' | 'r32' | 'r16' | 'qf' | 'sf' | 'third' | 'final';
 
+// A highlight comes either from YouTube (NOS Sport) or FIFA's own player.
+export type VideoSource =
+  | { kind: 'youtube'; id: string }   // YouTube video id (spoiler-shield player)
+  | { kind: 'fifa'; id: string };     // FIFA watch id, played in FIFA's embed
+
 export interface Match {
   id: string;
   stage: Stage;
@@ -25,8 +30,8 @@ export interface Match {
   home: string;
   away: string;
   venue: string;
-  /** Per-language highlight video id. A missing language has no source yet. */
-  videos: Partial<Record<LangCode, string>>;
+  /** Per-language highlight source. A missing language has no source yet. */
+  videos: Partial<Record<LangCode, VideoSource>>;
 }
 
 export type Mode = 'light' | 'dark';
