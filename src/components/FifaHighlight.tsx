@@ -1,16 +1,11 @@
+import { fifaEmbedSrc } from '../data/sources';
+
 interface FifaHighlightProps {
   watchId: string;
 }
 
-// FIFA's own embeddable player (evp.fifa.com). FIFA highlights can't go through
-// the YouTube IFrame API, so we drop in their player and use its native
-// controls. NOTE: the exact embed URL couldn't be verified here because
-// fifa.com / evp.fifa.com are blocked by this environment's egress allowlist —
-// if FIFA's embed expects a different URL/param, change it in this one place.
-function fifaEmbedSrc(watchId: string): string {
-  return 'https://evp.fifa.com/?contentId=' + encodeURIComponent(watchId);
-}
-
+// FIFA's own embeddable player (evp.fifa.com). Only reached when a FIFA partner
+// name is configured (see data/sources.ts); otherwise EN links out to fifa.com.
 export function FifaHighlight({ watchId }: FifaHighlightProps) {
   return (
     <div className="video-wrap">

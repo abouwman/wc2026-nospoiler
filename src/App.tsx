@@ -117,11 +117,11 @@ export function App() {
 
         <div className="footer-note">
           <strong>About this data.</strong> Real FIFA World Cup 2026 highlights, played matches only — no upcoming or
-          live fixtures. <strong>EN</strong> plays FIFA's own highlight (fifa.com) and <strong>NL</strong> plays NOS
-          Sport's Dutch summary on YouTube. A 🚫 button means that source has no highlight wired up yet — <strong>ES</strong>
-          has no non-YouTube source, and most FIFA (EN) clips still need their fifa.com ids. The NOS Sport player hides
-          the title, shows no duration or timestamps (extra time leaks), and blocks YouTube end screens; the FIFA clip
-          uses FIFA's own player. No scores anywhere.
+          live fixtures. <strong>NL</strong> plays NOS Sport's Dutch summary inside the spoiler-shield player (title,
+          duration and end screens hidden). <strong>EN</strong> (↗) opens FIFA's official highlight on fifa.com in a new
+          tab — FIFA's embeddable player needs an authorised partner credential, so it can't play in-app yet. A 🚫 button
+          means no highlight is wired up: <strong>ES</strong> has no non-YouTube source, and most EN clips still need
+          their fifa.com ids. No scores anywhere.
         </div>
       </main>
 

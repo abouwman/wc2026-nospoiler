@@ -3,8 +3,14 @@ import type { LangCode, Match } from '../types';
 import { TEAMS } from '../data/teams';
 import { LANGS, LANG_ORDER } from '../data/languages';
 import { STAGE_LABELS, fmtDay } from '../data/schedule';
+import { canEmbedFifa } from '../data/sources';
+import type { VideoSource } from '../types';
 import { YouTubeHighlight } from './YouTubeHighlight';
 import { FifaHighlight } from './FifaHighlight';
+
+// FIFA sources can only play inside the modal when a partner credential is set;
+// otherwise they link out from the card and never reach here.
+const playsInModal = (s: VideoSource) => s.kind === 'youtube' || canEmbedFifa;
 
 interface PlayerModalProps {
   match: Match;
@@ -16,8 +22,12 @@ interface PlayerModalProps {
 // on the selected language's source: NOS Sport → spoiler-shield YouTube player,
 // FIFA → FIFA's own embed. Keyed by lang so it remounts on a source switch.
 export function PlayerModal({ match, initialLang, onClose }: PlayerModalProps) {
-  const availableLangs = LANG_ORDER.filter((l) => !!match.videos[l]);
-  const startLang = match.videos[initialLang] ? initialLang : availableLangs[0];
+  const availableLangs = LANG_ORDER.filter((l) => {
+    const s = match.videos[l];
+    return !!s && playsInModal(s);
+  });
+  const initial = match.videos[initialLang];
+  const startLang = initial && playsInModal(initial) ? initialLang : availableLangs[0];
   const [lang, setLang] = useState<LangCode>(startLang);
   const source = match.videos[lang]!;
 

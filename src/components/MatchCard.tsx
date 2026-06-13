@@ -2,6 +2,7 @@ import type { LangCode, Match } from '../types';
 import { TEAMS } from '../data/teams';
 import { LANGS, LANG_ORDER } from '../data/languages';
 import { STAGE_LABELS, fmtDayShort } from '../data/schedule';
+import { canEmbedFifa, fifaWatchUrl } from '../data/sources';
 import { TeamPanel } from './TeamPanel';
 
 interface MatchCardProps {
@@ -30,19 +31,50 @@ export function MatchCard({ match, defaultLang, onOpen }: MatchCardProps) {
       <div className="card-foot">
         <div className="lang-row">
           {LANG_ORDER.map((l) => {
-            const available = !!match.videos[l];
+            const src = match.videos[l];
+            const primary = l === defaultLang ? ' primary' : '';
+
+            if (!src) {
+              return (
+                <button
+                  key={l}
+                  className="lang-btn unavailable"
+                  disabled
+                  title={'No ' + LANGS[l].name + ' highlight available (' + LANGS[l].source + ')'}
+                >
+                  <span>🚫 {LANGS[l].label}</span>
+                  <small>N/A</small>
+                </button>
+              );
+            }
+
+            // FIFA's player needs a partner credential to embed; without one we
+            // open the official fifa.com page in a new tab instead.
+            if (src.kind === 'fifa' && !canEmbedFifa) {
+              return (
+                <a
+                  key={l}
+                  className={'lang-btn' + primary}
+                  href={fifaWatchUrl(src.id)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  title={'Open ' + LANGS[l].name + ' highlight on fifa.com'}
+                >
+                  <span>↗ {LANGS[l].label}</span>
+                  <small>{LANGS[l].short}</small>
+                </a>
+              );
+            }
+
             return (
               <button
                 key={l}
-                className={'lang-btn' + (available ? (l === defaultLang ? ' primary' : '') : ' unavailable')}
-                disabled={!available}
-                title={available
-                  ? 'Watch with ' + LANGS[l].name + ' commentary — ' + LANGS[l].source
-                  : 'No ' + LANGS[l].name + ' highlight available (' + LANGS[l].source + ')'}
-                onClick={() => { if (available) onOpen(match, l); }}
+                className={'lang-btn' + primary}
+                title={'Watch with ' + LANGS[l].name + ' commentary — ' + LANGS[l].source}
+                onClick={() => onOpen(match, l)}
               >
-                <span>{available ? '▶' : '🚫'} {LANGS[l].label}</span>
-                <small>{available ? LANGS[l].short : 'N/A'}</small>
+                <span>▶ {LANGS[l].label}</span>
+                <small>{LANGS[l].short}</small>
               </button>
             );
           })}
