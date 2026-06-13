@@ -118,9 +118,9 @@ export function App() {
 
         <div className="footer-note">
           <strong>About this data.</strong> Real FIFA World Cup 2026 highlights, played matches only — no upcoming or
-          live fixtures. <strong>EN 🇺🇸</strong> offers a <em>short</em> and an <em>extended</em> cut from FIFA / FOX on
-          YouTube — these are <strong>only available from the United States</strong>. <strong>NL</strong> plays NOS
-          Sport's Dutch summary. Everything runs in the spoiler-shield player: title, duration/timestamps and end screens
+          live fixtures. <strong>EN 🇺🇸 (US only)</strong> offers a <em>short</em> and an <em>extended</em> cut from
+          FIFA / FOX on YouTube. <strong>NL 🇳🇱 (NL only)</strong> plays NOS Sport's Dutch summary, which only streams in
+          the Netherlands. Everything runs in the spoiler-shield player: title, duration/timestamps and end screens
           hidden. A 🚫 button means no source yet — <strong>ES</strong> has no non-YouTube source. No scores anywhere.
         </div>
       </main>

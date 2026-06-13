@@ -18,7 +18,7 @@ export const MATCHES: Match[] = [
     home: 'USA', away: 'PAR', venue: 'SoFi Stadium · Los Angeles',
     videos: {
       en: { short: { id: 'BXD1_mhODBU', geo: 'US' }, extended: { id: 'lpDZwAxVkc4', geo: 'US' } },
-      nl: { short: { id: '8MOpqhfo1dE' } },
+      nl: { short: { id: '8MOpqhfo1dE', geo: 'NL' } },
     },
   },
   {
@@ -26,7 +26,7 @@ export const MATCHES: Match[] = [
     home: 'CAN', away: 'BIH', venue: 'BMO Field · Toronto',
     videos: {
       en: { short: { id: 'n5qkHOWhFAc', geo: 'US' }, extended: { id: 'cPwJaA22gWc', geo: 'US' } },
-      nl: { short: { id: 'JepkqjGbVa4' } },
+      nl: { short: { id: 'JepkqjGbVa4', geo: 'NL' } },
     },
   },
   {
@@ -34,7 +34,7 @@ export const MATCHES: Match[] = [
     home: 'MEX', away: 'RSA', venue: 'Estadio Azteca · Mexico City',
     videos: {
       en: { short: { id: 'r1Afsds3ZD0', geo: 'US' }, extended: { id: 'PmevGCkUtM8', geo: 'US' } },
-      nl: { short: { id: 'axQsKUBbRiU' } },
+      nl: { short: { id: 'axQsKUBbRiU', geo: 'NL' } },
     },
   },
   {
@@ -42,7 +42,7 @@ export const MATCHES: Match[] = [
     home: 'KOR', away: 'CZE', venue: 'Estadio Akron · Guadalajara',
     videos: {
       en: { short: { id: 'QWoDfCkh7f8', geo: 'US' }, extended: { id: '6k18EJY8zIc', geo: 'US' } },
-      nl: { short: { id: '84RGrVxrRF4' } },
+      nl: { short: { id: '84RGrVxrRF4', geo: 'NL' } },
     },
   },
 ];

@@ -35,7 +35,7 @@ export function PlayerModal({ match, initialLang, initialVariant, onClose }: Pla
 
   const home = TEAMS[match.home], away = TEAMS[match.away];
   const stageLabel = match.stage === 'group' ? 'Group ' + match.group : STAGE_LABELS[match.stage];
-  const geoNote = track.source.geo === 'US' ? ' · US only' : '';
+  const geoNote = track.source.geo ? ' · ' + track.source.geo + ' only' : '';
 
   return (
     <div className="modal-backdrop" onClick={onClose}>

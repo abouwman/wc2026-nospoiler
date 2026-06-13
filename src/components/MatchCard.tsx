@@ -51,11 +51,13 @@ export function MatchCard({ match, defaultLang, onOpen }: MatchCardProps) {
 
             return cuts.map((v) => {
               const src = clips![v]!;
-              const usOnly = src.geo === 'US';
-              const small = l === 'en' ? (v === 'extended' ? 'Extended' : 'Short') : LANGS[l].short;
+              const flag = src.geo === 'US' ? '🇺🇸' : src.geo === 'NL' ? '🇳🇱' : '';
+              const main = l === 'en' ? 'EN · ' + (v === 'extended' ? 'Ext' : 'Short') : LANGS[l].label;
+              const geoText = src.geo ? src.geo + ' only' : LANGS[l].short;
               const primary = l === defaultLang && v === 'short' ? ' primary' : '';
+              const where = src.geo === 'US' ? 'the United States' : src.geo === 'NL' ? 'the Netherlands' : '';
               const title = 'Watch ' + LANGS[l].name + ' ' + (v === 'extended' ? 'extended ' : '') +
-                'highlights — ' + LANGS[l].source + (usOnly ? ' · only available from the United States' : '');
+                'highlights — ' + LANGS[l].source + (where ? ' · only available in ' + where : '');
               return (
                 <button
                   key={l + ':' + v}
@@ -63,8 +65,8 @@ export function MatchCard({ match, defaultLang, onOpen }: MatchCardProps) {
                   title={title}
                   onClick={() => onOpen(match, l, v)}
                 >
-                  <span>▶ {LANGS[l].label}{usOnly ? ' 🇺🇸' : ''}</span>
-                  <small>{small}</small>
+                  <span>▶ {main}</span>
+                  <small>{flag} {geoText}</small>
                 </button>
               );
             });

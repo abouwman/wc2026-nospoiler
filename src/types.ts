@@ -17,10 +17,10 @@ export interface LangInfo {
 
 export type Stage = 'group' | 'r32' | 'r16' | 'qf' | 'sf' | 'third' | 'final';
 
-// A highlight clip on YouTube. `geo` flags a viewing restriction (e.g. US-only).
+// A highlight clip on YouTube. `geo` flags a viewing restriction (US- or NL-only).
 export interface VideoSource {
   id: string;
-  geo?: 'US';
+  geo?: 'US' | 'NL';
 }
 
 // Each language can offer a short cut and/or an extended cut.
