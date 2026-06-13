@@ -111,8 +111,6 @@ select { font: inherit; color: inherit; }
 .close-btn:hover { color: var(--ink); }
 .video-wrap { position: relative; aspect-ratio: 16 / 9; background: #000; }
 .video-wrap iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
-.controls { transition: opacity 0.2s ease; }
-.controls.hidden { opacity: 0; pointer-events: none; }
 .yt-host { position: absolute; inset: 0; }
 .click-layer { position: absolute; inset: 0; z-index: 3; cursor: pointer; }
 .mask-top { position: absolute; top: 0; left: 0; right: 0; height: 64px; z-index: 4; display: flex; align-items: center;
@@ -132,6 +130,8 @@ select { font: inherit; color: inherit; }
 .ctrl-btn:hover { filter: brightness(0.96); }
 .skip-label { font-size: 9px; letter-spacing: 0; }
 .progress { flex: 1 1 140px; height: 26px; display: flex; align-items: center; cursor: pointer; min-width: 120px; }
+.progress-hidden { flex: 1 1 140px; min-width: 120px; height: 26px; display: flex; align-items: center; justify-content: center;
+  font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
 .progress-track { width: 100%; height: 6px; border-radius: 999px; background: var(--surface2); overflow: hidden; }
 .progress-fill { height: 100%; background: var(--accent); border-radius: 999px; transition: width 0.3s linear; }
 .modal-foot { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; padding: 0 16px 16px; }
