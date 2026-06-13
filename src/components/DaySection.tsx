@@ -3,17 +3,17 @@ import { fmtDay, fmtDayShort } from '../data/schedule';
 import { MatchCard } from './MatchCard';
 
 interface DaySectionProps {
-  dayIdx: number;
+  date: string;
   matches: Match[];
   defaultLang: LangCode;
   onOpen: (match: Match, lang: LangCode) => void;
 }
 
-export function DaySection({ dayIdx, matches, defaultLang, onOpen }: DaySectionProps) {
+export function DaySection({ date, matches, defaultLang, onOpen }: DaySectionProps) {
   return (
-    <section className="day-section" data-screen-label={'Matchday ' + fmtDayShort(dayIdx)}>
+    <section className="day-section" data-screen-label={'Matchday ' + fmtDayShort(date)}>
       <div className="day-head">
-        <h2 className="day-title display">{fmtDay(dayIdx)}</h2>
+        <h2 className="day-title display">{fmtDay(date)}</h2>
         <span className="day-count mono">{matches.length} {matches.length === 1 ? 'MATCH' : 'MATCHES'}</span>
       </div>
       <div className="grid">

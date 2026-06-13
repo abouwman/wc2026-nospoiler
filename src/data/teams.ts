@@ -1,7 +1,7 @@
 import type { Team } from '../types';
 
-// World Cup No Spoiler — sample tournament data
-// NOTE: groups/fixtures are SAMPLE data (plausible, not the real 2026 draw).
+// Team reference data — flags and [base, slash] panel colours drawn from each
+// flag/kit. Fixtures and results live in data/schedule.ts (real, played-only).
 
 export const TEAMS: Record<string, Team> = {
   MEX: { name: 'Mexico', flag: '🇲🇽', colors: ['#006847', '#CE1126'] },
@@ -52,32 +52,6 @@ export const TEAMS: Record<string, Team> = {
   SRB: { name: 'Serbia', flag: '🇷🇸', colors: ['#C6363C', '#0C4076'] },
   CHI: { name: 'Chile', flag: '🇨🇱', colors: ['#D52B1E', '#0039A6'] },
   CUW: { name: 'Curaçao', flag: '🇨🇼', colors: ['#002B7F', '#F9E814'] },
+  CZE: { name: 'Czechia', flag: '🇨🇿', colors: ['#D7141A', '#11457E'] },
+  BIH: { name: 'Bosnia & Herzegovina', flag: '🇧🇦', colors: ['#002F6C', '#FECB00'] },
 };
-
-export const GROUP_LETTERS = 'ABCDEFGHIJKL'.split('');
-
-export const GROUPS: Record<string, string[]> = {
-  A: ['MEX', 'KOR', 'POL', 'TUN'],
-  B: ['CAN', 'SUI', 'CIV', 'QAT'],
-  C: ['USA', 'NOR', 'EGY', 'NZL'],
-  D: ['ARG', 'DEN', 'NGA', 'UZB'],
-  E: ['BRA', 'TUR', 'IRN', 'SCO'],
-  F: ['FRA', 'COL', 'JOR', 'AUS'],
-  G: ['ENG', 'SEN', 'ECU', 'KSA'],
-  H: ['ESP', 'JPN', 'GHA', 'PAN'],
-  I: ['GER', 'URU', 'ALG', 'CRC'],
-  J: ['NED', 'MAR', 'PAR', 'JAM'],
-  K: ['POR', 'AUT', 'CMR', 'RSA'],
-  L: ['CRO', 'SRB', 'CHI', 'CUW'],
-};
-
-export const VENUES = [
-  'Estadio Azteca · Mexico City', 'Estadio BBVA · Monterrey', 'Estadio Akron · Guadalajara',
-  'BMO Field · Toronto', 'BC Place · Vancouver', 'MetLife Stadium · New York NJ',
-  'SoFi Stadium · Los Angeles', 'AT&T Stadium · Dallas', 'NRG Stadium · Houston',
-  'Arrowhead Stadium · Kansas City', 'Mercedes-Benz Stadium · Atlanta', 'Hard Rock Stadium · Miami',
-  'Lincoln Financial Field · Philadelphia', "Levi's Stadium · SF Bay Area",
-  'Lumen Field · Seattle', 'Gillette Stadium · Boston',
-];
-
-export const TIMES = ['12:00', '15:00', '18:00', '21:00'];

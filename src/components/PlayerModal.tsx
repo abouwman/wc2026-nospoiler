@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import type { LangCode, Match } from '../types';
 import { TEAMS } from '../data/teams';
-import { LANGS, videoFor } from '../data/languages';
+import { LANGS, LANG_ORDER } from '../data/languages';
 import { STAGE_LABELS, fmtDay } from '../data/schedule';
 import { loadYT, type YTPlayer } from '../data/youtube';
 
@@ -17,7 +17,8 @@ interface PlayerModalProps {
 //  - click-capture layer prevents tapping through to YouTube UI
 //  - progress bar is percentage-only (duration leaks extra time / penalties)
 export function PlayerModal({ match, initialLang, onClose }: PlayerModalProps) {
-  const startLang = match.langs.includes(initialLang) ? initialLang : match.langs[0];
+  const availableLangs = LANG_ORDER.filter((l) => !!match.videos[l]);
+  const startLang = match.videos[initialLang] ? initialLang : availableLangs[0];
   const [lang, setLang] = useState<LangCode>(startLang);
   const [ready, setReady] = useState(false);
   const [playing, setPlaying] = useState(false);
@@ -26,7 +27,7 @@ export function PlayerModal({ match, initialLang, onClose }: PlayerModalProps) {
   const [progress, setProgress] = useState(0);
   const hostRef = useRef<HTMLDivElement>(null);
   const playerRef = useRef<YTPlayer | null>(null);
-  const videoId = videoFor(match.id, lang);
+  const videoId = match.videos[lang]!;
 
   // Create the player once
   useEffect(() => {
@@ -96,7 +97,7 @@ export function PlayerModal({ match, initialLang, onClose }: PlayerModalProps) {
   };
   const replay = () => { const p = api(); if (!p) return; setEnded(false); p.seekTo(0, true); p.playVideo(); };
 
-  const home = TEAMS[match.home!], away = TEAMS[match.away!];
+  const home = TEAMS[match.home], away = TEAMS[match.away];
   const stageLabel = match.stage === 'group' ? 'Group ' + match.group : STAGE_LABELS[match.stage];
 
   return (
@@ -109,7 +110,7 @@ export function PlayerModal({ match, initialLang, onClose }: PlayerModalProps) {
               <span className="vs mono">VS</span>
               {match.away} <span className="mini-flag">{away.flag}</span>
             </div>
-            <div className="modal-sub">{stageLabel} · {fmtDay(match.dayIdx)} · {match.venue}</div>
+            <div className="modal-sub">{stageLabel} · {fmtDay(match.date)} · {match.venue}</div>
           </div>
           <button className="close-btn" onClick={onClose} title="Close">✕</button>
         </div>
@@ -149,7 +150,7 @@ export function PlayerModal({ match, initialLang, onClose }: PlayerModalProps) {
           <div className="seg-wrap">
             <span className="seg-label mono">Commentary</span>
             <div className="seg">
-              {match.langs.map((l) => (
+              {availableLangs.map((l) => (
                 <button key={l} className={lang === l ? 'on' : ''} onClick={() => setLang(l)}>{LANGS[l].label}</button>
               ))}
             </div>

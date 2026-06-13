@@ -15,25 +15,18 @@ export interface LangInfo {
 }
 
 export type Stage = 'group' | 'r32' | 'r16' | 'qf' | 'sf' | 'third' | 'final';
-export type MatchStatus = 'played' | 'today' | 'upcoming';
 
 export interface Match {
   id: string;
-  num: number;
   stage: Stage;
   group?: string;
-  dayIdx: number;
-  home: string | null;
-  away: string | null;
-  homeLabel?: string;
-  awayLabel?: string;
+  /** ISO calendar day of kickoff, 'YYYY-MM-DD' (UTC). */
+  date: string;
+  home: string;
+  away: string;
   venue: string;
-  time: string;
-  status: MatchStatus;
-  langs: LangCode[];
-  played: boolean;
+  /** Per-language highlight video id. A missing language has no source yet. */
+  videos: Partial<Record<LangCode, string>>;
 }
 
 export type Mode = 'light' | 'dark';
-export type Tab = 'highlights' | 'schedule';
-export type StageFilter = 'all' | Stage;

@@ -1,15 +1,10 @@
 import { useEffect, useMemo, useState } from 'react';
-import type { LangCode, Match, Mode, StageFilter, Tab } from './types';
-import { TEAMS, GROUP_LETTERS } from './data/teams';
+import type { LangCode, Match, Mode } from './types';
+import { TEAMS } from './data/teams';
 import { LANGS, LANG_ORDER } from './data/languages';
-import { build, currentSimDay } from './data/schedule';
+import { MATCHES } from './data/schedule';
 import { DaySection } from './components/DaySection';
 import { PlayerModal } from './components/PlayerModal';
-
-const STAGE_FILTERS: [StageFilter, string][] = [
-  ['all', 'All stages'], ['group', 'Group stage'], ['r32', 'Round of 32'], ['r16', 'Round of 16'],
-  ['qf', 'Quarter-finals'], ['sf', 'Semi-finals'], ['third', 'Third place'], ['final', 'Final'],
-];
 
 function loadLS<T>(key: string, fallback: T): T {
   try {
@@ -28,8 +23,6 @@ interface Active {
 export function App() {
   const [mode, setMode] = useState<Mode>(() => loadLS('wcns-mode', 'light'));
   const [defaultLang, setDefaultLang] = useState<LangCode>(() => loadLS('wcns-lang', 'en'));
-  const [tab, setTab] = useState<Tab>('highlights');
-  const [stageFilter, setStageFilter] = useState<StageFilter>('all');
   const [groupFilter, setGroupFilter] = useState<string | null>(null);
   const [teamFilter, setTeamFilter] = useState('');
   const [active, setActive] = useState<Active | null>(null);
@@ -37,36 +30,36 @@ export function App() {
   useEffect(() => { try { localStorage.setItem('wcns-mode', JSON.stringify(mode)); } catch { /* noop */ } }, [mode]);
   useEffect(() => { try { localStorage.setItem('wcns-lang', JSON.stringify(defaultLang)); } catch { /* noop */ } }, [defaultLang]);
 
-  const simDay = useMemo(() => currentSimDay(), []);
-  const matches = useMemo(() => build(simDay), [simDay]);
+  const groups = useMemo(() => {
+    const set = new Set<string>();
+    MATCHES.forEach((m) => { if (m.group) set.add(m.group); });
+    return [...set].sort();
+  }, []);
 
-  const filtered = useMemo(() => {
-    return matches.filter((m) => {
-      if (tab === 'highlights' && m.status !== 'played') return false;
-      if (tab === 'schedule' && m.status === 'played') return false;
-      if (stageFilter !== 'all' && m.stage !== stageFilter) return false;
-      if (groupFilter && m.group !== groupFilter) return false;
-      if (teamFilter && m.home !== teamFilter && m.away !== teamFilter) return false;
-      return true;
-    });
-  }, [matches, tab, stageFilter, groupFilter, teamFilter]);
+  const teamOptions = useMemo(() => {
+    const codes = new Set<string>();
+    MATCHES.forEach((m) => { codes.add(m.home); codes.add(m.away); });
+    return [...codes]
+      .map((c) => ({ code: c, name: TEAMS[c].name }))
+      .sort((a, b) => a.name.localeCompare(b.name));
+  }, []);
+
+  const filtered = useMemo(() => MATCHES.filter((m) => {
+    if (groupFilter && m.group !== groupFilter) return false;
+    if (teamFilter && m.home !== teamFilter && m.away !== teamFilter) return false;
+    return true;
+  }), [groupFilter, teamFilter]);
 
   const days = useMemo(() => {
-    const byDay = new Map<number, Match[]>();
+    const byDay = new Map<string, Match[]>();
     filtered.forEach((m) => {
-      if (!byDay.has(m.dayIdx)) byDay.set(m.dayIdx, []);
-      byDay.get(m.dayIdx)!.push(m);
+      if (!byDay.has(m.date)) byDay.set(m.date, []);
+      byDay.get(m.date)!.push(m);
     });
-    const keys = [...byDay.keys()].sort((a, b) => tab === 'highlights' ? b - a : a - b);
-    return keys.map((k) => ({ dayIdx: k, matches: byDay.get(k)! }));
-  }, [filtered, tab]);
-
-  const teamOptions = useMemo(() => (
-    Object.keys(TEAMS).map((c) => ({ code: c, name: TEAMS[c].name }))
-      .sort((a, b) => a.name.localeCompare(b.name))
-  ), []);
-
-  const showGroupChips = stageFilter === 'all' || stageFilter === 'group';
+    // Most recent matchday first.
+    const keys = [...byDay.keys()].sort((a, b) => (a < b ? 1 : -1));
+    return keys.map((k) => ({ date: k, matches: byDay.get(k)! }));
+  }, [filtered]);
 
   return (
     <div className={'app mode-' + mode}>
@@ -95,13 +88,9 @@ export function App() {
       <main className="shell" data-screen-label="Match browser">
         <div className="toolbar">
           <div className="tabs">
-            <button className={'tab' + (tab === 'highlights' ? ' on' : '')} onClick={() => setTab('highlights')}>Highlights</button>
-            <button className={'tab' + (tab === 'schedule' ? ' on' : '')} onClick={() => setTab('schedule')}>Schedule</button>
+            <span className="tab on">Played highlights</span>
           </div>
           <div className="filters">
-            <select className="stage-select" value={stageFilter} onChange={(e) => { setStageFilter(e.target.value as StageFilter); setGroupFilter(null); }}>
-              {STAGE_FILTERS.map(([v, label]) => <option key={v} value={v}>{label}</option>)}
-            </select>
             <select className="team-select" value={teamFilter} onChange={(e) => setTeamFilter(e.target.value)}>
               <option value="">All teams</option>
               {teamOptions.map((o) => <option key={o.code} value={o.code}>{TEAMS[o.code].flag} {o.name}</option>)}
@@ -109,10 +98,10 @@ export function App() {
           </div>
         </div>
 
-        {showGroupChips ? (
+        {groups.length > 0 ? (
           <div className="chips">
             <button className={'chip' + (!groupFilter ? ' on' : '')} onClick={() => setGroupFilter(null)}>ALL</button>
-            {GROUP_LETTERS.map((l) => (
+            {groups.map((l) => (
               <button key={l} className={'chip' + (groupFilter === l ? ' on' : '')}
                 onClick={() => setGroupFilter(groupFilter === l ? null : l)}>{l}</button>
             ))}
@@ -120,22 +109,19 @@ export function App() {
         ) : null}
 
         {days.length === 0 ? (
-          <div className="empty-state">
-            {tab === 'highlights'
-              ? 'No highlights match these filters yet. The tournament may not have reached this stage.'
-              : 'Nothing upcoming under these filters.'}
-          </div>
+          <div className="empty-state">No played matches match these filters yet.</div>
         ) : days.map((d) => (
-          <DaySection key={d.dayIdx} dayIdx={d.dayIdx} matches={d.matches}
+          <DaySection key={d.date} date={d.date} matches={d.matches}
             defaultLang={defaultLang} onOpen={(m, l) => setActive({ match: m, lang: l })} />
         ))}
 
         <div className="footer-note">
-          <strong>About this data.</strong> Groups, fixtures and standings are sample data — not the real 2026 draw.
-          Each language button now maps to a real World Cup 2026 highlight: EN from FIFA, ES from Telemundo, and NL from
-          NOS — all on YouTube. Because fixtures are sample data, clips are assigned to cards deterministically, so a
-          card's flags may not match the footage. The player hides the video title, shows no duration or timestamps
-          (extra time leaks), and blocks YouTube end screens. No scores anywhere.
+          <strong>About this data.</strong> Real FIFA World Cup 2026 highlights, played matches only — no upcoming or
+          live fixtures. Each card's <strong>EN</strong> button is FIFA's official highlight and <strong>ES</strong> is
+          Telemundo's, both on YouTube. A 🚫 button means that source has no embeddable highlight yet — NOS publishes its
+          Dutch summaries on nos.nl / NPO Start rather than YouTube, so <strong>NL</strong> is currently unavailable. The
+          player hides the video title, shows no duration or timestamps (extra time leaks), and blocks YouTube end
+          screens. No scores anywhere.
         </div>
       </main>
 

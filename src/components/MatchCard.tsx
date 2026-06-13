@@ -1,6 +1,6 @@
 import type { LangCode, Match } from '../types';
 import { TEAMS } from '../data/teams';
-import { LANGS } from '../data/languages';
+import { LANGS, LANG_ORDER } from '../data/languages';
 import { STAGE_LABELS, fmtDayShort } from '../data/schedule';
 import { TeamPanel } from './TeamPanel';
 
@@ -11,51 +11,42 @@ interface MatchCardProps {
 }
 
 export function MatchCard({ match, defaultLang, onOpen }: MatchCardProps) {
-  const playable = match.played && !!match.home && !!match.away;
   const stageLabel = match.stage === 'group' ? 'Group ' + match.group : STAGE_LABELS[match.stage];
-  const homeT = match.home ? TEAMS[match.home] : null;
-  const awayT = match.away ? TEAMS[match.away] : null;
+  const homeT = TEAMS[match.home];
+  const awayT = TEAMS[match.away];
 
   return (
-    <div className={'card' + (playable ? ' playable' : '') + (match.status !== 'played' ? ' upcoming' : '')}>
+    <div className="card playable">
       <div className="card-top">
         <span className="stage-chip mono">{stageLabel}</span>
-        {match.status === 'today' ? <span className="live-chip">Today</span> : null}
-        <span className="card-date mono">{fmtDayShort(match.dayIdx)} · {match.time}</span>
+        <span className="card-date mono">{fmtDayShort(match.date)}</span>
       </div>
       <div className="teams-row">
-        <TeamPanel code={match.home} label={match.homeLabel} />
+        <TeamPanel code={match.home} />
         <span className="vs mono">VS</span>
-        <TeamPanel code={match.away} label={match.awayLabel} />
+        <TeamPanel code={match.away} />
       </div>
-      <div className="team-names">
-        {homeT && awayT ? homeT.name + '  —  ' + awayT.name : match.venue}
-      </div>
+      <div className="team-names">{homeT.name + '  —  ' + awayT.name}</div>
       <div className="card-foot">
-        {playable ? (
-          <div className="lang-row">
-            {match.langs.map((l) => (
+        <div className="lang-row">
+          {LANG_ORDER.map((l) => {
+            const available = !!match.videos[l];
+            return (
               <button
                 key={l}
-                className={'lang-btn' + (l === defaultLang ? ' primary' : '')}
-                title={'Watch with ' + LANGS[l].name + ' commentary — ' + LANGS[l].source}
-                onClick={() => onOpen(match, l)}
+                className={'lang-btn' + (available ? (l === defaultLang ? ' primary' : '') : ' unavailable')}
+                disabled={!available}
+                title={available
+                  ? 'Watch with ' + LANGS[l].name + ' commentary — ' + LANGS[l].source
+                  : 'No ' + LANGS[l].name + ' highlight available (' + LANGS[l].source + ')'}
+                onClick={() => { if (available) onOpen(match, l); }}
               >
-                <span>▶ {LANGS[l].label}</span>
-                <small>{LANGS[l].short}</small>
+                <span>{available ? '▶' : '🚫'} {LANGS[l].label}</span>
+                <small>{available ? LANGS[l].short : 'N/A'}</small>
               </button>
-            ))}
-          </div>
-        ) : (
-          <>
-            <span className="lang-dots">
-              {match.langs.map((l) => <span key={l} className="lang-dot">{LANGS[l].label}</span>)}
-            </span>
-            <span className="lock-note">
-              {match.status === 'today' ? 'Back after full-time' : 'Kicks off ' + fmtDayShort(match.dayIdx)}
-            </span>
-          </>
-        )}
+            );
+          })}
+        </div>
       </div>
     </div>
   );
