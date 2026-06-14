@@ -33,9 +33,7 @@ const HANDLES = {
 // How far back to look for new uploads.
 const LOOKBACK_DAYS = Number(process.env.LOOKBACK_DAYS || 4);
 
-// FIFA highlights hub — scraped (best-effort) for per-match watch ids.
-const FIFA_HUB = 'https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/highlights';
-const UA = 'Mozilla/5.0 (compatible; HoldTheScoreBot/1.0)';
+const UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36';
 
 // --- Team metadata: code -> { en: [aliases], nl: 'Dutch name' } -------------
 // en aliases are matched case-insensitively against parsed title fragments.
@@ -210,21 +208,38 @@ function parseDutch(title) {
 // shell), so we can't scrape the hub. Instead resolve the per-match fifa.com
 // watch id via DuckDuckGo's HTML endpoint (keyless), restricted to
 // fifa.com/en/watch with both team names. Best-effort and non-fatal.
+// fifa.com is JS-rendered and bot-blocks datacenter IPs, and search engines
+// either don't index the watch pages or block scraping — so this keyless lookup
+// is best-effort only. For reliable resolution set BING_SEARCH_KEY (Bing Web
+// Search API); otherwise watch ids are curated in matches.generated.json.
 async function fifaWatchId(homeName, awayName) {
-  const q = `site:fifa.com/en/watch ${homeName} ${awayName} highlights`;
-  const engines = [
-    ['bing', 'https://www.bing.com/search?q=' + encodeURIComponent(q) + '&setlang=en'],
-    ['ddg', 'https://html.duckduckgo.com/html/?q=' + encodeURIComponent(q)],
-  ];
-  for (const [name, url] of engines) {
+  const query = `${homeName} vs ${awayName} highlights site:fifa.com`;
+  // Preferred: Bing Web Search API (reliable, needs a key).
+  const key = process.env.BING_SEARCH_KEY;
+  if (key) {
     try {
-      const res = await fetch(url, { headers: { 'user-agent': UA, 'accept-language': 'en-US,en;q=0.9' } });
-      const html = res.ok ? await res.text() : '';
-      const m = html.match(/fifa\.com(?:%2f|\/)en(?:%2f|\/)watch(?:%2f|\/)([A-Za-z0-9_-]{16,26})/i);
-      console.log(`fifa lookup ${homeName} v ${awayName} [${name}] ${res.status} ${m ? '-> ' + m[1] : 'none'}`);
-      if (m) return m[1];
-    } catch (e) { console.warn(`fifa lookup [${name}] failed: ${e.message}`); }
+      const url = 'https://api.bing.microsoft.com/v7.0/search?q=' + encodeURIComponent(query);
+      const res = await fetch(url, { headers: { 'Ocp-Apim-Subscription-Key': key } });
+      if (res.ok) {
+        const json = await res.json();
+        const items = json.webPages?.value || [];
+        for (const it of items) {
+          const m = (it.url || '').match(/fifa\.com\/en\/watch\/([A-Za-z0-9_-]{16,26})/i);
+          if (m) return m[1];
+        }
+      } else { console.warn(`bing api ${res.status}`); }
+    } catch (e) { console.warn('bing api failed:', e.message); }
   }
+  // Fallback: scrape Bing HTML (often returns nothing / no indexed watch pages).
+  try {
+    const url = 'https://www.bing.com/search?q=' + encodeURIComponent(query) + '&setlang=en';
+    const res = await fetch(url, { headers: { 'user-agent': UA, 'accept-language': 'en-US,en;q=0.9' } });
+    if (res.ok) {
+      const html = await res.text();
+      const m = html.match(/fifa\.com(?:%2f|\/)en(?:%2f|\/)watch(?:%2f|\/)([A-Za-z0-9_-]{16,26})/i);
+      if (m) return m[1];
+    }
+  } catch { /* ignore */ }
   return null;
 }
 
