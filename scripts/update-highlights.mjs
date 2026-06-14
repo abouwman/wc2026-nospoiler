@@ -206,40 +206,22 @@ function parseDutch(title) {
   return { home, away };
 }
 
-// Best-effort: scrape the FIFA highlights hub for "/en/watch/<id>" links and map
-// each to a match by the team names near the link. Non-fatal if the markup
-// changes or the page is JS-rendered — the app falls back to the hub URL.
-async function discoverFifa() {
-  const map = new Map();
+// fifa.com itself is JS-rendered and bot-blocks datacenter IPs (returns a tiny
+// shell), so we can't scrape the hub. Instead resolve the per-match fifa.com
+// watch id via DuckDuckGo's HTML endpoint (keyless), restricted to
+// fifa.com/en/watch with both team names. Best-effort and non-fatal.
+async function fifaWatchId(homeName, awayName) {
+  const q = `site:fifa.com/en/watch ${homeName} vs ${awayName} highlights`;
+  const url = 'https://html.duckduckgo.com/html/?q=' + encodeURIComponent(q);
   let html;
   try {
-    const res = await fetch(FIFA_HUB, { headers: { 'user-agent': UA, 'accept-language': 'en' } });
-    console.log(`fifa hub: ${res.status} ${res.headers.get('content-type')}`);
-    if (!res.ok) throw new Error('hub ' + res.status);
+    const res = await fetch(url, { headers: { 'user-agent': UA, 'accept-language': 'en' } });
+    if (!res.ok) { console.warn(`ddg ${res.status} for ${homeName} v ${awayName}`); return null; }
     html = await res.text();
-  } catch (e) { console.warn('fifa hub fetch failed:', e.message); return map; }
-
-  const watchIds = [...html.matchAll(/watch\/([A-Za-z0-9_-]{18,26})/g)].map((m) => m[1]);
-  const titles = [...html.matchAll(/"title"\s*:\s*"([^"]*(?:[Hh]ighlights|[ -]v[s. ][^"]*)[^"]*)"/g)].map((m) => m[1]);
-  console.log(`fifa hub len=${html.length} nextData=${html.includes('__NEXT_DATA__')} watchIds=${watchIds.length} titles=${titles.length}`);
-  console.log('FIFA_WATCHIDS ' + JSON.stringify([...new Set(watchIds)].slice(0, 30)));
-  console.log('FIFA_TITLES ' + JSON.stringify(titles.slice(0, 30)));
-
-  const re = /\/en\/watch\/([A-Za-z0-9_-]{8,})([\s\S]{0,240})/g;
-  let m;
-  while ((m = re.exec(html))) {
-    const id = m[1];
-    const text = m[2].replace(/<[^>]+>/g, ' ').replace(/&amp;/g, '&').replace(/\s+/g, ' ').trim();
-    const tm = text.match(/(.+?)\s+(?:vs?|v)\.?\s+(.+?)(?:\s*[|–\-•]|$)/i);
-    if (!tm) continue;
-    const home = codeFromEnglish(tm[1]);
-    const away = codeFromEnglish(tm[2]);
-    if (home && away && home !== away) {
-      const key = `${home}-${away}`;
-      if (!map.has(key)) map.set(key, id);
-    }
-  }
-  return map;
+  } catch (e) { console.warn('ddg failed:', e.message); return null; }
+  // DDG encodes the target URL in the result link (fifa.com%2Fen%2Fwatch%2F<id>).
+  const m = html.match(/fifa\.com(?:%2F|\/)en(?:%2F|\/)watch(?:%2F|\/)([A-Za-z0-9_-]{16,26})/i);
+  return m ? m[1] : null;
 }
 
 // --- Merge helpers ----------------------------------------------------------
@@ -303,12 +285,16 @@ async function main() {
     }
   }
 
-  // 3) FIFA International links per match (best-effort scrape).
-  const fifaMap = await discoverFifa();
-  console.log(`fifa watch ids found: ${fifaMap.size}`);
+  // 3) FIFA International watch ids — resolve per played match via DuckDuckGo.
+  const nowMs = Date.now();
   for (const match of byId.values()) {
     if (match.fifa) continue;
-    const id = fifaMap.get(`${match.home}-${match.away}`);
+    const hasVid = Object.values(match.videos).some((c) => c && (c.short || c.extended));
+    const played = hasVid || (match.kickoff && new Date(match.kickoff).getTime() < nowMs);
+    if (!played) continue;
+    const hn = TEAMS[match.home]?.en?.[0], an = TEAMS[match.away]?.en?.[0];
+    if (!hn || !an) continue;
+    const id = await fifaWatchId(hn, an);
     if (id) { match.fifa = id; console.log(`fifa for ${match.id}: ${id}`); }
   }
 

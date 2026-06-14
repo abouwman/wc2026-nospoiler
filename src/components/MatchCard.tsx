@@ -52,11 +52,13 @@ export function MatchCard({ match, onOpen, onInternational }: MatchCardProps) {
           </div>
         ) : (
           <div className="lang-row">
-            <button className="lang-btn intl" onClick={() => onInternational(match)}
-              title="Watch on fifa.com (international) — opens a heads-up first">
-              <span className="lang-main">🌍 International</span>
-              <span className="lang-geo">fifa.com ↗</span>
-            </button>
+            {match.fifa ? (
+              <button className="lang-btn intl" onClick={() => onInternational(match)}
+                title="Watch this match on fifa.com (international) — opens a heads-up first">
+                <span className="lang-main">🌍 International</span>
+                <span className="lang-geo">fifa.com ↗</span>
+              </button>
+            ) : null}
             {LANG_ORDER.map((l) => {
               const clips = match.videos[l];
               const cuts = clips ? VARIANTS.filter((v) => clips[v]) : [];
