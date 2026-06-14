@@ -25,6 +25,8 @@ jobs:
       - name: Discover new highlights
         env:
           YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
+          # Bing Web Search API key — resolves each match's fifa.com/watch link.
+          BING_SEARCH_KEY: ${{ secrets.BING_SEARCH_KEY }}
           # Optional channel-handle overrides (without the @):
           FIFA_HANDLE: ${{ vars.FIFA_HANDLE }}
           FOX_HANDLE: ${{ vars.FOX_HANDLE }}

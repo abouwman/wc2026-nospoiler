@@ -33,7 +33,14 @@ When a match's highlight appears on YouTube it parses the FIFA / FOX Sports titl
 into a new card (EN short + extended, US-only) and finds the NOS Sport Dutch
 summary (NL-only), then commits the change — Vercel redeploys automatically.
 
-Setup: add a **`YOUTUBE_API_KEY`** repository secret (YouTube Data API v3 key).
+It also resolves each match's official **fifa.com/watch** link (used by the
+"International" button) via the Bing Web Search API — fifa.com itself is
+JS-rendered and bot-blocks CI runners, so a search API is the reliable route.
+
+Setup: add a **`YOUTUBE_API_KEY`** repository secret (YouTube Data API v3 key)
+and a **`BING_SEARCH_KEY`** repository secret (Azure "Bing Search v7" resource;
+the free F1 tier is enough). Without `BING_SEARCH_KEY` the International button
+simply doesn't appear for matches whose fifa.com link isn't curated yet.
 Optional repo *variables* `FIFA_HANDLE` / `FOX_HANDLE` / `NOS_HANDLE` override the
 channel handles (defaults: `fifa`, `foxsports`, `nossport`). Run it on demand from
 the Actions tab ("Run workflow"). Without the secret the Action no-ops with an error.
