@@ -282,8 +282,6 @@ async function main() {
     let vids = [];
     try { vids = await channelUploads(ids.nos); }
     catch (e) { console.warn(`nos uploads failed: ${e.message}`); }
-    console.log(`nos uploads: ${vids.length}`);
-    console.log('NOS_TITLES ' + JSON.stringify(vids.map((v) => v.title)));
     for (const preferSamenvatting of [true, false]) {
       for (const v of vids) {
         if (/samenvatting/i.test(v.title) !== preferSamenvatting) continue;
