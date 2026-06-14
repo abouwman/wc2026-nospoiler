@@ -214,9 +214,16 @@ async function discoverFifa() {
   let html;
   try {
     const res = await fetch(FIFA_HUB, { headers: { 'user-agent': UA, 'accept-language': 'en' } });
+    console.log(`fifa hub: ${res.status} ${res.headers.get('content-type')}`);
     if (!res.ok) throw new Error('hub ' + res.status);
     html = await res.text();
   } catch (e) { console.warn('fifa hub fetch failed:', e.message); return map; }
+
+  const watchIds = [...html.matchAll(/watch\/([A-Za-z0-9_-]{18,26})/g)].map((m) => m[1]);
+  const titles = [...html.matchAll(/"title"\s*:\s*"([^"]*(?:[Hh]ighlights|[ -]v[s. ][^"]*)[^"]*)"/g)].map((m) => m[1]);
+  console.log(`fifa hub len=${html.length} nextData=${html.includes('__NEXT_DATA__')} watchIds=${watchIds.length} titles=${titles.length}`);
+  console.log('FIFA_WATCHIDS ' + JSON.stringify([...new Set(watchIds)].slice(0, 30)));
+  console.log('FIFA_TITLES ' + JSON.stringify(titles.slice(0, 30)));
 
   const re = /\/en\/watch\/([A-Za-z0-9_-]{8,})([\s\S]{0,240})/g;
   let m;
