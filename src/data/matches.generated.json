@@ -18,7 +18,8 @@
     "home": "NED",
     "away": "JPN",
     "venue": "AT&T Stadium · Dallas",
-    "videos": {}
+    "videos": {},
+    "fifa": "5WClWBWzqwoQUOwlwlVlma"
   },
   {
     "id": "m-ger-cuw",
@@ -29,7 +30,24 @@
     "home": "GER",
     "away": "CUW",
     "venue": "NRG Stadium · Houston",
-    "videos": {},
+    "videos": {
+      "en": {
+        "extended": {
+          "id": "xHtIzadh4Lg",
+          "geo": "US"
+        },
+        "short": {
+          "id": "cGKWqfsRDgo",
+          "geo": "US"
+        }
+      },
+      "nl": {
+        "short": {
+          "id": "FJFW5Lymxbs",
+          "geo": "NL"
+        }
+      }
+    },
     "fifa": "6mQBoF2nCSKt4KJVRyGVDB"
   },
   {
