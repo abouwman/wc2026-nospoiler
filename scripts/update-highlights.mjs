@@ -150,6 +150,44 @@ function parseEnglish(title) {
   return { home, away, group, extended };
 }
 
+// --- Dutch (NOS Sport) title parsing ---------------------------------------
+const NL_TO_CODE = new Map();
+for (const [code, t] of Object.entries(TEAMS)) if (t.nl) NL_TO_CODE.set(norm(t.nl), code);
+const NL_ALIASES = {
+  TUR: ['turkije', 'turkiye'],
+  BIH: ['bosnie en herzegovina', 'bosnie-herzegovina', 'bosnie'],
+  USA: ['verenigde staten', 'vs'],
+  KOR: ['zuid-korea', 'korea'],
+  RSA: ['zuid-afrika'],
+  CIV: ['ivoorkust'],
+  CZE: ['tsjechie'],
+};
+
+function codeFromDutch(name) {
+  const n = norm(name);
+  if (NL_TO_CODE.has(n)) return NL_TO_CODE.get(n);
+  let best = null, len = 0;
+  for (const [alias, code] of NL_TO_CODE) if (n.includes(alias) && alias.length > len) { best = code; len = alias.length; }
+  for (const [code, aliases] of Object.entries(NL_ALIASES))
+    for (const a of aliases) { const na = norm(a); if (n.includes(na) && na.length > len) { best = code; len = na.length; } }
+  return best;
+}
+
+// NOS titles look like "Samenvatting Zuid-Korea - Tsjechië | Groep A | WK2026 ⚽"
+// or "Verenigde Staten - Paraguay | Groep D | WK2026". Teams are separated by
+// " - " (team-internal hyphens, e.g. Zuid-Korea, have no surrounding spaces).
+function parseDutch(title) {
+  if (/\blive\b/i.test(title)) return null;
+  const cleaned = title.replace(/[🌎🏆™⚽️🔴]/g, ' ').replace(/#\S+/g, ' ').replace(/\s+/g, ' ').trim();
+  const head = cleaned.split('|')[0].trim();
+  const parts = head.split(/\s+[-–]\s+/);
+  if (parts.length < 2) return null;
+  const home = codeFromDutch(parts[0]);
+  const away = codeFromDutch(parts[1]);
+  if (!home || !away || home === away) return null;
+  return { home, away };
+}
+
 // Best-effort: scrape the FIFA highlights hub for "/en/watch/<id>" links and map
 // each to a match by the team names near the link. Non-fatal if the markup
 // changes or the page is JS-rendered — the app falls back to the hub URL.
@@ -220,17 +258,23 @@ async function main() {
     }
   }
 
-  // 2) Dutch summaries from NOS Sport for every known match.
+  // 2) Dutch summaries — list recent NOS Sport uploads and parse their titles
+  //    (prefer the full "samenvatting" over goal clips).
   if (ids.nos) {
-    for (const match of byId.values()) {
-      if (match.videos.nl?.short) continue;
-      const home = TEAMS[match.home]?.nl, away = TEAMS[match.away]?.nl;
-      if (!home || !away) continue;
-      let vids = [];
-      try { vids = await recentUploads(ids.nos, `${home} ${away} samenvatting`); }
-      catch (e) { console.warn(`nos search failed: ${e.message}`); break; }
-      const hit = vids.find((v) => norm(v.title).includes(norm(home)) && norm(v.title).includes(norm(away)));
-      if (hit) { setClip(match, 'nl', 'short', hit.id, 'NL'); console.log(`nl for ${match.id}: ${hit.id}`); }
+    let vids = [];
+    try { vids = await recentUploads(ids.nos, 'WK2026'); }
+    catch (e) { console.warn(`nos search failed: ${e.message}`); }
+    for (const preferSamenvatting of [true, false]) {
+      for (const v of vids) {
+        if (/samenvatting/i.test(v.title) !== preferSamenvatting) continue;
+        const p = parseDutch(v.title);
+        if (!p) continue;
+        const match = byId.get(`m-${p.home.toLowerCase()}-${p.away.toLowerCase()}`)
+          || byId.get(`m-${p.away.toLowerCase()}-${p.home.toLowerCase()}`);
+        if (!match || match.videos.nl?.short) continue;
+        setClip(match, 'nl', 'short', v.id, 'NL');
+        console.log(`nl for ${match.id}: ${v.id} (${v.title})`);
+      }
     }
   }
 
