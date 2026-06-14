@@ -18,7 +18,18 @@
     "home": "NED",
     "away": "JPN",
     "venue": "AT&T Stadium · Dallas",
-    "videos": {},
+    "videos": {
+      "en": {
+        "extended": {
+          "id": "SaTyQMmOpPM",
+          "geo": "US"
+        },
+        "short": {
+          "id": "m7sQP_AZ5vM",
+          "geo": "US"
+        }
+      }
+    },
     "fifa": "5WClWBWzqwoQUOwlwlVlma"
   },
   {
