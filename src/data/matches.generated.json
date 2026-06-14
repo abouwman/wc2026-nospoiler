@@ -62,7 +62,18 @@
     "home": "BRA",
     "away": "MAR",
     "venue": "MetLife Stadium · New York NJ",
-    "videos": {}
+    "videos": {
+      "en": {
+        "extended": {
+          "id": "0rih2fCaXF4",
+          "geo": "US"
+        },
+        "short": {
+          "id": "DX5wBEslnQI",
+          "geo": "US"
+        }
+      }
+    }
   },
   {
     "id": "m-qat-sui",
