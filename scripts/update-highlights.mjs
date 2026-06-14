@@ -123,6 +123,22 @@ async function channelId(handle) {
   return data.items?.[0]?.id || null;
 }
 
+// search.list (order=date) is incomplete for listing a channel's uploads, so for
+// a full/reliable recent-uploads list we read the channel's uploads playlist.
+async function uploadsPlaylistId(chId) {
+  const data = await yt('/channels', { part: 'contentDetails', id: chId });
+  return data.items?.[0]?.contentDetails?.relatedPlaylists?.uploads || null;
+}
+
+async function channelUploads(chId) {
+  const playlistId = await uploadsPlaylistId(chId);
+  if (!playlistId) return [];
+  const data = await yt('/playlistItems', { part: 'snippet', playlistId, maxResults: '50' });
+  return (data.items || []).map((i) => ({
+    id: i.snippet.resourceId.videoId, title: i.snippet.title, publishedAt: i.snippet.publishedAt,
+  }));
+}
+
 async function recentUploads(chId, q) {
   const publishedAfter = new Date(Date.now() - LOOKBACK_DAYS * 864e5).toISOString();
   const params = {
@@ -264,8 +280,8 @@ async function main() {
   //    (prefer the full "samenvatting" over goal clips).
   if (ids.nos) {
     let vids = [];
-    try { vids = await recentUploads(ids.nos, ''); }
-    catch (e) { console.warn(`nos search failed: ${e.message}`); }
+    try { vids = await channelUploads(ids.nos); }
+    catch (e) { console.warn(`nos uploads failed: ${e.message}`); }
     console.log(`nos uploads: ${vids.length}`);
     console.log('NOS_TITLES ' + JSON.stringify(vids.map((v) => v.title)));
     for (const preferSamenvatting of [true, false]) {
