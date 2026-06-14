@@ -207,39 +207,47 @@ function parseDutch(title) {
 // fifa.com itself is JS-rendered and bot-blocks datacenter IPs (returns a tiny
 // shell), so we can't scrape the hub. Instead resolve the per-match fifa.com
 // watch id via DuckDuckGo's HTML endpoint (keyless), restricted to
-// fifa.com/en/watch with both team names. Best-effort and non-fatal.
-// fifa.com is JS-rendered and bot-blocks datacenter IPs, and search engines
-// either don't index the watch pages or block scraping — so this keyless lookup
-// is best-effort only. For reliable resolution set BING_SEARCH_KEY (Bing Web
-// Search API); otherwise watch ids are curated in matches.generated.json.
-async function fifaWatchId(homeName, awayName) {
-  const query = `${homeName} vs ${awayName} highlights site:fifa.com`;
-  // Preferred: Bing Web Search API (reliable, needs a key).
-  const key = process.env.BING_SEARCH_KEY;
-  if (key) {
-    try {
-      const url = 'https://api.bing.microsoft.com/v7.0/search?q=' + encodeURIComponent(query);
-      const res = await fetch(url, { headers: { 'Ocp-Apim-Subscription-Key': key } });
-      if (res.ok) {
-        const json = await res.json();
-        const items = json.webPages?.value || [];
-        for (const it of items) {
-          const m = (it.url || '').match(/fifa\.com\/en\/watch\/([A-Za-z0-9_-]{16,26})/i);
-          if (m) return m[1];
-        }
-      } else { console.warn(`bing api ${res.status}`); }
-    } catch (e) { console.warn('bing api failed:', e.message); }
-  }
-  // Fallback: scrape Bing HTML (often returns nothing / no indexed watch pages).
+// fifa.com is JS-rendered and bot-blocks datacenter IPs, so we can't scrape it.
+// Resolve each match's official fifa.com/watch link via a search API instead.
+// Configure ONE provider (Bing Search v7 is retired):
+//   - SERPAPI_KEY                       (serpapi.com)
+//   - GOOGLE_CSE_KEY + GOOGLE_CSE_CX    (Google Programmable Search JSON API)
+//   - BRAVE_API_KEY                     (Brave Search API)
+// Returns candidate result URLs from whichever provider is configured.
+async function searchResultLinks(query) {
+  const { SERPAPI_KEY, GOOGLE_CSE_KEY, GOOGLE_CSE_CX, BRAVE_API_KEY } = process.env;
   try {
-    const url = 'https://www.bing.com/search?q=' + encodeURIComponent(query) + '&setlang=en';
-    const res = await fetch(url, { headers: { 'user-agent': UA, 'accept-language': 'en-US,en;q=0.9' } });
-    if (res.ok) {
-      const html = await res.text();
-      const m = html.match(/fifa\.com(?:%2f|\/)en(?:%2f|\/)watch(?:%2f|\/)([A-Za-z0-9_-]{16,26})/i);
-      if (m) return m[1];
+    if (SERPAPI_KEY) {
+      const u = 'https://serpapi.com/search.json?engine=google&num=10&q=' + encodeURIComponent(query) + '&api_key=' + SERPAPI_KEY;
+      const r = await fetch(u);
+      if (!r.ok) { console.warn(`serpapi ${r.status}`); return []; }
+      const j = await r.json();
+      return (j.organic_results || []).map((x) => x.link).filter(Boolean);
     }
-  } catch { /* ignore */ }
+    if (GOOGLE_CSE_KEY && GOOGLE_CSE_CX) {
+      const u = 'https://www.googleapis.com/customsearch/v1?num=10&key=' + GOOGLE_CSE_KEY + '&cx=' + GOOGLE_CSE_CX + '&q=' + encodeURIComponent(query);
+      const r = await fetch(u);
+      if (!r.ok) { console.warn(`google cse ${r.status}`); return []; }
+      const j = await r.json();
+      return (j.items || []).map((x) => x.link).filter(Boolean);
+    }
+    if (BRAVE_API_KEY) {
+      const u = 'https://api.search.brave.com/res/v1/web/search?count=10&q=' + encodeURIComponent(query);
+      const r = await fetch(u, { headers: { 'X-Subscription-Token': BRAVE_API_KEY, Accept: 'application/json' } });
+      if (!r.ok) { console.warn(`brave ${r.status}`); return []; }
+      const j = await r.json();
+      return (j.web?.results || []).map((x) => x.url).filter(Boolean);
+    }
+  } catch (e) { console.warn('search provider failed:', e.message); }
+  return [];
+}
+
+async function fifaWatchId(homeName, awayName) {
+  const links = await searchResultLinks(`${homeName} vs ${awayName} highlights site:fifa.com/en/watch`);
+  for (const link of links) {
+    const m = String(link).match(/fifa\.com\/en\/watch\/([A-Za-z0-9_-]{16,26})/i);
+    if (m) return m[1];
+  }
   return null;
 }
 

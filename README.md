@@ -34,13 +34,18 @@ into a new card (EN short + extended, US-only) and finds the NOS Sport Dutch
 summary (NL-only), then commits the change — Vercel redeploys automatically.
 
 It also resolves each match's official **fifa.com/watch** link (used by the
-"International" button) via the Bing Web Search API — fifa.com itself is
-JS-rendered and bot-blocks CI runners, so a search API is the reliable route.
+"International" button) via a search API — fifa.com itself is JS-rendered and
+bot-blocks CI runners, so a search API is the reliable route.
 
-Setup: add a **`YOUTUBE_API_KEY`** repository secret (YouTube Data API v3 key)
-and a **`BING_SEARCH_KEY`** repository secret (Azure "Bing Search v7" resource;
-the free F1 tier is enough). Without `BING_SEARCH_KEY` the International button
-simply doesn't appear for matches whose fifa.com link isn't curated yet.
+Setup: add a **`YOUTUBE_API_KEY`** repository secret (YouTube Data API v3 key),
+and **one** search provider (Bing Search v7 is retired):
+- **`SERPAPI_KEY`** — serpapi.com (simplest; ~100 free searches/mo), or
+- **`GOOGLE_CSE_KEY`** secret + **`GOOGLE_CSE_CX`** variable — Google
+  Programmable Search JSON API (100 free queries/day), or
+- **`BRAVE_API_KEY`** — Brave Search API (free tier ~2k/mo).
+
+Without a search provider the International button simply doesn't appear for
+matches whose fifa.com link isn't already curated in the data file.
 Optional repo *variables* `FIFA_HANDLE` / `FOX_HANDLE` / `NOS_HANDLE` override the
 channel handles (defaults: `fifa`, `foxsports`, `nossport`). Run it on demand from
 the Actions tab ("Run workflow"). Without the secret the Action no-ops with an error.
