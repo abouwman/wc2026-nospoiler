@@ -40,7 +40,14 @@
     "home": "AUS",
     "away": "TUR",
     "venue": "BC Place · Vancouver",
-    "videos": {}
+    "videos": {
+      "en": {
+        "short": {
+          "id": "xyKJHekC7io",
+          "geo": "US"
+        }
+      }
+    }
   },
   {
     "id": "m-hai-sco",
@@ -51,7 +58,18 @@
     "home": "HAI",
     "away": "SCO",
     "venue": "Gillette Stadium · Boston",
-    "videos": {}
+    "videos": {
+      "en": {
+        "extended": {
+          "id": "J_2Y34vSbBA",
+          "geo": "US"
+        },
+        "short": {
+          "id": "IW2BuhWuTqs",
+          "geo": "US"
+        }
+      }
+    }
   },
   {
     "id": "m-bra-mar",
