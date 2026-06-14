@@ -211,17 +211,21 @@ function parseDutch(title) {
 // watch id via DuckDuckGo's HTML endpoint (keyless), restricted to
 // fifa.com/en/watch with both team names. Best-effort and non-fatal.
 async function fifaWatchId(homeName, awayName) {
-  const q = `site:fifa.com/en/watch ${homeName} vs ${awayName} highlights`;
-  const url = 'https://html.duckduckgo.com/html/?q=' + encodeURIComponent(q);
-  let html;
-  try {
-    const res = await fetch(url, { headers: { 'user-agent': UA, 'accept-language': 'en' } });
-    if (!res.ok) { console.warn(`ddg ${res.status} for ${homeName} v ${awayName}`); return null; }
-    html = await res.text();
-  } catch (e) { console.warn('ddg failed:', e.message); return null; }
-  // DDG encodes the target URL in the result link (fifa.com%2Fen%2Fwatch%2F<id>).
-  const m = html.match(/fifa\.com(?:%2F|\/)en(?:%2F|\/)watch(?:%2F|\/)([A-Za-z0-9_-]{16,26})/i);
-  return m ? m[1] : null;
+  const q = `site:fifa.com/en/watch ${homeName} ${awayName} highlights`;
+  const engines = [
+    ['bing', 'https://www.bing.com/search?q=' + encodeURIComponent(q) + '&setlang=en'],
+    ['ddg', 'https://html.duckduckgo.com/html/?q=' + encodeURIComponent(q)],
+  ];
+  for (const [name, url] of engines) {
+    try {
+      const res = await fetch(url, { headers: { 'user-agent': UA, 'accept-language': 'en-US,en;q=0.9' } });
+      const html = res.ok ? await res.text() : '';
+      const m = html.match(/fifa\.com(?:%2f|\/)en(?:%2f|\/)watch(?:%2f|\/)([A-Za-z0-9_-]{16,26})/i);
+      console.log(`fifa lookup ${homeName} v ${awayName} [${name}] ${res.status} ${m ? '-> ' + m[1] : 'none'}`);
+      if (m) return m[1];
+    } catch (e) { console.warn(`fifa lookup [${name}] failed: ${e.message}`); }
+  }
+  return null;
 }
 
 // --- Merge helpers ----------------------------------------------------------
