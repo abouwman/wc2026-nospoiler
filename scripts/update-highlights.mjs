@@ -125,10 +125,12 @@ async function channelId(handle) {
 
 async function recentUploads(chId, q) {
   const publishedAfter = new Date(Date.now() - LOOKBACK_DAYS * 864e5).toISOString();
-  const data = await yt('/search', {
-    part: 'snippet', channelId: chId, q, type: 'video',
+  const params = {
+    part: 'snippet', channelId: chId, type: 'video',
     order: 'date', maxResults: '50', publishedAfter,
-  });
+  };
+  if (q) params.q = q;
+  const data = await yt('/search', params);
   return (data.items || []).map((i) => ({
     id: i.id.videoId, title: i.snippet.title, publishedAt: i.snippet.publishedAt,
   }));
@@ -262,8 +264,10 @@ async function main() {
   //    (prefer the full "samenvatting" over goal clips).
   if (ids.nos) {
     let vids = [];
-    try { vids = await recentUploads(ids.nos, 'WK2026'); }
+    try { vids = await recentUploads(ids.nos, ''); }
     catch (e) { console.warn(`nos search failed: ${e.message}`); }
+    console.log(`nos uploads: ${vids.length}`);
+    console.log('NOS_TITLES ' + JSON.stringify(vids.map((v) => v.title)));
     for (const preferSamenvatting of [true, false]) {
       for (const v of vids) {
         if (/samenvatting/i.test(v.title) !== preferSamenvatting) continue;
