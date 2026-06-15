@@ -30,6 +30,8 @@ jobs:
           GOOGLE_CSE_KEY: ${{ secrets.GOOGLE_CSE_KEY }}
           GOOGLE_CSE_CX: ${{ vars.GOOGLE_CSE_CX }}
           BRAVE_API_KEY: ${{ secrets.BRAVE_API_KEY }}
+          # Optional override for the BBC iPlayer World Cup highlights group id:
+          BBC_GROUP_ID: ${{ vars.BBC_GROUP_ID }}
           # Optional channel-handle overrides (without the @):
           FIFA_HANDLE: ${{ vars.FIFA_HANDLE }}
           FOX_HANDLE: ${{ vars.FOX_HANDLE }}

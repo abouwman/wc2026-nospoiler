@@ -7,9 +7,10 @@ interface DaySectionProps {
   matches: Match[];
   onOpen: (match: Match, lang: LangCode, variant: Variant) => void;
   onInternational: (match: Match) => void;
+  onBBC: (match: Match) => void;
 }
 
-export function DaySection({ date, matches, onOpen, onInternational }: DaySectionProps) {
+export function DaySection({ date, matches, onOpen, onInternational, onBBC }: DaySectionProps) {
   return (
     <section className="day-section" data-screen-label={'Matchday ' + fmtDayShort(date)}>
       <div className="day-head">
@@ -18,7 +19,7 @@ export function DaySection({ date, matches, onOpen, onInternational }: DaySectio
       </div>
       <div className="grid">
         {matches.map((m) => (
-          <MatchCard key={m.id} match={m} onOpen={onOpen} onInternational={onInternational} />
+          <MatchCard key={m.id} match={m} onOpen={onOpen} onInternational={onInternational} onBBC={onBBC} />
         ))}
       </div>
     </section>

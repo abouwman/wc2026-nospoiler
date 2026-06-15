@@ -274,6 +274,46 @@ async function fifaWatchId(homeNames, awayNames) {
   return null;
 }
 
+// --- BBC iPlayer (UK only) --------------------------------------------------
+// The World Cup 2026 highlights live in one iPlayer programme group. The "ibl"
+// API lists that group's episodes as JSON; we match each episode to a match by
+// both team names (same rules as FIFA). Override the group via BBC_GROUP_ID.
+const BBC_GROUP = process.env.BBC_GROUP_ID || 'm002v7zq';
+const BBC_PID = /^[bmp][0-9a-z]{7}$/;
+
+// Collect { id, text } for every episode-like object in the API response,
+// defensively (the ibl schema nests episodes under a few shapes).
+function collectBbcEpisodes(node, out, acc = new Set()) {
+  if (Array.isArray(node)) { for (const x of node) collectBbcEpisodes(x, out, acc); return; }
+  if (!node || typeof node !== 'object') return;
+  if (typeof node.id === 'string' && BBC_PID.test(node.id) && !acc.has(node.id)) {
+    const text = [node.title, node.subtitle, node.editorial_title, node.editorial_subtitle,
+      node.complete_title, node.synopses?.small, node.synopses?.medium].filter(Boolean).join(' ');
+    if (text) { acc.add(node.id); out.push({ id: node.id, text }); }
+  }
+  for (const k of Object.keys(node)) collectBbcEpisodes(node[k], out, acc);
+}
+
+async function bbcEpisodes() {
+  const url = `https://ibl.api.bbc.co.uk/ibl/v1/groups/${BBC_GROUP}/episodes?per_page=200`;
+  try {
+    const r = await fetch(url, { headers: { 'user-agent': UA, accept: 'application/json' } });
+    if (!r.ok) { console.warn(`bbc ibl ${r.status}`); return []; }
+    const out = [];
+    collectBbcEpisodes(await r.json(), out);
+    return out;
+  } catch (e) { console.warn('bbc ibl failed:', e.message); return []; }
+}
+
+function bbcEpisodeId(episodes, homeNames, awayNames) {
+  for (const { id, text } of episodes) {
+    if (OLD_EDITION.test(text)) continue;
+    if (!mentions(text, homeNames) || !mentions(text, awayNames)) continue;
+    return id;
+  }
+  return null;
+}
+
 // --- Merge helpers ----------------------------------------------------------
 function setClip(match, lang, variant, id, geo) {
   match.videos[lang] = match.videos[lang] || {};
@@ -335,17 +375,25 @@ async function main() {
     }
   }
 
-  // 3) FIFA International watch ids — resolve per played match via DuckDuckGo.
+  // 3) External per-match highlight links for played matches:
+  //    FIFA International (worldwide) via search API, BBC iPlayer (UK only).
   const nowMs = Date.now();
+  const bbcEps = await bbcEpisodes();
+  console.log(`bbc episodes: ${bbcEps.length}`);
   for (const match of byId.values()) {
-    if (match.fifa) continue;
     const hasVid = Object.values(match.videos).some((c) => c && (c.short || c.extended));
     const played = hasVid || (match.kickoff && new Date(match.kickoff).getTime() < nowMs);
     if (!played) continue;
     const hn = TEAMS[match.home]?.en, an = TEAMS[match.away]?.en;
     if (!hn?.length || !an?.length) continue;
-    const id = await fifaWatchId(hn, an);
-    if (id) { match.fifa = id; console.log(`fifa for ${match.id}: ${id}`); }
+    if (!match.fifa) {
+      const id = await fifaWatchId(hn, an);
+      if (id) { match.fifa = id; console.log(`fifa for ${match.id}: ${id}`); }
+    }
+    if (!match.bbc && bbcEps.length) {
+      const id = bbcEpisodeId(bbcEps, hn, an);
+      if (id) { match.bbc = id; console.log(`bbc for ${match.id}: ${id}`); }
+    }
   }
 
   const out = [...byId.values()].sort((a, b) => (a.date < b.date ? 1 : a.date > b.date ? -1 : 0));

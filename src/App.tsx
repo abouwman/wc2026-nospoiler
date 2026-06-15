@@ -1,10 +1,10 @@
 import { useEffect, useMemo, useState } from 'react';
 import type { LangCode, Match, Mode, Variant } from './types';
 import { TEAMS } from './data/teams';
-import { MATCHES, isUpcoming, hasAnySource, fifaUrl } from './data/schedule';
+import { MATCHES, isUpcoming, hasAnySource, fifaUrl, bbcUrl } from './data/schedule';
 import { DaySection } from './components/DaySection';
 import { PlayerModal } from './components/PlayerModal';
-import { LeaveModal } from './components/LeaveModal';
+import { LeaveModal, type LeaveTarget } from './components/LeaveModal';
 
 // Show upcoming matches at most this far ahead.
 const UPCOMING_WINDOW_MS = 8 * 60 * 60 * 1000;
@@ -31,7 +31,7 @@ export function App() {
   const [groupFilter, setGroupFilter] = useState<string | null>(null);
   const [teamFilter, setTeamFilter] = useState('');
   const [active, setActive] = useState<Active | null>(null);
-  const [leaveUrl, setLeaveUrl] = useState<string | null>(null);
+  const [leave, setLeave] = useState<LeaveTarget | null>(null);
 
   useEffect(() => { try { localStorage.setItem('wcns-mode', JSON.stringify(mode)); } catch { /* noop */ } }, [mode]);
 
@@ -113,7 +113,8 @@ export function App() {
         ) : days.map((d) => (
           <DaySection key={d.date} date={d.date} matches={d.matches}
             onOpen={(m, l, v) => setActive({ match: m, lang: l, variant: v })}
-            onInternational={(m) => setLeaveUrl(fifaUrl(m))} />
+            onInternational={(m) => setLeave({ url: fifaUrl(m), site: 'fifa.com' })}
+            onBBC={(m) => setLeave({ url: bbcUrl(m), site: 'BBC iPlayer', geo: 'UK' })} />
         ))}
 
         <div className="footer-note">
@@ -122,8 +123,8 @@ export function App() {
           local time zone. <strong>English</strong> offers a short and an extended cut from FIFA / FOX on YouTube
           (<strong>US only</strong>); <strong>Dutch</strong> plays NOS Sport's summary (<strong>Netherlands only</strong>).
           Both run in the spoiler-shield player: title, duration/timestamps and end screens hidden. The
-          <strong>International</strong> button opens the official fifa.com highlight (after a spoiler heads-up). No
-          scores anywhere.
+          <strong>International</strong> button opens the official fifa.com highlight, and <strong>BBC iPlayer</strong>
+          (<strong>UK only</strong>) the BBC cut — both after a spoiler heads-up. No scores anywhere.
         </div>
       </main>
 
@@ -132,7 +133,7 @@ export function App() {
           onClose={() => setActive(null)} />
       ) : null}
 
-      {leaveUrl ? <LeaveModal url={leaveUrl} onClose={() => setLeaveUrl(null)} /> : null}
+      {leave ? <LeaveModal target={leave} onClose={() => setLeave(null)} /> : null}
     </div>
   );
 }

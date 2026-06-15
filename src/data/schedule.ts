@@ -44,9 +44,9 @@ export function hasAnyVideo(m: Match): boolean {
   return Object.values(m.videos).some((c) => c && (c.short || c.extended));
 }
 
-/** Any playable/linkable source (YouTube clips or the FIFA international link). */
+/** Any playable/linkable source (YouTube clips or an external highlight link). */
 export function hasAnySource(m: Match): boolean {
-  return hasAnyVideo(m) || !!m.fifa;
+  return hasAnyVideo(m) || !!m.fifa || !!m.bbc;
 }
 
 export const FIFA_HIGHLIGHTS_HUB =
@@ -55,4 +55,9 @@ export const FIFA_HIGHLIGHTS_HUB =
 /** Match-specific FIFA watch page when known, else the highlights hub. */
 export function fifaUrl(m: Match): string {
   return m.fifa ? 'https://www.fifa.com/en/watch/' + m.fifa : FIFA_HIGHLIGHTS_HUB;
+}
+
+/** Match-specific BBC iPlayer episode (UK only). */
+export function bbcUrl(m: Match): string {
+  return 'https://www.bbc.co.uk/iplayer/episode/' + m.bbc;
 }

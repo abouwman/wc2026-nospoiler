@@ -43,6 +43,8 @@ export interface Match {
   videos: Partial<Record<LangCode, Clips>>;
   /** FIFA watch id for the International (fifa.com) link, when known. */
   fifa?: string;
+  /** BBC iPlayer episode id for the UK-only highlights, when known. */
+  bbc?: string;
 }
 
 // A single playable selection (one language + one cut), used by cards and player.

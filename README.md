@@ -46,6 +46,12 @@ and **one** search provider (Bing Search v7 is retired):
 
 Without a search provider the International button simply doesn't appear for
 matches whose fifa.com link isn't already curated in the data file.
+
+It also resolves each match's **BBC iPlayer** episode (the UK-only "BBC iPlayer"
+button) from the World Cup highlights programme group via BBC's public iPlayer
+API — no key needed. Override the group with the optional `BBC_GROUP_ID`
+variable. Episodes are matched to a fixture by requiring **both** team names
+(and rejecting older editions), the same way the fifa.com links are.
 Optional repo *variables* `FIFA_HANDLE` / `FOX_HANDLE` / `NOS_HANDLE` override the
 channel handles (defaults: `fifa`, `foxsports`, `nossport`). Run it on demand from
 the Actions tab ("Run workflow"). Without the secret the Action no-ops with an error.
