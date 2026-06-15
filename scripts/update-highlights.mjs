@@ -33,6 +33,16 @@ const HANDLES = {
 // How far back to look for new uploads.
 const LOOKBACK_DAYS = Number(process.env.LOOKBACK_DAYS || 4);
 
+// Optional: the official fixture list (kickoff times, stage, group) so upcoming
+// matches render before any highlight exists. Free token from football-data.org
+// (X-Auth-Token). Without it the script just skips fixtures (highlights only).
+const FD_TOKEN = process.env.FOOTBALL_DATA_TOKEN;
+const FD_COMP = process.env.FOOTBALL_DATA_COMP || 'WC';
+const FD_STAGE = {
+  GROUP_STAGE: 'group', LAST_32: 'r32', LAST_16: 'r16',
+  QUARTER_FINALS: 'qf', SEMI_FINALS: 'sf', THIRD_PLACE: 'third', FINAL: 'final',
+};
+
 const UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36';
 
 // --- Team metadata: code -> { en: [aliases], nl: 'Dutch name' } -------------
@@ -314,6 +324,32 @@ function bbcEpisodeId(episodes, homeNames, awayNames) {
   return null;
 }
 
+// --- Fixtures (football-data.org) ------------------------------------------
+// Returns [{ home, away, stage, group, kickoff, date }] for matches whose two
+// teams are both known; TBD knockout slots (null team names) are skipped.
+async function fetchFixtures() {
+  if (!FD_TOKEN) { console.log('no FOOTBALL_DATA_TOKEN — skipping fixtures'); return []; }
+  const url = `https://api.football-data.org/v4/competitions/${FD_COMP}/matches`;
+  let data;
+  try {
+    const r = await fetch(url, { headers: { 'X-Auth-Token': FD_TOKEN, 'User-Agent': UA } });
+    if (!r.ok) { console.warn(`football-data ${r.status}`); return []; }
+    data = await r.json();
+  } catch (e) { console.warn('football-data failed:', e.message); return []; }
+  const out = [];
+  for (const m of data.matches || []) {
+    const home = codeFromEnglish(m.homeTeam?.name || '');
+    const away = codeFromEnglish(m.awayTeam?.name || '');
+    if (!home || !away || home === away) continue;
+    const group = (String(m.group || '').match(/([A-L])\b/) || [])[1];
+    out.push({
+      home, away, stage: FD_STAGE[m.stage] || 'group', group,
+      kickoff: m.utcDate, date: (m.utcDate || '').slice(0, 10),
+    });
+  }
+  return out;
+}
+
 // --- Merge helpers ----------------------------------------------------------
 function setClip(match, lang, variant, id, geo) {
   match.videos[lang] = match.videos[lang] || {};
@@ -323,6 +359,23 @@ function setClip(match, lang, variant, id, geo) {
 async function main() {
   const existing = JSON.parse(readFileSync(DATA_FILE, 'utf8'));
   const byId = new Map(existing.map((m) => [m.id, m]));
+
+  // 0) Official fixtures: seed/refresh kickoff, stage and group so upcoming
+  //    matches appear before any highlight is published. Never touches videos.
+  const fixtures = await fetchFixtures();
+  console.log(`fixtures: ${fixtures.length}`);
+  for (const f of fixtures) {
+    const id = `m-${f.home.toLowerCase()}-${f.away.toLowerCase()}`;
+    let match = byId.get(id) || byId.get(`m-${f.away.toLowerCase()}-${f.home.toLowerCase()}`);
+    if (!match) {
+      match = { id, stage: f.stage, date: f.date, home: f.home, away: f.away, videos: {} };
+      byId.set(id, match);
+      console.log(`fixture match: ${id} (${f.home} v ${f.away}) ${f.kickoff}`);
+    }
+    if (f.kickoff) { match.kickoff = f.kickoff; match.date = f.date; }
+    match.stage = f.stage;
+    if (f.group) match.group = f.group;
+  }
 
   const ids = {};
   for (const [k, h] of Object.entries(HANDLES)) {
