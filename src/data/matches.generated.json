@@ -7,7 +7,24 @@
     "kickoff": "2026-06-14T23:00:00Z",
     "home": "CIV",
     "away": "ECU",
-    "videos": {},
+    "videos": {
+      "en": {
+        "extended": {
+          "id": "j6uB9LcLMms",
+          "geo": "US"
+        },
+        "short": {
+          "id": "pBk8BjA-X4Y",
+          "geo": "US"
+        }
+      },
+      "nl": {
+        "short": {
+          "id": "RwvxstuERqI",
+          "geo": "NL"
+        }
+      }
+    },
     "fifa": "2CKN465NbbTuFcXLb6sSeQ"
   },
   {
