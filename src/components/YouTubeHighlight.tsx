@@ -40,9 +40,18 @@ export function YouTubeHighlight({ videoId, onClose }: YouTubeHighlightProps) {
         playerVars: {
           autoplay: 1, controls: 0, rel: 0, modestbranding: 1, iv_load_policy: 3,
           disablekb: 1, fs: 0, playsinline: 1, origin: window.location.origin,
+          // Unofficial hint to request HD; YouTube ultimately picks adaptively
+          // based on player size + bandwidth, so we also nudge it on ready.
+          vq: 'hd1080',
         },
         events: {
-          onReady: () => { if (!cancelled) setReady(true); },
+          onReady: () => {
+            if (cancelled) return;
+            const p = playerRef.current;
+            try { p?.setPlaybackQualityRange?.('hd1080', 'highres'); } catch { /* noop */ }
+            try { p?.setPlaybackQuality?.('hd1080'); } catch { /* noop */ }
+            setReady(true);
+          },
           onStateChange: (e) => {
             if (cancelled || !window.YT) return;
             if (e.data === window.YT.PlayerState.PLAYING) { setPlaying(true); setEnded(false); }

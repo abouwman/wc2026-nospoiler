@@ -8,6 +8,10 @@ export interface YTPlayer {
   mute(): void;
   unMute(): void;
   loadVideoById(videoId: string): void;
+  // Deprecated by YouTube (quality is adaptive), but still honoured as a hint
+  // by the player when available — best effort to bias toward 1080p.
+  setPlaybackQuality?(quality: string): void;
+  setPlaybackQualityRange?(min: string, max: string): void;
   destroy(): void;
 }
 

@@ -230,7 +230,7 @@ async function searchResults(query) {
       return (j.items || []).map((x) => ({ url: x.link, text: `${x.title || ''} ${x.snippet || ''}` })).filter((x) => x.url);
     }
     if (BRAVE_API_KEY) {
-      const u = 'https://api.search.brave.com/res/v1/web/search?count=10&q=' + encodeURIComponent(query);
+      const u = 'https://api.search.brave.com/res/v1/web/search?count=20&q=' + encodeURIComponent(query);
       const r = await fetch(u, { headers: { 'X-Subscription-Token': BRAVE_API_KEY, Accept: 'application/json' } });
       if (!r.ok) { console.warn(`brave ${r.status}`); return []; }
       const j = await r.json();
@@ -242,6 +242,20 @@ async function searchResults(query) {
 
 // Older World Cup editions whose highlights must never be picked for WC 2026.
 const OLD_EDITION = /\b(2002|2006|2010|2014|2018|2022)\b|russia 2018|qatar 2022|brazil 2014|south africa 2010/i;
+// fifa.com serves watch pages as both /en/watch/<id> and /fifaplus/en/watch/<id>.
+const WATCH_URL = /fifa\.com\/(?:fifaplus\/)?en\/watch\/([A-Za-z0-9_-]{16,26})/i;
+
+// Punctuation/diacritic-insensitive form for name matching, e.g.
+// "Côte d'Ivoire" -> "cote d ivoire", "Curaçao" -> "curacao". Without this the
+// apostrophe/accent caused legitimate results to be rejected.
+const matchNorm = (s) => norm(s).replace(/[^a-z0-9]+/g, ' ').trim();
+const mentions = (text, names) => {
+  const t = matchNorm(text);
+  return names.some((n) => {
+    const k = matchNorm(n);
+    return k.length > 0 && new RegExp(`\\b${k.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\b`).test(t);
+  });
+};
 
 // Resolve a match's fifa.com/watch id. homeNames/awayNames are the known name
 // variants for each team. A result only counts if its title/snippet mentions a
@@ -249,10 +263,9 @@ const OLD_EDITION = /\b(2002|2006|2010|2014|2018|2022)\b|russia 2018|qatar 2022|
 // returning a 2018/2022 clip that merely shares one team name.
 async function fifaWatchId(homeNames, awayNames) {
   const [home, away] = [homeNames[0], awayNames[0]];
-  const results = await searchResults(`${home} vs ${away} highlights site:fifa.com/en/watch`);
-  const mentions = (text, names) => names.some((n) => norm(text).includes(norm(n)));
+  const results = await searchResults(`${home} vs ${away} highlights FIFA World Cup 2026 watch site:fifa.com`);
   for (const { url, text } of results) {
-    const m = String(url).match(/fifa\.com\/en\/watch\/([A-Za-z0-9_-]{16,26})/i);
+    const m = String(url).match(WATCH_URL);
     if (!m) continue;
     if (OLD_EDITION.test(text)) continue;
     if (!mentions(text, homeNames) || !mentions(text, awayNames)) continue;
