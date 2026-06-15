@@ -15,7 +15,7 @@ const REGIONS: { code: Region; flag: string; label: string }[] = [
 ];
 
 // Show upcoming matches at most this far ahead.
-const UPCOMING_WINDOW_MS = 8 * 60 * 60 * 1000;
+const UPCOMING_WINDOW_MS = 12 * 60 * 60 * 1000;
 // Keep showing a just-finished match (awaiting highlights) for this long.
 const AWAIT_WINDOW_MS = 12 * 60 * 60 * 1000;
 
@@ -136,7 +136,7 @@ export function App() {
         ))}
 
         <div className="footer-note">
-          <strong>About this data.</strong> Real FIFA World Cup 2026 highlights. Matches kicking off within the next 8
+          <strong>About this data.</strong> Real FIFA World Cup 2026 highlights. Matches kicking off within the next 12
           hours show as <em>Upcoming</em>, just-finished ones as <em>Highlights coming soon</em>; all times are in your
           local time zone. <strong>English</strong> offers a short and an extended cut from FIFA / FOX on YouTube
           (<strong>US only</strong>); <strong>Dutch</strong> plays NOS Sport's summary (<strong>Netherlands only</strong>).
