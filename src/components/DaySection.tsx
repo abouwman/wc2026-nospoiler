@@ -1,16 +1,17 @@
 import type { LangCode, Match, Variant } from '../types';
 import { fmtDay, fmtDayShort } from '../data/schedule';
-import { MatchCard } from './MatchCard';
+import { MatchCard, type Region } from './MatchCard';
 
 interface DaySectionProps {
   date: string;
   matches: Match[];
+  regionFilter: Region | null;
   onOpen: (match: Match, lang: LangCode, variant: Variant) => void;
   onInternational: (match: Match) => void;
   onBBC: (match: Match) => void;
 }
 
-export function DaySection({ date, matches, onOpen, onInternational, onBBC }: DaySectionProps) {
+export function DaySection({ date, matches, regionFilter, onOpen, onInternational, onBBC }: DaySectionProps) {
   return (
     <section className="day-section" data-screen-label={'Matchday ' + fmtDayShort(date)}>
       <div className="day-head">
@@ -19,7 +20,8 @@ export function DaySection({ date, matches, onOpen, onInternational, onBBC }: Da
       </div>
       <div className="grid">
         {matches.map((m) => (
-          <MatchCard key={m.id} match={m} onOpen={onOpen} onInternational={onInternational} onBBC={onBBC} />
+          <MatchCard key={m.id} match={m} regionFilter={regionFilter}
+            onOpen={onOpen} onInternational={onInternational} onBBC={onBBC} />
         ))}
       </div>
     </section>

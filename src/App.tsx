@@ -3,8 +3,16 @@ import type { LangCode, Match, Mode, Variant } from './types';
 import { TEAMS } from './data/teams';
 import { MATCHES, isUpcoming, hasAnySource, fifaUrl, bbcUrl } from './data/schedule';
 import { DaySection } from './components/DaySection';
+import type { Region } from './components/MatchCard';
 import { PlayerModal } from './components/PlayerModal';
 import { LeaveModal, type LeaveTarget } from './components/LeaveModal';
+
+const REGIONS: { code: Region; flag: string; label: string }[] = [
+  { code: 'US', flag: '🇺🇸', label: 'US (Fox)' },
+  { code: 'UK', flag: '🇬🇧', label: 'UK (BBC)' },
+  { code: 'NL', flag: '🇳🇱', label: 'NL (NOS)' },
+  { code: 'World', flag: '🌍', label: 'World (fifa.com)' },
+];
 
 // Show upcoming matches at most this far ahead.
 const UPCOMING_WINDOW_MS = 8 * 60 * 60 * 1000;
@@ -30,6 +38,7 @@ export function App() {
   const [mode, setMode] = useState<Mode>(() => loadLS('wcns-mode', 'light'));
   const [groupFilter, setGroupFilter] = useState<string | null>(null);
   const [teamFilter, setTeamFilter] = useState('');
+  const [regionFilter, setRegionFilter] = useState<Region | null>(null);
   const [active, setActive] = useState<Active | null>(null);
   const [leave, setLeave] = useState<LeaveTarget | null>(null);
 
@@ -101,6 +110,15 @@ export function App() {
             </div>
           ) : null}
           <div className="filters">
+            <div className="region-filter" role="group" aria-label="Filter by region">
+              {REGIONS.map((r) => (
+                <button key={r.code} type="button" title={r.label} aria-pressed={regionFilter === r.code}
+                  className={'region-flag' + (regionFilter === r.code ? ' on' : '')}
+                  onClick={() => setRegionFilter(regionFilter === r.code ? null : r.code)}>
+                  <span aria-hidden="true">{r.flag}</span>
+                </button>
+              ))}
+            </div>
             <select className="team-select" value={teamFilter} onChange={(e) => setTeamFilter(e.target.value)}>
               <option value="">All teams</option>
               {teamOptions.map((o) => <option key={o.code} value={o.code}>{TEAMS[o.code].flag} {o.name}</option>)}
@@ -111,7 +129,7 @@ export function App() {
         {days.length === 0 ? (
           <div className="empty-state">No played matches match these filters yet.</div>
         ) : days.map((d) => (
-          <DaySection key={d.date} date={d.date} matches={d.matches}
+          <DaySection key={d.date} date={d.date} matches={d.matches} regionFilter={regionFilter}
             onOpen={(m, l, v) => setActive({ match: m, lang: l, variant: v })}
             onInternational={(m) => setLeave({ url: fifaUrl(m), site: 'fifa.com' })}
             onBBC={(m) => setLeave({ url: bbcUrl(m), site: 'BBC iPlayer', geo: 'UK' })} />

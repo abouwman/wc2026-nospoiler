@@ -1,23 +1,78 @@
 import type { LangCode, Match, Variant } from '../types';
 import { TEAMS } from '../data/teams';
-import { LANGS, LANG_ORDER } from '../data/languages';
 import { STAGE_LABELS, fmtDayShort, fmtKickoffLocal, isUpcoming, hasAnySource } from '../data/schedule';
 import { TeamPanel } from './TeamPanel';
 
+export type Region = 'US' | 'UK' | 'NL' | 'World';
+
 interface MatchCardProps {
   match: Match;
+  /** When set, only that region's sources are shown (World is always shown). */
+  regionFilter: Region | null;
   onOpen: (match: Match, lang: LangCode, variant: Variant) => void;
   onInternational: (match: Match) => void;
   onBBC: (match: Match) => void;
 }
 
-const VARIANTS: Variant[] = ['short', 'extended'];
+const REGION_TAG: Record<Region, string> = {
+  US: '🇺🇸 US only', UK: '🇬🇧 UK only', NL: '🇳🇱 NL only', World: '🌍 World',
+};
 
-function geoLabel(geo?: 'US' | 'NL'): string {
-  return geo === 'US' ? '🇺🇸 US only' : geo === 'NL' ? '🇳🇱 NL only' : '🌍 Worldwide';
+interface Src {
+  region: Region;
+  label: string;
+  variant?: string;
+  external?: boolean;
+  title: string;
+  onClick: () => void;
 }
 
-export function MatchCard({ match, onOpen, onInternational, onBBC }: MatchCardProps) {
+// Build a match's sources in the fixed display order: US → UK → NL → World.
+function sourcesOf(
+  match: Match,
+  onOpen: MatchCardProps['onOpen'],
+  onInternational: MatchCardProps['onInternational'],
+  onBBC: MatchCardProps['onBBC'],
+): Src[] {
+  const out: Src[] = [];
+  const en = match.videos.en;
+  if (en) {
+    (['short', 'extended'] as Variant[]).forEach((v) => {
+      if (en[v]) out.push({
+        region: 'US', label: 'Fox', variant: v === 'extended' ? 'Extended' : 'Short',
+        title: 'Watch Fox ' + (v === 'extended' ? 'extended' : 'short') + ' highlights — US only',
+        onClick: () => onOpen(match, 'en', v),
+      });
+    });
+  }
+  if (match.bbc) {
+    out.push({
+      region: 'UK', label: 'BBC iPlayer', external: true,
+      title: 'Watch on BBC iPlayer (UK only) — opens a heads-up first',
+      onClick: () => onBBC(match),
+    });
+  }
+  const nl = match.videos.nl;
+  if (nl) {
+    (['short', 'extended'] as Variant[]).forEach((v) => {
+      if (nl[v]) out.push({
+        region: 'NL', label: 'NOS Sport',
+        title: 'Watch the NOS Sport summary — Netherlands only',
+        onClick: () => onOpen(match, 'nl', v),
+      });
+    });
+  }
+  if (match.fifa) {
+    out.push({
+      region: 'World', label: 'International', external: true,
+      title: 'Watch on fifa.com (international) — opens a heads-up first',
+      onClick: () => onInternational(match),
+    });
+  }
+  return out;
+}
+
+export function MatchCard({ match, regionFilter, onOpen, onInternational, onBBC }: MatchCardProps) {
   const stageLabel = match.group ? 'Group ' + match.group : STAGE_LABELS[match.stage];
   const homeT = TEAMS[match.home];
   const awayT = TEAMS[match.away];
@@ -25,6 +80,19 @@ export function MatchCard({ match, onOpen, onInternational, onBBC }: MatchCardPr
   const available = hasAnySource(match);
   const comingSoon = !upcoming && !available;
   const when = match.kickoff ? fmtKickoffLocal(match.kickoff) : fmtDayShort(match.date);
+
+  const all = sourcesOf(match, onOpen, onInternational, onBBC);
+  // Apply the region filter. World (fifa.com) is always kept; selecting a
+  // region with no source still shows World plus an "other regions" note.
+  let shown = all;
+  let regionEmpty = false;
+  if (regionFilter === 'World') {
+    shown = all.filter((s) => s.region === 'World');
+  } else if (regionFilter) {
+    const regional = all.filter((s) => s.region === regionFilter);
+    regionEmpty = regional.length === 0;
+    shown = [...regional, ...all.filter((s) => s.region === 'World')];
+  }
 
   return (
     <div className={'card' + (upcoming ? ' upcoming' : available ? ' playable' : '')}>
@@ -53,43 +121,16 @@ export function MatchCard({ match, onOpen, onInternational, onBBC }: MatchCardPr
           </div>
         ) : (
           <div className="lang-row">
-            {LANG_ORDER.map((l) => {
-              const clips = match.videos[l];
-              const cuts = clips ? VARIANTS.filter((v) => clips[v]) : [];
-              return cuts.map((v) => {
-                const src = clips![v]!;
-                const variant = l === 'en' ? (v === 'extended' ? 'Extended highlights' : 'Short highlights') : 'Samenvatting';
-                const where = src.geo === 'US' ? 'the United States' : src.geo === 'NL' ? 'the Netherlands' : 'everywhere';
-                const title = 'Watch ' + LANGS[l].name + ' ' + (v === 'extended' ? 'extended ' : '') +
-                  'highlights — ' + LANGS[l].source + ' · available in ' + where;
-                return (
-                  <div key={l + ':' + v} className="src-item">
-                    <span className="src-geo">{geoLabel(src.geo)}</span>
-                    <button className="lang-btn" title={title} onClick={() => onOpen(match, l, v)}>
-                      <span className="lang-main">▶ {LANGS[l].name}<span className="variant">{variant}</span></span>
-                    </button>
-                  </div>
-                );
-              });
-            })}
-            {match.fifa ? (
-              <div className="src-item">
-                <span className="src-geo">🌍 Worldwide</span>
-                <button className="lang-btn intl" onClick={() => onInternational(match)}
-                  title="Watch this match on fifa.com (international) — opens a heads-up first">
-                  <span className="lang-main">▶ International<span className="variant">fifa.com ↗</span></span>
+            {regionEmpty ? <div className="region-note">Available in other regions</div> : null}
+            {shown.map((s, i) => (
+              <div key={s.region + ':' + i} className="src-item">
+                <span className="src-geo">{REGION_TAG[s.region]}</span>
+                <button className="lang-btn" title={s.title} onClick={s.onClick}>
+                  <span className="lang-main">{s.label}{s.variant ? <span className="variant">{s.variant}</span> : null}</span>
+                  {s.external ? <span className="ext-arrow">↗</span> : null}
                 </button>
               </div>
-            ) : null}
-            {match.bbc ? (
-              <div className="src-item">
-                <span className="src-geo">🇬🇧 UK only</span>
-                <button className="lang-btn bbc" onClick={() => onBBC(match)}
-                  title="Watch this match on BBC iPlayer (UK only) — opens a heads-up first">
-                  <span className="lang-main">▶ BBC iPlayer<span className="variant">bbc.co.uk ↗</span></span>
-                </button>
-              </div>
-            ) : null}
+            ))}
           </div>
         )}
       </div>
