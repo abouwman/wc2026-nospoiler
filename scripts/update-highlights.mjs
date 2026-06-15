@@ -205,16 +205,14 @@ function parseDutch(title) {
 }
 
 // fifa.com itself is JS-rendered and bot-blocks datacenter IPs (returns a tiny
-// shell), so we can't scrape the hub. Instead resolve the per-match fifa.com
-// watch id via DuckDuckGo's HTML endpoint (keyless), restricted to
 // fifa.com is JS-rendered and bot-blocks datacenter IPs, so we can't scrape it.
-// Resolve each match's official fifa.com/watch link via a search API instead.
+// Resolve each match's official fifa.com/watch id via a search API instead.
 // Configure ONE provider (Bing Search v7 is retired):
 //   - SERPAPI_KEY                       (serpapi.com)
 //   - GOOGLE_CSE_KEY + GOOGLE_CSE_CX    (Google Programmable Search JSON API)
 //   - BRAVE_API_KEY                     (Brave Search API)
-// Returns candidate result URLs from whichever provider is configured.
-async function searchResultLinks(query) {
+// Returns search results as { url, text } where text is title + snippet.
+async function searchResults(query) {
   const { SERPAPI_KEY, GOOGLE_CSE_KEY, GOOGLE_CSE_CX, BRAVE_API_KEY } = process.env;
   try {
     if (SERPAPI_KEY) {
@@ -222,31 +220,43 @@ async function searchResultLinks(query) {
       const r = await fetch(u);
       if (!r.ok) { console.warn(`serpapi ${r.status}`); return []; }
       const j = await r.json();
-      return (j.organic_results || []).map((x) => x.link).filter(Boolean);
+      return (j.organic_results || []).map((x) => ({ url: x.link, text: `${x.title || ''} ${x.snippet || ''}` })).filter((x) => x.url);
     }
     if (GOOGLE_CSE_KEY && GOOGLE_CSE_CX) {
       const u = 'https://www.googleapis.com/customsearch/v1?num=10&key=' + GOOGLE_CSE_KEY + '&cx=' + GOOGLE_CSE_CX + '&q=' + encodeURIComponent(query);
       const r = await fetch(u);
       if (!r.ok) { console.warn(`google cse ${r.status}`); return []; }
       const j = await r.json();
-      return (j.items || []).map((x) => x.link).filter(Boolean);
+      return (j.items || []).map((x) => ({ url: x.link, text: `${x.title || ''} ${x.snippet || ''}` })).filter((x) => x.url);
     }
     if (BRAVE_API_KEY) {
       const u = 'https://api.search.brave.com/res/v1/web/search?count=10&q=' + encodeURIComponent(query);
       const r = await fetch(u, { headers: { 'X-Subscription-Token': BRAVE_API_KEY, Accept: 'application/json' } });
       if (!r.ok) { console.warn(`brave ${r.status}`); return []; }
       const j = await r.json();
-      return (j.web?.results || []).map((x) => x.url).filter(Boolean);
+      return (j.web?.results || []).map((x) => ({ url: x.url, text: `${x.title || ''} ${x.description || ''}` })).filter((x) => x.url);
     }
   } catch (e) { console.warn('search provider failed:', e.message); }
   return [];
 }
 
-async function fifaWatchId(homeName, awayName) {
-  const links = await searchResultLinks(`${homeName} vs ${awayName} highlights site:fifa.com/en/watch`);
-  for (const link of links) {
-    const m = String(link).match(/fifa\.com\/en\/watch\/([A-Za-z0-9_-]{16,26})/i);
-    if (m) return m[1];
+// Older World Cup editions whose highlights must never be picked for WC 2026.
+const OLD_EDITION = /\b(2002|2006|2010|2014|2018|2022)\b|russia 2018|qatar 2022|brazil 2014|south africa 2010/i;
+
+// Resolve a match's fifa.com/watch id. homeNames/awayNames are the known name
+// variants for each team. A result only counts if its title/snippet mentions a
+// variant of BOTH teams and is not an older edition — this stops the search from
+// returning a 2018/2022 clip that merely shares one team name.
+async function fifaWatchId(homeNames, awayNames) {
+  const [home, away] = [homeNames[0], awayNames[0]];
+  const results = await searchResults(`${home} vs ${away} highlights site:fifa.com/en/watch`);
+  const mentions = (text, names) => names.some((n) => norm(text).includes(norm(n)));
+  for (const { url, text } of results) {
+    const m = String(url).match(/fifa\.com\/en\/watch\/([A-Za-z0-9_-]{16,26})/i);
+    if (!m) continue;
+    if (OLD_EDITION.test(text)) continue;
+    if (!mentions(text, homeNames) || !mentions(text, awayNames)) continue;
+    return m[1];
   }
   return null;
 }
@@ -319,8 +329,8 @@ async function main() {
     const hasVid = Object.values(match.videos).some((c) => c && (c.short || c.extended));
     const played = hasVid || (match.kickoff && new Date(match.kickoff).getTime() < nowMs);
     if (!played) continue;
-    const hn = TEAMS[match.home]?.en?.[0], an = TEAMS[match.away]?.en?.[0];
-    if (!hn || !an) continue;
+    const hn = TEAMS[match.home]?.en, an = TEAMS[match.away]?.en;
+    if (!hn?.length || !an?.length) continue;
     const id = await fifaWatchId(hn, an);
     if (id) { match.fifa = id; console.log(`fifa for ${match.id}: ${id}`); }
   }
