@@ -1,5 +1,465 @@
 [
   {
+    "id": "m-jor-arg",
+    "stage": "group",
+    "date": "2026-06-28",
+    "home": "JOR",
+    "away": "ARG",
+    "videos": {},
+    "kickoff": "2026-06-28T02:00:00Z",
+    "group": "J"
+  },
+  {
+    "id": "m-alg-aut",
+    "stage": "group",
+    "date": "2026-06-28",
+    "home": "ALG",
+    "away": "AUT",
+    "videos": {},
+    "kickoff": "2026-06-28T02:00:00Z",
+    "group": "J"
+  },
+  {
+    "id": "m-uru-esp",
+    "stage": "group",
+    "date": "2026-06-27",
+    "home": "URU",
+    "away": "ESP",
+    "videos": {},
+    "kickoff": "2026-06-27T00:00:00Z",
+    "group": "H"
+  },
+  {
+    "id": "m-egy-irn",
+    "stage": "group",
+    "date": "2026-06-27",
+    "home": "EGY",
+    "away": "IRN",
+    "videos": {},
+    "kickoff": "2026-06-27T03:00:00Z",
+    "group": "G"
+  },
+  {
+    "id": "m-pan-eng",
+    "stage": "group",
+    "date": "2026-06-27",
+    "home": "PAN",
+    "away": "ENG",
+    "videos": {},
+    "kickoff": "2026-06-27T21:00:00Z",
+    "group": "L"
+  },
+  {
+    "id": "m-cro-gha",
+    "stage": "group",
+    "date": "2026-06-27",
+    "home": "CRO",
+    "away": "GHA",
+    "videos": {},
+    "kickoff": "2026-06-27T21:00:00Z",
+    "group": "L"
+  },
+  {
+    "id": "m-col-por",
+    "stage": "group",
+    "date": "2026-06-27",
+    "home": "COL",
+    "away": "POR",
+    "videos": {},
+    "kickoff": "2026-06-27T23:30:00Z",
+    "group": "K"
+  },
+  {
+    "id": "m-tur-usa",
+    "stage": "group",
+    "date": "2026-06-26",
+    "home": "TUR",
+    "away": "USA",
+    "videos": {},
+    "kickoff": "2026-06-26T02:00:00Z",
+    "group": "D"
+  },
+  {
+    "id": "m-par-aus",
+    "stage": "group",
+    "date": "2026-06-26",
+    "home": "PAR",
+    "away": "AUS",
+    "videos": {},
+    "kickoff": "2026-06-26T02:00:00Z",
+    "group": "D"
+  },
+  {
+    "id": "m-nor-fra",
+    "stage": "group",
+    "date": "2026-06-26",
+    "home": "NOR",
+    "away": "FRA",
+    "videos": {},
+    "kickoff": "2026-06-26T19:00:00Z",
+    "group": "I"
+  },
+  {
+    "id": "m-cze-mex",
+    "stage": "group",
+    "date": "2026-06-25",
+    "home": "CZE",
+    "away": "MEX",
+    "videos": {},
+    "kickoff": "2026-06-25T01:00:00Z",
+    "group": "A"
+  },
+  {
+    "id": "m-rsa-kor",
+    "stage": "group",
+    "date": "2026-06-25",
+    "home": "RSA",
+    "away": "KOR",
+    "videos": {},
+    "kickoff": "2026-06-25T01:00:00Z",
+    "group": "A"
+  },
+  {
+    "id": "m-ecu-ger",
+    "stage": "group",
+    "date": "2026-06-25",
+    "home": "ECU",
+    "away": "GER",
+    "videos": {},
+    "kickoff": "2026-06-25T20:00:00Z",
+    "group": "E"
+  },
+  {
+    "id": "m-cuw-civ",
+    "stage": "group",
+    "date": "2026-06-25",
+    "home": "CUW",
+    "away": "CIV",
+    "videos": {},
+    "kickoff": "2026-06-25T20:00:00Z",
+    "group": "E"
+  },
+  {
+    "id": "m-tun-ned",
+    "stage": "group",
+    "date": "2026-06-25",
+    "home": "TUN",
+    "away": "NED",
+    "videos": {},
+    "kickoff": "2026-06-25T23:00:00Z",
+    "group": "F"
+  },
+  {
+    "id": "m-sui-can",
+    "stage": "group",
+    "date": "2026-06-24",
+    "home": "SUI",
+    "away": "CAN",
+    "videos": {},
+    "kickoff": "2026-06-24T19:00:00Z",
+    "group": "B"
+  },
+  {
+    "id": "m-bih-qat",
+    "stage": "group",
+    "date": "2026-06-24",
+    "home": "BIH",
+    "away": "QAT",
+    "videos": {},
+    "kickoff": "2026-06-24T19:00:00Z",
+    "group": "B"
+  },
+  {
+    "id": "m-mar-hai",
+    "stage": "group",
+    "date": "2026-06-24",
+    "home": "MAR",
+    "away": "HAI",
+    "videos": {},
+    "kickoff": "2026-06-24T22:00:00Z",
+    "group": "C"
+  },
+  {
+    "id": "m-sco-bra",
+    "stage": "group",
+    "date": "2026-06-24",
+    "home": "SCO",
+    "away": "BRA",
+    "videos": {},
+    "kickoff": "2026-06-24T22:00:00Z",
+    "group": "C"
+  },
+  {
+    "id": "m-nor-sen",
+    "stage": "group",
+    "date": "2026-06-23",
+    "home": "NOR",
+    "away": "SEN",
+    "videos": {},
+    "kickoff": "2026-06-23T00:00:00Z",
+    "group": "I"
+  },
+  {
+    "id": "m-jor-alg",
+    "stage": "group",
+    "date": "2026-06-23",
+    "home": "JOR",
+    "away": "ALG",
+    "videos": {},
+    "kickoff": "2026-06-23T03:00:00Z",
+    "group": "J"
+  },
+  {
+    "id": "m-por-uzb",
+    "stage": "group",
+    "date": "2026-06-23",
+    "home": "POR",
+    "away": "UZB",
+    "videos": {},
+    "kickoff": "2026-06-23T17:00:00Z",
+    "group": "K"
+  },
+  {
+    "id": "m-eng-gha",
+    "stage": "group",
+    "date": "2026-06-23",
+    "home": "ENG",
+    "away": "GHA",
+    "videos": {},
+    "kickoff": "2026-06-23T20:00:00Z",
+    "group": "L"
+  },
+  {
+    "id": "m-pan-cro",
+    "stage": "group",
+    "date": "2026-06-23",
+    "home": "PAN",
+    "away": "CRO",
+    "videos": {},
+    "kickoff": "2026-06-23T23:00:00Z",
+    "group": "L"
+  },
+  {
+    "id": "m-nzl-egy",
+    "stage": "group",
+    "date": "2026-06-22",
+    "home": "NZL",
+    "away": "EGY",
+    "videos": {},
+    "kickoff": "2026-06-22T01:00:00Z",
+    "group": "G"
+  },
+  {
+    "id": "m-arg-aut",
+    "stage": "group",
+    "date": "2026-06-22",
+    "home": "ARG",
+    "away": "AUT",
+    "videos": {},
+    "kickoff": "2026-06-22T17:00:00Z",
+    "group": "J"
+  },
+  {
+    "id": "m-ecu-cuw",
+    "stage": "group",
+    "date": "2026-06-21",
+    "home": "ECU",
+    "away": "CUW",
+    "videos": {},
+    "kickoff": "2026-06-21T00:00:00Z",
+    "group": "E"
+  },
+  {
+    "id": "m-tun-jpn",
+    "stage": "group",
+    "date": "2026-06-21",
+    "home": "TUN",
+    "away": "JPN",
+    "videos": {},
+    "kickoff": "2026-06-21T04:00:00Z",
+    "group": "F"
+  },
+  {
+    "id": "m-esp-ksa",
+    "stage": "group",
+    "date": "2026-06-21",
+    "home": "ESP",
+    "away": "KSA",
+    "videos": {},
+    "kickoff": "2026-06-21T16:00:00Z",
+    "group": "H"
+  },
+  {
+    "id": "m-bra-hai",
+    "stage": "group",
+    "date": "2026-06-20",
+    "home": "BRA",
+    "away": "HAI",
+    "videos": {},
+    "kickoff": "2026-06-20T00:30:00Z",
+    "group": "C"
+  },
+  {
+    "id": "m-tur-par",
+    "stage": "group",
+    "date": "2026-06-20",
+    "home": "TUR",
+    "away": "PAR",
+    "videos": {},
+    "kickoff": "2026-06-20T03:00:00Z",
+    "group": "D"
+  },
+  {
+    "id": "m-ger-civ",
+    "stage": "group",
+    "date": "2026-06-20",
+    "home": "GER",
+    "away": "CIV",
+    "videos": {},
+    "kickoff": "2026-06-20T20:00:00Z",
+    "group": "E"
+  },
+  {
+    "id": "m-mex-kor",
+    "stage": "group",
+    "date": "2026-06-19",
+    "home": "MEX",
+    "away": "KOR",
+    "videos": {},
+    "kickoff": "2026-06-19T01:00:00Z",
+    "group": "A"
+  },
+  {
+    "id": "m-usa-aus",
+    "stage": "group",
+    "date": "2026-06-19",
+    "home": "USA",
+    "away": "AUS",
+    "videos": {},
+    "kickoff": "2026-06-19T19:00:00Z",
+    "group": "D"
+  },
+  {
+    "id": "m-sco-mar",
+    "stage": "group",
+    "date": "2026-06-19",
+    "home": "SCO",
+    "away": "MAR",
+    "videos": {},
+    "kickoff": "2026-06-19T22:00:00Z",
+    "group": "C"
+  },
+  {
+    "id": "m-uzb-col",
+    "stage": "group",
+    "date": "2026-06-18",
+    "home": "UZB",
+    "away": "COL",
+    "videos": {},
+    "kickoff": "2026-06-18T02:00:00Z",
+    "group": "K"
+  },
+  {
+    "id": "m-cze-rsa",
+    "stage": "group",
+    "date": "2026-06-18",
+    "home": "CZE",
+    "away": "RSA",
+    "videos": {},
+    "kickoff": "2026-06-18T16:00:00Z",
+    "group": "A"
+  },
+  {
+    "id": "m-sui-bih",
+    "stage": "group",
+    "date": "2026-06-18",
+    "home": "SUI",
+    "away": "BIH",
+    "videos": {},
+    "kickoff": "2026-06-18T19:00:00Z",
+    "group": "B"
+  },
+  {
+    "id": "m-can-qat",
+    "stage": "group",
+    "date": "2026-06-18",
+    "home": "CAN",
+    "away": "QAT",
+    "videos": {},
+    "kickoff": "2026-06-18T22:00:00Z",
+    "group": "B"
+  },
+  {
+    "id": "m-arg-alg",
+    "stage": "group",
+    "date": "2026-06-17",
+    "home": "ARG",
+    "away": "ALG",
+    "videos": {},
+    "kickoff": "2026-06-17T01:00:00Z",
+    "group": "J"
+  },
+  {
+    "id": "m-aut-jor",
+    "stage": "group",
+    "date": "2026-06-17",
+    "home": "AUT",
+    "away": "JOR",
+    "videos": {},
+    "kickoff": "2026-06-17T04:00:00Z",
+    "group": "J"
+  },
+  {
+    "id": "m-eng-cro",
+    "stage": "group",
+    "date": "2026-06-17",
+    "home": "ENG",
+    "away": "CRO",
+    "videos": {},
+    "kickoff": "2026-06-17T20:00:00Z",
+    "group": "L"
+  },
+  {
+    "id": "m-gha-pan",
+    "stage": "group",
+    "date": "2026-06-17",
+    "home": "GHA",
+    "away": "PAN",
+    "videos": {},
+    "kickoff": "2026-06-17T23:00:00Z",
+    "group": "L"
+  },
+  {
+    "id": "m-irn-nzl",
+    "stage": "group",
+    "date": "2026-06-16",
+    "home": "IRN",
+    "away": "NZL",
+    "videos": {},
+    "kickoff": "2026-06-16T01:00:00Z",
+    "group": "G"
+  },
+  {
+    "id": "m-fra-sen",
+    "stage": "group",
+    "date": "2026-06-16",
+    "home": "FRA",
+    "away": "SEN",
+    "videos": {},
+    "kickoff": "2026-06-16T19:00:00Z",
+    "group": "I"
+  },
+  {
+    "id": "m-ksa-uru",
+    "stage": "group",
+    "date": "2026-06-15",
+    "home": "KSA",
+    "away": "URU",
+    "videos": {},
+    "kickoff": "2026-06-15T22:00:00Z",
+    "group": "H"
+  },
+  {
     "id": "m-civ-ecu",
     "stage": "group",
     "group": "E",
@@ -269,6 +729,36 @@
     "bbc": "m002y30f"
   },
   {
+    "id": "m-kor-cze",
+    "stage": "group",
+    "group": "A",
+    "date": "2026-06-12",
+    "kickoff": "2026-06-12T02:00:00Z",
+    "home": "KOR",
+    "away": "CZE",
+    "venue": "Estadio Akron · Guadalajara",
+    "videos": {
+      "en": {
+        "short": {
+          "id": "QWoDfCkh7f8",
+          "geo": "US"
+        },
+        "extended": {
+          "id": "6k18EJY8zIc",
+          "geo": "US"
+        }
+      },
+      "nl": {
+        "short": {
+          "id": "84RGrVxrRF4",
+          "geo": "NL"
+        }
+      }
+    },
+    "fifa": "1iidGe97khg8lmdSRopdh4",
+    "bbc": "m002y2zx"
+  },
+  {
     "id": "m-mex-rsa",
     "stage": "group",
     "group": "A",
@@ -297,35 +787,5 @@
     },
     "fifa": "7wv3jFr0T2wczSuQbhgrSW",
     "bbc": "m002y2z0"
-  },
-  {
-    "id": "m-kor-cze",
-    "stage": "group",
-    "group": "A",
-    "date": "2026-06-11",
-    "kickoff": "2026-06-12T02:00:00Z",
-    "home": "KOR",
-    "away": "CZE",
-    "venue": "Estadio Akron · Guadalajara",
-    "videos": {
-      "en": {
-        "short": {
-          "id": "QWoDfCkh7f8",
-          "geo": "US"
-        },
-        "extended": {
-          "id": "6k18EJY8zIc",
-          "geo": "US"
-        }
-      },
-      "nl": {
-        "short": {
-          "id": "84RGrVxrRF4",
-          "geo": "NL"
-        }
-      }
-    },
-    "fifa": "1iidGe97khg8lmdSRopdh4",
-    "bbc": "m002y2zx"
   }
 ]
