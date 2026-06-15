@@ -7,7 +7,8 @@
     "kickoff": "2026-06-14T23:00:00Z",
     "home": "CIV",
     "away": "ECU",
-    "videos": {}
+    "videos": {},
+    "fifa": "2CKN465NbbTuFcXLb6sSeQ"
   },
   {
     "id": "m-ned-jpn",
@@ -27,6 +28,12 @@
         "short": {
           "id": "m7sQP_AZ5vM",
           "geo": "US"
+        }
+      },
+      "nl": {
+        "short": {
+          "id": "Sr6urU4gC3I",
+          "geo": "NL"
         }
       }
     },
