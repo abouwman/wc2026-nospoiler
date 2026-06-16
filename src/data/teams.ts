@@ -3,7 +3,12 @@ import type { Team } from '../types';
 // Team reference data — flags and [base, slash] panel colours drawn from each
 // flag/kit. Fixtures and results live in data/schedule.ts (real, played-only).
 
-export const TEAMS: Record<string, Team> = {
+// A new World Cup team can appear in the generated data before it's added
+// here. Rather than crash the whole app (TEAMS[code].name on undefined blanks
+// the page), fall back to a neutral placeholder so the match still renders.
+const fallbackTeam = (code: string): Team => ({ name: code, flag: '🏳️', colors: ['#555770', '#3a3c4e'] });
+
+const RAW_TEAMS: Record<string, Team> = {
   MEX: { name: 'Mexico', flag: '🇲🇽', colors: ['#006847', '#CE1126'] },
   KOR: { name: 'South Korea', flag: '🇰🇷', colors: ['#0047A0', '#CD2E3A'] },
   POL: { name: 'Poland', flag: '🇵🇱', colors: ['#D4213D', '#8F1226'] },
@@ -59,3 +64,10 @@ export const TEAMS: Record<string, Team> = {
   BEL: { name: 'Belgium', flag: '🇧🇪', colors: ['#1A1A1A', '#EF3340'] },
   CPV: { name: 'Cape Verde', flag: '🇨🇻', colors: ['#003893', '#CF2027'] },
 };
+
+export const TEAMS: Record<string, Team> = new Proxy(RAW_TEAMS, {
+  get: (target, prop) => {
+    if (typeof prop !== 'string' || prop in target) return (target as Record<string | symbol, unknown>)[prop as string];
+    return fallbackTeam(prop);
+  },
+});

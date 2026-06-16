@@ -106,6 +106,17 @@ const TEAMS = {
 
 const norm = (s) => s.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().replace(/\s+/g, ' ').trim();
 
+// Punctuation/diacritic-insensitive form for name matching, e.g.
+// "Côte d'Ivoire" -> "cote d ivoire", "Saoedi-Arabië" / "Saoedi Arabië" ->
+// "saoedi arabie". Collapsing hyphens, spaces, apostrophes and accents to a
+// single canonical form means alternate spellings/separators still match.
+const matchNorm = (s) => norm(s).replace(/[^a-z0-9]+/g, ' ').trim();
+// True when `needle` (a name) appears as a whole word-sequence in `haystack`.
+const containsName = (haystack, needle) => {
+  const h = matchNorm(haystack), k = matchNorm(needle);
+  return k.length > 0 && new RegExp(`(?:^| )${k.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}(?: |$)`).test(h);
+};
+
 const EN_TO_CODE = new Map();
 for (const [code, m] of Object.entries(TEAMS)) for (const a of m.en) EN_TO_CODE.set(norm(a), code);
 
@@ -180,8 +191,10 @@ function parseEnglish(title) {
 }
 
 // --- Dutch (NOS Sport) title parsing ---------------------------------------
+// Keys are matchNorm-ed so hyphen/space/accent variants (e.g. "Saoedi-Arabië"
+// vs "Saoedi Arabië") all collapse to the same lookup form.
 const NL_TO_CODE = new Map();
-for (const [code, t] of Object.entries(TEAMS)) if (t.nl) NL_TO_CODE.set(norm(t.nl), code);
+for (const [code, t] of Object.entries(TEAMS)) if (t.nl) NL_TO_CODE.set(matchNorm(t.nl), code);
 const NL_ALIASES = {
   TUR: ['turkije', 'turkiye'],
   BIH: ['bosnie en herzegovina', 'bosnie-herzegovina', 'bosnie'],
@@ -190,15 +203,19 @@ const NL_ALIASES = {
   RSA: ['zuid-afrika'],
   CIV: ['ivoorkust'],
   CZE: ['tsjechie'],
+  KSA: ['saudi-arabie', 'saudi arabie'],
 };
 
 function codeFromDutch(name) {
-  const n = norm(name);
+  const n = matchNorm(name);
   if (NL_TO_CODE.has(n)) return NL_TO_CODE.get(n);
+  // Match the longest known name that appears as a whole word-sequence. Using
+  // containsName (punctuation/accent-insensitive) instead of a raw substring
+  // means "Saoedi Arabië" still resolves even though the alias has a hyphen.
   let best = null, len = 0;
-  for (const [alias, code] of NL_TO_CODE) if (n.includes(alias) && alias.length > len) { best = code; len = alias.length; }
+  for (const [alias, code] of NL_TO_CODE) if (containsName(n, alias) && alias.length > len) { best = code; len = alias.length; }
   for (const [code, aliases] of Object.entries(NL_ALIASES))
-    for (const a of aliases) { const na = norm(a); if (n.includes(na) && na.length > len) { best = code; len = na.length; } }
+    for (const a of aliases) { const na = matchNorm(a); if (containsName(n, na) && na.length > len) { best = code; len = na.length; } }
   return best;
 }
 
@@ -258,17 +275,7 @@ const OLD_EDITION = /\b(2002|2006|2010|2014|2018|2022)\b|russia 2018|qatar 2022|
 // fifa.com serves watch pages as both /en/watch/<id> and /fifaplus/en/watch/<id>.
 const WATCH_URL = /fifa\.com\/(?:fifaplus\/)?en\/watch\/([A-Za-z0-9_-]{16,26})/i;
 
-// Punctuation/diacritic-insensitive form for name matching, e.g.
-// "Côte d'Ivoire" -> "cote d ivoire", "Curaçao" -> "curacao". Without this the
-// apostrophe/accent caused legitimate results to be rejected.
-const matchNorm = (s) => norm(s).replace(/[^a-z0-9]+/g, ' ').trim();
-const mentions = (text, names) => {
-  const t = matchNorm(text);
-  return names.some((n) => {
-    const k = matchNorm(n);
-    return k.length > 0 && new RegExp(`\\b${k.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\b`).test(t);
-  });
-};
+const mentions = (text, names) => names.some((n) => containsName(text, n));
 
 // Resolve a match's fifa.com/watch id. homeNames/awayNames are the known name
 // variants for each team. A result only counts if its title/snippet mentions a
