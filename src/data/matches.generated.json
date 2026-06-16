@@ -90,6 +90,16 @@
     "group": "G"
   },
   {
+    "id": "m-cod-uzb",
+    "stage": "group",
+    "date": "2026-06-27",
+    "home": "COD",
+    "away": "UZB",
+    "videos": {},
+    "kickoff": "2026-06-27T23:30:00Z",
+    "group": "K"
+  },
+  {
     "id": "m-tur-usa",
     "stage": "group",
     "date": "2026-06-26",
@@ -115,6 +125,16 @@
     "date": "2026-06-26",
     "home": "NOR",
     "away": "FRA",
+    "videos": {},
+    "kickoff": "2026-06-26T19:00:00Z",
+    "group": "I"
+  },
+  {
+    "id": "m-sen-irq",
+    "stage": "group",
+    "date": "2026-06-26",
+    "home": "SEN",
+    "away": "IRQ",
     "videos": {},
     "kickoff": "2026-06-26T19:00:00Z",
     "group": "I"
@@ -220,6 +240,16 @@
     "group": "C"
   },
   {
+    "id": "m-col-cod",
+    "stage": "group",
+    "date": "2026-06-24",
+    "home": "COL",
+    "away": "COD",
+    "videos": {},
+    "kickoff": "2026-06-24T02:00:00Z",
+    "group": "K"
+  },
+  {
     "id": "m-nor-sen",
     "stage": "group",
     "date": "2026-06-23",
@@ -288,6 +318,16 @@
     "videos": {},
     "kickoff": "2026-06-22T17:00:00Z",
     "group": "J"
+  },
+  {
+    "id": "m-fra-irq",
+    "stage": "group",
+    "date": "2026-06-22",
+    "home": "FRA",
+    "away": "IRQ",
+    "videos": {},
+    "kickoff": "2026-06-22T21:00:00Z",
+    "group": "I"
   },
   {
     "id": "m-ecu-cuw",
@@ -490,6 +530,16 @@
     "group": "L"
   },
   {
+    "id": "m-por-cod",
+    "stage": "group",
+    "date": "2026-06-17",
+    "home": "POR",
+    "away": "COD",
+    "videos": {},
+    "kickoff": "2026-06-17T17:00:00Z",
+    "group": "K"
+  },
+  {
     "id": "m-irn-nzl",
     "stage": "group",
     "date": "2026-06-16",
@@ -522,6 +572,16 @@
     "away": "SEN",
     "videos": {},
     "kickoff": "2026-06-16T19:00:00Z",
+    "group": "I"
+  },
+  {
+    "id": "m-irq-nor",
+    "stage": "group",
+    "date": "2026-06-16",
+    "home": "IRQ",
+    "away": "NOR",
+    "videos": {},
+    "kickoff": "2026-06-16T22:00:00Z",
     "group": "I"
   },
   {
