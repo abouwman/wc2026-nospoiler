@@ -435,9 +435,24 @@
     "date": "2026-06-16",
     "home": "IRN",
     "away": "NZL",
-    "videos": {},
+    "videos": {
+      "en": {
+        "extended": {
+          "id": "UZ_7qFbFYRY",
+          "geo": "US"
+        }
+      },
+      "nl": {
+        "short": {
+          "id": "XxxI-Ixs98k",
+          "geo": "NL"
+        }
+      }
+    },
     "kickoff": "2026-06-16T01:00:00Z",
-    "group": "G"
+    "group": "G",
+    "fifa": "5c6T3T7Y1XfKrT3aXzJRqL",
+    "bbc": "m002y37t"
   },
   {
     "id": "m-fra-sen",
@@ -455,9 +470,18 @@
     "date": "2026-06-15",
     "home": "KSA",
     "away": "URU",
-    "videos": {},
+    "videos": {
+      "en": {
+        "extended": {
+          "id": "Tz9R1OYdTSs",
+          "geo": "US"
+        }
+      }
+    },
     "kickoff": "2026-06-15T22:00:00Z",
-    "group": "H"
+    "group": "H",
+    "fifa": "2OO54UvFW7GK8vnsarneGk",
+    "bbc": "m002y37s"
   },
   {
     "id": "m-civ-ecu",
