@@ -99,6 +99,9 @@ const TEAMS = {
   CZE: { en: ['czechia', 'czech republic'], nl: 'Tsjechië' },
   BIH: { en: ['bosnia and herzegovina', 'bosnia & herzegovina', 'bosnia'], nl: 'Bosnië en Herzegovina' },
   HAI: { en: ['haiti'], nl: 'Haïti' },
+  SWE: { en: ['sweden'], nl: 'Zweden' },
+  BEL: { en: ['belgium'], nl: 'België' },
+  CPV: { en: ['cape verde', 'cabo verde', 'cape verde islands'], nl: 'Kaapverdië' },
 };
 
 const norm = (s) => s.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().replace(/\s+/g, ' ').trim();
