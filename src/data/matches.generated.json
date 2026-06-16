@@ -536,6 +536,12 @@
           "id": "Tz9R1OYdTSs",
           "geo": "US"
         }
+      },
+      "nl": {
+        "short": {
+          "id": "dkVBsCDVIWs",
+          "geo": "NL"
+        }
       }
     },
     "kickoff": "2026-06-15T22:00:00Z",
