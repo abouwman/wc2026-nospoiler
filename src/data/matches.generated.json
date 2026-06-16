@@ -70,6 +70,26 @@
     "group": "K"
   },
   {
+    "id": "m-cpv-ksa",
+    "stage": "group",
+    "date": "2026-06-27",
+    "home": "CPV",
+    "away": "KSA",
+    "videos": {},
+    "kickoff": "2026-06-27T00:00:00Z",
+    "group": "H"
+  },
+  {
+    "id": "m-nzl-bel",
+    "stage": "group",
+    "date": "2026-06-27",
+    "home": "NZL",
+    "away": "BEL",
+    "videos": {},
+    "kickoff": "2026-06-27T03:00:00Z",
+    "group": "G"
+  },
+  {
     "id": "m-tur-usa",
     "stage": "group",
     "date": "2026-06-26",
@@ -145,6 +165,16 @@
     "date": "2026-06-25",
     "home": "TUN",
     "away": "NED",
+    "videos": {},
+    "kickoff": "2026-06-25T23:00:00Z",
+    "group": "F"
+  },
+  {
+    "id": "m-jpn-swe",
+    "stage": "group",
+    "date": "2026-06-25",
+    "home": "JPN",
+    "away": "SWE",
     "videos": {},
     "kickoff": "2026-06-25T23:00:00Z",
     "group": "F"
@@ -290,6 +320,26 @@
     "group": "H"
   },
   {
+    "id": "m-bel-irn",
+    "stage": "group",
+    "date": "2026-06-21",
+    "home": "BEL",
+    "away": "IRN",
+    "videos": {},
+    "kickoff": "2026-06-21T19:00:00Z",
+    "group": "G"
+  },
+  {
+    "id": "m-uru-cpv",
+    "stage": "group",
+    "date": "2026-06-21",
+    "home": "URU",
+    "away": "CPV",
+    "videos": {},
+    "kickoff": "2026-06-21T22:00:00Z",
+    "group": "H"
+  },
+  {
     "id": "m-bra-hai",
     "stage": "group",
     "date": "2026-06-20",
@@ -318,6 +368,16 @@
     "videos": {},
     "kickoff": "2026-06-20T20:00:00Z",
     "group": "E"
+  },
+  {
+    "id": "m-ned-swe",
+    "stage": "group",
+    "date": "2026-06-20",
+    "home": "NED",
+    "away": "SWE",
+    "videos": {},
+    "kickoff": "2026-06-20T17:00:00Z",
+    "group": "F"
   },
   {
     "id": "m-mex-kor",
@@ -482,6 +542,93 @@
     "group": "H",
     "fifa": "2OO54UvFW7GK8vnsarneGk",
     "bbc": "m002y37s"
+  },
+  {
+    "id": "m-swe-tun",
+    "stage": "group",
+    "date": "2026-06-15",
+    "home": "SWE",
+    "away": "TUN",
+    "videos": {
+      "en": {
+        "extended": {
+          "id": "F47z0suCV7Y",
+          "geo": "US"
+        },
+        "short": {
+          "id": "MWsgrEPIni4",
+          "geo": "US"
+        }
+      },
+      "nl": {
+        "short": {
+          "id": "avSY7t0cHTs",
+          "geo": "NL"
+        }
+      }
+    },
+    "kickoff": "2026-06-15T02:00:00Z",
+    "group": "F",
+    "fifa": "1xJ82g9ocfLQaweWUFgFMw",
+    "bbc": "m002y35n"
+  },
+  {
+    "id": "m-esp-cpv",
+    "stage": "group",
+    "date": "2026-06-15",
+    "home": "ESP",
+    "away": "CPV",
+    "videos": {
+      "en": {
+        "extended": {
+          "id": "wzKYVElYRrw",
+          "geo": "US"
+        },
+        "short": {
+          "id": "YnWF8IMcqgg",
+          "geo": "US"
+        }
+      },
+      "nl": {
+        "short": {
+          "id": "OkTXVoDYkSs",
+          "geo": "NL"
+        }
+      }
+    },
+    "kickoff": "2026-06-15T16:00:00Z",
+    "group": "H",
+    "fifa": "jLS5YXPMr0XAd5lMHtbiJ",
+    "bbc": "m002y37p"
+  },
+  {
+    "id": "m-bel-egy",
+    "stage": "group",
+    "date": "2026-06-15",
+    "home": "BEL",
+    "away": "EGY",
+    "videos": {
+      "en": {
+        "extended": {
+          "id": "gQOgcN7_IZE",
+          "geo": "US"
+        },
+        "short": {
+          "id": "o_3t0d8x9JY",
+          "geo": "US"
+        }
+      },
+      "nl": {
+        "short": {
+          "id": "_q4NML8deuI",
+          "geo": "NL"
+        }
+      }
+    },
+    "kickoff": "2026-06-15T19:00:00Z",
+    "group": "G",
+    "fifa": "2XSqobMgEwKFuhEozWztJl",
+    "bbc": "m002y37m"
   },
   {
     "id": "m-civ-ecu",
