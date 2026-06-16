@@ -67,6 +67,7 @@ const TEAMS = {
   BRA: { en: ['brazil'], nl: 'Brazilië' },
   TUR: { en: ['türkiye', 'turkiye', 'turkey'], nl: 'Turkije' },
   IRN: { en: ['iran', 'ir iran'], nl: 'Iran' },
+  IRQ: { en: ['iraq'], nl: 'Irak' },
   SCO: { en: ['scotland'], nl: 'Schotland' },
   FRA: { en: ['france'], nl: 'Frankrijk' },
   COL: { en: ['colombia'], nl: 'Colombia' },
@@ -335,8 +336,27 @@ function bbcEpisodeId(episodes, homeNames, awayNames) {
 }
 
 // --- Fixtures (football-data.org) ------------------------------------------
-// Returns [{ home, away, stage, group, kickoff, date }] for matches whose two
-// teams are both known; TBD knockout slots (null team names) are skipped.
+// Resolve an API team to a code. Known names map to our curated codes (which
+// carry nice flags/colours in the frontend); an unknown team falls back to the
+// API's own three-letter code (tla) and is registered on the fly, so its
+// fixture is NEVER dropped and English/FIFA/BBC highlight matching still works.
+// Returns null only for genuine TBD slots (no real team name yet).
+function resolveTeamCode(team) {
+  const name = (team?.name || '').trim();
+  if (!name || /^(to be|tbd|winner|runner|loser|group [a-l]\b)/i.test(name)) return null;
+  const known = codeFromEnglish(name);
+  if (known) return known;
+  let code = String(team.tla || '').toUpperCase();
+  if (!/^[A-Z]{3}$/.test(code)) code = norm(name).replace(/[^a-z]/g, '').slice(0, 3).toUpperCase().padEnd(3, 'X');
+  if (!TEAMS[code]) TEAMS[code] = { en: [name], nl: null };
+  else if (!TEAMS[code].en.some((a) => norm(a) === norm(name))) TEAMS[code].en.push(name);
+  EN_TO_CODE.set(norm(name), code);
+  console.log(`registered new team from API: ${code} = ${name}`);
+  return code;
+}
+
+// Returns [{ home, away, stage, group, kickoff, date }] for every WC match with
+// two real teams; only true TBD knockout slots are skipped.
 async function fetchFixtures() {
   if (!FD_TOKEN) { console.log('no FOOTBALL_DATA_TOKEN — skipping fixtures'); return []; }
   const url = `https://api.football-data.org/v4/competitions/${FD_COMP}/matches`;
@@ -348,8 +368,8 @@ async function fetchFixtures() {
   } catch (e) { console.warn('football-data failed:', e.message); return []; }
   const out = [];
   for (const m of data.matches || []) {
-    const home = codeFromEnglish(m.homeTeam?.name || '');
-    const away = codeFromEnglish(m.awayTeam?.name || '');
+    const home = resolveTeamCode(m.homeTeam);
+    const away = resolveTeamCode(m.awayTeam);
     if (!home || !away || home === away) continue;
     const group = (String(m.group || '').match(/([A-L])\b/) || [])[1];
     out.push({

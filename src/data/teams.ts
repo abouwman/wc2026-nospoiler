@@ -28,6 +28,7 @@ const RAW_TEAMS: Record<string, Team> = {
   BRA: { name: 'Brazil', flag: '🇧🇷', colors: ['#009739', '#FEDD00'] },
   TUR: { name: 'Türkiye', flag: '🇹🇷', colors: ['#E30A17', '#9E060F'] },
   IRN: { name: 'Iran', flag: '🇮🇷', colors: ['#239F40', '#DA0000'] },
+  IRQ: { name: 'Iraq', flag: '🇮🇶', colors: ['#CE1126', '#007A3D'] },
   SCO: { name: 'Scotland', flag: '🏴󠁧󠁢󠁳󠁣󠁴󠁿', colors: ['#005EB8', '#003A73'] },
   FRA: { name: 'France', flag: '🇫🇷', colors: ['#002395', '#ED2939'] },
   COL: { name: 'Colombia', flag: '🇨🇴', colors: ['#003893', '#FCD116'] },

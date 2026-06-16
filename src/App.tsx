@@ -88,7 +88,16 @@ export function App() {
         <div className="header-inner">
           <div className="wordmark">
             <span className="mark display">Hold<span className="accent">The</span>Score</span>
-            <span className="sub mono">holdthescore.com · World Cup 2026 · Spoiler-free highlights</span>
+            <span className="sub mono">World Cup 2026 · Spoiler-free highlights</span>
+          </div>
+          <div className="region-filter" role="group" aria-label="Filter by region / language">
+            {REGIONS.map((r) => (
+              <button key={r.code} type="button" title={r.label} aria-pressed={regionFilter === r.code}
+                className={'region-flag' + (regionFilter === r.code ? ' on' : '')}
+                onClick={() => setRegionFilter(regionFilter === r.code ? null : r.code)}>
+                <span aria-hidden="true">{r.flag}</span>
+              </button>
+            ))}
           </div>
           <div className="seg">
             <button className={mode === 'light' ? 'on' : ''} onClick={() => setMode('light')}>Light</button>
@@ -110,15 +119,6 @@ export function App() {
             </div>
           ) : null}
           <div className="filters">
-            <div className="region-filter" role="group" aria-label="Filter by region">
-              {REGIONS.map((r) => (
-                <button key={r.code} type="button" title={r.label} aria-pressed={regionFilter === r.code}
-                  className={'region-flag' + (regionFilter === r.code ? ' on' : '')}
-                  onClick={() => setRegionFilter(regionFilter === r.code ? null : r.code)}>
-                  <span aria-hidden="true">{r.flag}</span>
-                </button>
-              ))}
-            </div>
             <select className="team-select" value={teamFilter} onChange={(e) => setTeamFilter(e.target.value)}>
               <option value="">All teams</option>
               {teamOptions.map((o) => <option key={o.code} value={o.code}>{TEAMS[o.code].flag} {o.name}</option>)}
