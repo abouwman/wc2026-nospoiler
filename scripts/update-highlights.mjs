@@ -68,6 +68,7 @@ const TEAMS = {
   TUR: { en: ['türkiye', 'turkiye', 'turkey'], nl: 'Turkije' },
   IRN: { en: ['iran', 'ir iran'], nl: 'Iran' },
   IRQ: { en: ['iraq'], nl: 'Irak' },
+  COD: { en: ['dr congo', 'congo dr', 'democratic republic of congo', 'democratic republic of the congo'], nl: 'DR Congo' },
   SCO: { en: ['scotland'], nl: 'Schotland' },
   FRA: { en: ['france'], nl: 'Frankrijk' },
   COL: { en: ['colombia'], nl: 'Colombia' },
