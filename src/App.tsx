@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
+import { Analytics } from '@vercel/analytics/react';
 import type { LangCode, Match, Mode, Variant } from './types';
 import { TEAMS } from './data/teams';
 import { MATCHES, isUpcoming, hasAnySource, fifaUrl, bbcUrl, localDayKey, matchInstant } from './data/schedule';
@@ -169,6 +170,8 @@ export function App() {
       {embed ? <EmbedModal match={embed} onClose={() => setEmbed(null)} /> : null}
 
       {leave ? <LeaveModal target={leave} onClose={() => setLeave(null)} /> : null}
+
+      <Analytics />
     </div>
   );
 }
