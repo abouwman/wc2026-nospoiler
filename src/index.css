@@ -147,9 +147,12 @@ select { font: inherit; color: inherit; }
 .video-wrap { position: relative; aspect-ratio: 16 / 9; background: #000; }
 .video-wrap iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
 .embed-frame { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
-.video-wrap:fullscreen { width: 100vw; height: 100vh; aspect-ratio: auto; }
-/* Floating fullscreen button over an embedded player. */
-.fs-btn { position: absolute; top: 8px; right: 8px; z-index: 6; width: 38px; height: 34px; display: grid;
+/* Pseudo-fullscreen: fill the viewport via CSS (works on iOS, where the
+   Fullscreen API is blocked for non-<video> elements). Keeps overlays on top. */
+.video-wrap.pseudo-fs { position: fixed; inset: 0; z-index: 200; width: 100vw; height: 100vh;
+  aspect-ratio: auto; }
+/* Floating fullscreen button over a player. */
+.fs-btn { position: absolute; top: 8px; right: 8px; z-index: 7; width: 38px; height: 34px; display: grid;
   place-items: center; border-radius: 8px; background: rgba(5,6,5,0.62); color: #fff; font-size: 17px;
   border: 1px solid rgba(255,255,255,0.28); cursor: pointer; }
 .fs-btn:hover { background: rgba(5,6,5,0.88); }

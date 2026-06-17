@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
 import { loadYT, type YTPlayer } from '../data/youtube';
-import { toggleFullscreen } from '../data/fullscreen';
 
 interface YouTubeHighlightProps {
   videoId: string;
@@ -18,12 +17,14 @@ export function YouTubeHighlight({ videoId, onClose }: YouTubeHighlightProps) {
   const [ended, setEnded] = useState(false);
   const [muted, setMuted] = useState(false);
   const [progress, setProgress] = useState(0);
+  // Pseudo-fullscreen (CSS): works on iOS too, where the Fullscreen API is
+  // blocked for non-<video> elements, and keeps the spoiler shield on top.
+  const [fs, setFs] = useState(false);
   // Progress bar is hidden by default; toggle remembers the choice.
   const [showProgress, setShowProgress] = useState(() => {
     try { return localStorage.getItem('hts-progress') === '1'; } catch { return false; }
   });
   const hostRef = useRef<HTMLDivElement>(null);
-  const wrapRef = useRef<HTMLDivElement>(null);
   const playerRef = useRef<YTPlayer | null>(null);
 
   const toggleProgress = () => setShowProgress((v) => {
@@ -98,9 +99,11 @@ export function YouTubeHighlight({ videoId, onClose }: YouTubeHighlightProps) {
 
   return (
     <>
-      <div className="video-wrap" ref={wrapRef}>
+      <div className={'video-wrap' + (fs ? ' pseudo-fs' : '')}>
         <div className="yt-host" ref={hostRef}></div>
         <div className="click-layer" onClick={togglePlay} title={playing ? 'Pause' : 'Play'}></div>
+        <button className="fs-btn" onClick={() => setFs((v) => !v)}
+          title={fs ? 'Exit fullscreen' : 'Fullscreen'}>{fs ? '⤡' : '⛶'}</button>
         <div className="mask-top mono">
           <span className="shield"></span>
           <span>Spoiler shield — title, duration &amp; related videos hidden</span>
@@ -133,7 +136,6 @@ export function YouTubeHighlight({ videoId, onClose }: YouTubeHighlightProps) {
           <div className="progress-spacer" />
         )}
         <button className="ctrl-btn" onClick={toggleMute} title={muted ? 'Unmute' : 'Mute'}>{muted ? '🔇' : '🔊'}</button>
-        <button className="ctrl-btn" onClick={() => toggleFullscreen(wrapRef.current)} title="Fullscreen">⛶</button>
       </div>
     </>
   );
