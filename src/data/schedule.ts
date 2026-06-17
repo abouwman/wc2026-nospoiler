@@ -40,6 +40,24 @@ export function isUpcoming(m: Match, now: number = Date.now()): boolean {
   return !!m.kickoff && new Date(m.kickoff).getTime() > now;
 }
 
+/** Local calendar day (YYYY-MM-DD in the viewer's own time zone) a match belongs
+ *  to. A match kicking off at 00:00 local time falls on that new day. Falls back
+ *  to the stored UTC date when no exact kickoff is known. */
+export function localDayKey(m: Match): string {
+  if (!m.kickoff) return m.date;
+  const d = new Date(m.kickoff);
+  const p = (n: number) => String(n).padStart(2, '0');
+  return `${d.getFullYear()}-${p(d.getMonth() + 1)}-${p(d.getDate())}`;
+}
+
+/** Sort instant for ordering matches within a day (exact kickoff when known,
+ *  otherwise the day's start). */
+export function matchInstant(m: Match): number {
+  if (m.kickoff) return new Date(m.kickoff).getTime();
+  const [y, mo, d] = m.date.split('-').map(Number);
+  return Date.UTC(y, mo - 1, d);
+}
+
 export function hasAnyVideo(m: Match): boolean {
   return Object.values(m.videos).some((c) => c && (c.short || c.extended));
 }

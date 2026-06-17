@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import type { LangCode, Match, Mode, Variant } from './types';
 import { TEAMS } from './data/teams';
-import { MATCHES, isUpcoming, hasAnySource, fifaUrl, bbcUrl } from './data/schedule';
+import { MATCHES, isUpcoming, hasAnySource, fifaUrl, bbcUrl, localDayKey, matchInstant } from './data/schedule';
 import { DaySection } from './components/DaySection';
 import type { Region } from './components/MatchCard';
 import { PlayerModal } from './components/PlayerModal';
@@ -72,14 +72,20 @@ export function App() {
   }, [groupFilter, teamFilter]);
 
   const days = useMemo(() => {
+    // Group by the viewer's local calendar day (a 00:00 local kickoff belongs to
+    // that new day), most recent day first, and within each day show the latest
+    // kickoff first (a 00:00 match is the "oldest", shown last).
     const byDay = new Map<string, Match[]>();
     filtered.forEach((m) => {
-      if (!byDay.has(m.date)) byDay.set(m.date, []);
-      byDay.get(m.date)!.push(m);
+      const key = localDayKey(m);
+      if (!byDay.has(key)) byDay.set(key, []);
+      byDay.get(key)!.push(m);
     });
-    // Most recent matchday first.
     const keys = [...byDay.keys()].sort((a, b) => (a < b ? 1 : -1));
-    return keys.map((k) => ({ date: k, matches: byDay.get(k)! }));
+    return keys.map((k) => ({
+      date: k,
+      matches: byDay.get(k)!.sort((a, b) => matchInstant(b) - matchInstant(a)),
+    }));
   }, [filtered]);
 
   return (
