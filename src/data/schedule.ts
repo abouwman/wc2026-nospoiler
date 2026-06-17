@@ -62,9 +62,14 @@ export function hasAnyVideo(m: Match): boolean {
   return Object.values(m.videos).some((c) => c && (c.short || c.extended));
 }
 
+/** A timesoccertv full-match replay and/or international highlight exists. */
+export function hasTstv(m: Match): boolean {
+  return !!(m.tstv && (m.tstv.highlights || (m.tstv.full && m.tstv.full.length > 0)));
+}
+
 /** Any playable/linkable source (YouTube clips or an external highlight link). */
 export function hasAnySource(m: Match): boolean {
-  return hasAnyVideo(m) || !!m.fifa || !!m.bbc;
+  return hasAnyVideo(m) || !!m.fifa || !!m.bbc || hasTstv(m);
 }
 
 export const FIFA_HIGHLIGHTS_HUB =

@@ -1,6 +1,7 @@
 import type { LangCode, Match, Variant } from '../types';
 import { TEAMS } from '../data/teams';
 import { STAGE_LABELS, fmtDayShort, fmtKickoffLocal, isUpcoming, hasAnySource } from '../data/schedule';
+import type { EmbedKind } from './EmbedModal';
 import { TeamPanel } from './TeamPanel';
 
 export type Region = 'US' | 'UK' | 'NL' | 'World';
@@ -12,6 +13,7 @@ interface MatchCardProps {
   onOpen: (match: Match, lang: LangCode, variant: Variant) => void;
   onInternational: (match: Match) => void;
   onBBC: (match: Match) => void;
+  onEmbed: (match: Match, kind: EmbedKind) => void;
 }
 
 const REGION_TAG: Record<Region, string> = {
@@ -33,6 +35,7 @@ function sourcesOf(
   onOpen: MatchCardProps['onOpen'],
   onInternational: MatchCardProps['onInternational'],
   onBBC: MatchCardProps['onBBC'],
+  onEmbed: MatchCardProps['onEmbed'],
 ): Src[] {
   const out: Src[] = [];
   const en = match.videos.en;
@@ -69,10 +72,24 @@ function sourcesOf(
       onClick: () => onInternational(match),
     });
   }
+  if (match.tstv?.highlights) {
+    out.push({
+      region: 'World', label: 'Highlights', variant: 'Intl',
+      title: 'Watch international highlights (via timesoccertv.com)',
+      onClick: () => onEmbed(match, 'highlights'),
+    });
+  }
+  if (match.tstv?.full && match.tstv.full.length > 0) {
+    out.push({
+      region: 'World', label: 'Full match',
+      title: 'Watch the full match replay (via timesoccertv.com)',
+      onClick: () => onEmbed(match, 'full'),
+    });
+  }
   return out;
 }
 
-export function MatchCard({ match, regionFilter, onOpen, onInternational, onBBC }: MatchCardProps) {
+export function MatchCard({ match, regionFilter, onOpen, onInternational, onBBC, onEmbed }: MatchCardProps) {
   const stageLabel = match.group ? 'Group ' + match.group : STAGE_LABELS[match.stage];
   const homeT = TEAMS[match.home];
   const awayT = TEAMS[match.away];
@@ -81,7 +98,7 @@ export function MatchCard({ match, regionFilter, onOpen, onInternational, onBBC 
   const comingSoon = !upcoming && !available;
   const when = match.kickoff ? fmtKickoffLocal(match.kickoff) : fmtDayShort(match.date);
 
-  const all = sourcesOf(match, onOpen, onInternational, onBBC);
+  const all = sourcesOf(match, onOpen, onInternational, onBBC, onEmbed);
   // Apply the region filter. World (fifa.com) is always kept; selecting a
   // region with no source still shows World plus an "other regions" note.
   let shown = all;

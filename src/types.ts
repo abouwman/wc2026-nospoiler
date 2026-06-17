@@ -45,6 +45,18 @@ export interface Match {
   fifa?: string;
   /** BBC iPlayer episode id for the UK-only highlights, when known. */
   bbc?: string;
+  /** Full-match replay + international highlights embedded from timesoccertv.com. */
+  tstv?: Tstv;
+}
+
+// Full match replay (per half) and extended highlights, embedded from
+// timesoccertv.com. `page` is the source article, shown as credit.
+export interface Tstv {
+  page: string;
+  /** Ordered full-match embed URLs, e.g. [1st half, 2nd half]. */
+  full?: string[];
+  /** Extended-highlights embed URL. */
+  highlights?: string;
 }
 
 // A single playable selection (one language + one cut), used by cards and player.

@@ -377,6 +377,64 @@ async function fetchFixtures() {
   return out;
 }
 
+// --- timesoccertv.com (full-match replays + international highlights) --------
+// Per-team article pages embed three players in order: full match 1st half,
+// 2nd half, and extended highlights (hosts hgcloud.to / vortexvisionworks). We
+// scrape the embed URLs and store them so they can play inside our own modal
+// (with credit). Articles are slugged after one team, so we try both teams'
+// names and confirm BOTH teams are named near the embeds (right fixture, since
+// a team slug later points to that team's next match).
+const TSTV_BASE = 'https://timesoccertv.com';
+const TSTV_LOOKBACK_MS = Number(process.env.TSTV_LOOKBACK_DAYS || 4) * 864e5;
+const TSTV_MAX_PER_RUN = Number(process.env.TSTV_MAX_PER_RUN || 8);
+const TSTV_HOSTS = /(?:hgcloud\.to|vortexvisionworks\.com|soccertims\.)/i;
+const tstvSlug = (name) => norm(name).replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
+
+async function tstvFetch(url) {
+  try {
+    const r = await fetch(url, { headers: { 'user-agent': UA, accept: 'text/html,*/*' } });
+    if (!r.ok) return null;
+    return await r.text();
+  } catch { return null; }
+}
+
+// Pull full-match + highlights embed URLs out of an article, but only if the
+// text around the embeds names both teams (confirms this is the right match).
+function tstvExtract(html, homeNames, awayNames) {
+  const iframes = [...html.matchAll(/<iframe[^>]*\ssrc=["']([^"']+)["']/gi)].filter((m) => TSTV_HOSTS.test(m[1]));
+  if (!iframes.length) return null;
+  const first = iframes[0].index;
+  const around = html.slice(Math.max(0, first - 600), first + 200);
+  if (!mentions(around, homeNames) || !mentions(around, awayNames)) return null;
+  const full = [];
+  let highlights;
+  for (const m of iframes) {
+    const ctx = html.slice(Math.max(0, m.index - 80), m.index).toLowerCase();
+    if (/highlight/.test(ctx)) { if (!highlights) highlights = m[1]; }
+    else if (!full.includes(m[1])) full.push(m[1]);
+  }
+  const out = {};
+  if (full.length) out.full = full;
+  if (highlights) out.highlights = highlights;
+  return Object.keys(out).length ? out : null;
+}
+
+async function fetchTstv(match) {
+  const hn = TEAMS[match.home]?.en, an = TEAMS[match.away]?.en;
+  if (!hn?.length || !an?.length) return null;
+  const slugs = [...new Set([...hn, ...an, TEAMS[match.home]?.nl, TEAMS[match.away]?.nl]
+    .filter(Boolean).map(tstvSlug).filter(Boolean))].slice(0, 6);
+  for (const slug of slugs) {
+    for (const suffix of ['-full-match', '-highlights']) {
+      const html = await tstvFetch(`${TSTV_BASE}/${slug}${suffix}/`);
+      if (!html) continue;
+      const found = tstvExtract(html, hn, an);
+      if (found) { found.page = `${TSTV_BASE}/${slug}${suffix}/`; return found; }
+    }
+  }
+  return null;
+}
+
 // --- Merge helpers ----------------------------------------------------------
 function setClip(match, lang, variant, id, geo) {
   match.videos[lang] = match.videos[lang] || {};
@@ -489,6 +547,19 @@ async function main() {
       const id = bbcEpisodeId(bbcEps, hn, an);
       if (id) { match.bbc = id; console.log(`bbc for ${match.id}: ${id}`); }
     }
+  }
+
+  // 4) timesoccertv.com full-match replays + international highlights, embedded
+  //    on our site with credit. Best-effort scrape for recently-played matches
+  //    that don't have it yet (capped per run to stay polite).
+  let tstvTried = 0;
+  for (const match of byId.values()) {
+    if (match.tstv || tstvTried >= TSTV_MAX_PER_RUN) continue;
+    const ko = match.kickoff ? new Date(match.kickoff).getTime() : 0;
+    if (!ko || ko > nowMs || ko < nowMs - TSTV_LOOKBACK_MS) continue;
+    tstvTried++;
+    const t = await fetchTstv(match);
+    if (t) { match.tstv = t; console.log(`tstv for ${match.id}: ${t.page} full=${t.full?.length || 0} hl=${t.highlights ? 1 : 0}`); }
   }
 
   const out = [...byId.values()].sort((a, b) => (a.date < b.date ? 1 : a.date > b.date ? -1 : 0));
