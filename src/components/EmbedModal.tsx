@@ -1,7 +1,8 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import type { Match } from '../types';
 import { TEAMS } from '../data/teams';
 import { STAGE_LABELS, fmtDay } from '../data/schedule';
+import { toggleFullscreen } from '../data/fullscreen';
 
 interface EmbedModalProps {
   match: Match;
@@ -13,6 +14,7 @@ interface EmbedModalProps {
 // match itself is linked out (not embedded), so this only handles highlights.
 export function EmbedModal({ match, onClose }: EmbedModalProps) {
   const [playing, setPlaying] = useState(false);
+  const frameRef = useRef<HTMLIFrameElement>(null);
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') onClose(); };
@@ -42,10 +44,14 @@ export function EmbedModal({ match, onClose }: EmbedModalProps) {
 
         <div className="video-wrap">
           {playing ? (
-            <iframe className="embed-frame" src={url} title="International highlights"
-              allow="autoplay; fullscreen; encrypted-media; picture-in-picture"
-              allowFullScreen referrerPolicy="no-referrer"
-              sandbox="allow-scripts allow-same-origin allow-presentation allow-forms" />
+            <>
+              <iframe ref={frameRef} className="embed-frame" src={url} title="International highlights"
+                allow="autoplay; fullscreen; encrypted-media; picture-in-picture"
+                allowFullScreen referrerPolicy="no-referrer"
+                sandbox="allow-scripts allow-same-origin allow-presentation allow-forms" />
+              <button className="fs-btn" title="Fullscreen"
+                onClick={() => toggleFullscreen(frameRef.current)}>⛶</button>
+            </>
           ) : (
             <div className="embed-gate">
               <div className="embed-gate-inner">

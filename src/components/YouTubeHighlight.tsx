@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { loadYT, type YTPlayer } from '../data/youtube';
+import { toggleFullscreen } from '../data/fullscreen';
 
 interface YouTubeHighlightProps {
   videoId: string;
@@ -22,6 +23,7 @@ export function YouTubeHighlight({ videoId, onClose }: YouTubeHighlightProps) {
     try { return localStorage.getItem('hts-progress') === '1'; } catch { return false; }
   });
   const hostRef = useRef<HTMLDivElement>(null);
+  const wrapRef = useRef<HTMLDivElement>(null);
   const playerRef = useRef<YTPlayer | null>(null);
 
   const toggleProgress = () => setShowProgress((v) => {
@@ -96,7 +98,7 @@ export function YouTubeHighlight({ videoId, onClose }: YouTubeHighlightProps) {
 
   return (
     <>
-      <div className="video-wrap">
+      <div className="video-wrap" ref={wrapRef}>
         <div className="yt-host" ref={hostRef}></div>
         <div className="click-layer" onClick={togglePlay} title={playing ? 'Pause' : 'Play'}></div>
         <div className="mask-top mono">
@@ -131,6 +133,7 @@ export function YouTubeHighlight({ videoId, onClose }: YouTubeHighlightProps) {
           <div className="progress-spacer" />
         )}
         <button className="ctrl-btn" onClick={toggleMute} title={muted ? 'Unmute' : 'Mute'}>{muted ? '🔇' : '🔊'}</button>
+        <button className="ctrl-btn" onClick={() => toggleFullscreen(wrapRef.current)} title="Fullscreen">⛶</button>
       </div>
     </>
   );
