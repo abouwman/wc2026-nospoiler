@@ -423,6 +423,10 @@ async function main() {
     for (const v of vids) {
       if (v.publishedAt && new Date(v.publishedAt).getTime() < enCutoff) continue;
       const p = parseEnglish(v.title);
+      if (process.env.DEBUG_EN && /highlights|world cup|vs\b/i.test(v.title)) {
+        const tag = p ? `[${p.extended ? 'ext' : 'short'} ${p.home}-${p.away}]` : '[no-parse]';
+        console.log(`DBG ${ch} ${v.publishedAt?.slice(0, 10)} ${tag} ${v.title}`);
+      }
       if (!p) continue;
       const id = `m-${p.home.toLowerCase()}-${p.away.toLowerCase()}`;
       let match = byId.get(id);

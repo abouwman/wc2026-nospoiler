@@ -3,7 +3,12 @@ name: Update highlights
 on:
   schedule:
     - cron: '*/5 * * * *'   # every 5 minutes (GitHub may run a little less often)
-  workflow_dispatch: {}
+  workflow_dispatch:
+    inputs:
+      debug_en:
+        description: 'Log EN upload titles + parse results'
+        type: boolean
+        default: false
 
 permissions:
   contents: write
@@ -38,6 +43,7 @@ jobs:
           FIFA_HANDLE: ${{ vars.FIFA_HANDLE }}
           FOX_HANDLE: ${{ vars.FOX_HANDLE }}
           NOS_HANDLE: ${{ vars.NOS_HANDLE }}
+          DEBUG_EN: ${{ inputs.debug_en && '1' || '' }}
         run: node scripts/update-highlights.mjs
 
       - name: Commit if changed
