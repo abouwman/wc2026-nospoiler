@@ -147,33 +147,29 @@ async function channelId(handle) {
   return data.items?.[0]?.id || null;
 }
 
-// search.list (order=date) is incomplete for listing a channel's uploads, so for
-// a full/reliable recent-uploads list we read the channel's uploads playlist.
+// search.list (order=date) is both incomplete for listing a channel's uploads
+// AND expensive (100 quota units/call), so we read the channel's uploads
+// playlist instead (1 unit/page) — reliable and ~100x cheaper.
 async function uploadsPlaylistId(chId) {
   const data = await yt('/channels', { part: 'contentDetails', id: chId });
   return data.items?.[0]?.contentDetails?.relatedPlaylists?.uploads || null;
 }
 
-async function channelUploads(chId) {
+async function channelUploads(chId, max = 50) {
   const playlistId = await uploadsPlaylistId(chId);
   if (!playlistId) return [];
-  const data = await yt('/playlistItems', { part: 'snippet', playlistId, maxResults: '50' });
-  return (data.items || []).map((i) => ({
-    id: i.snippet.resourceId.videoId, title: i.snippet.title, publishedAt: i.snippet.publishedAt,
-  }));
-}
-
-async function recentUploads(chId, q) {
-  const publishedAfter = new Date(Date.now() - LOOKBACK_DAYS * 864e5).toISOString();
-  const params = {
-    part: 'snippet', channelId: chId, type: 'video',
-    order: 'date', maxResults: '50', publishedAfter,
-  };
-  if (q) params.q = q;
-  const data = await yt('/search', params);
-  return (data.items || []).map((i) => ({
-    id: i.id.videoId, title: i.snippet.title, publishedAt: i.snippet.publishedAt,
-  }));
+  const out = [];
+  let pageToken;
+  do {
+    const params = { part: 'snippet', playlistId, maxResults: '50' };
+    if (pageToken) params.pageToken = pageToken;
+    const data = await yt('/playlistItems', params);
+    for (const i of data.items || []) out.push({
+      id: i.snippet.resourceId.videoId, title: i.snippet.title, publishedAt: i.snippet.publishedAt,
+    });
+    pageToken = data.nextPageToken;
+  } while (pageToken && out.length < max);
+  return out;
 }
 
 // --- Title parsing ----------------------------------------------------------
@@ -414,13 +410,18 @@ async function main() {
     catch (e) { console.warn(`channel ${k} resolve failed: ${e.message}`); }
   }
 
-  // 1) English highlights from FIFA (preferred) then FOX.
+  // 1) English highlights from FIFA (preferred) then FOX. Read the uploads
+  //    playlist (cheap + reliable) and keep only recent uploads within the
+  //    lookback window. EN channels are busy, so scan a few pages deep.
+  const enCutoff = Date.now() - LOOKBACK_DAYS * 864e5;
   for (const ch of ['fifa', 'fox']) {
     if (!ids[ch]) continue;
     let vids = [];
-    try { vids = await recentUploads(ids[ch], 'highlights world cup 2026'); }
-    catch (e) { console.warn(`${ch} search failed: ${e.message}`); continue; }
+    try { vids = await channelUploads(ids[ch], 250); }
+    catch (e) { console.warn(`${ch} uploads failed: ${e.message}`); continue; }
+    let added = 0;
     for (const v of vids) {
+      if (v.publishedAt && new Date(v.publishedAt).getTime() < enCutoff) continue;
       const p = parseEnglish(v.title);
       if (!p) continue;
       const id = `m-${p.home.toLowerCase()}-${p.away.toLowerCase()}`;
@@ -435,8 +436,14 @@ async function main() {
         console.log(`new match: ${id} (${p.home} v ${p.away})`);
       }
       if (p.group && !match.group) match.group = p.group;
-      setClip(match, 'en', p.extended ? 'extended' : 'short', v.id, 'US');
+      const variant = p.extended ? 'extended' : 'short';
+      if (!match.videos.en?.[variant]) {
+        setClip(match, 'en', variant, v.id, 'US');
+        added++;
+        console.log(`en ${variant} for ${id}: ${v.id} (${v.title})`);
+      }
     }
+    console.log(`${ch}: scanned ${vids.length} uploads, added ${added} en clips`);
   }
 
   // 2) Dutch summaries — list recent NOS Sport uploads and parse their titles
