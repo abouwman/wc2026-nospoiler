@@ -512,7 +512,15 @@
     "kickoff": "2026-06-17T01:00:00Z",
     "group": "J",
     "fifa": "7w5eTQ8xbmnSNHypyuYhdG",
-    "bbc": "m002y381"
+    "bbc": "m002y381",
+    "tstv": {
+      "full": [
+        "https://hgcloud.to/e/ydis3ayzujda",
+        "https://hgcloud.to/e/yleo4npp3qqd"
+      ],
+      "highlights": "https://soccertims.vortexvisionworks.com/embed/WTFSeFRZpu9VY",
+      "page": "https://timesoccertv.com/argentina-highlights/"
+    }
   },
   {
     "id": "m-aut-jor",
@@ -575,7 +583,15 @@
     },
     "kickoff": "2026-06-17T17:00:00Z",
     "group": "K",
-    "fifa": "3EKjirmmC6D2Ss29rPdDph"
+    "fifa": "3EKjirmmC6D2Ss29rPdDph",
+    "tstv": {
+      "full": [
+        "https://hgcloud.to/e/xc395npocpmv",
+        "https://hgcloud.to/e/7b62a3qzyup1"
+      ],
+      "highlights": "https://soccertims.vortexvisionworks.com/embed/oeSS0SzeYsoFf",
+      "page": "https://timesoccertv.com/portugal-highlights/"
+    }
   },
   {
     "id": "m-irn-nzl",
@@ -600,7 +616,15 @@
     "kickoff": "2026-06-16T01:00:00Z",
     "group": "G",
     "fifa": "5c6T3T7Y1XfKrT3aXzJRqL",
-    "bbc": "m002y37t"
+    "bbc": "m002y37t",
+    "tstv": {
+      "full": [
+        "https://hgcloud.to/e/yswuh1ca8poe",
+        "https://hgcloud.to/e/kn5cmz853sap"
+      ],
+      "highlights": "https://soccertims.vortexvisionworks.com/embed/VX7SPGVva0lzP",
+      "page": "https://timesoccertv.com/new-zealand-full-match/"
+    }
   },
   {
     "id": "m-fra-sen",
@@ -625,7 +649,15 @@
     "kickoff": "2026-06-16T19:00:00Z",
     "group": "I",
     "fifa": "3EKjirmmC6D2Ss29rPdDph",
-    "bbc": "m002y37w"
+    "bbc": "m002y37w",
+    "tstv": {
+      "full": [
+        "https://hgcloud.to/e/4xt1d2lpegb2",
+        "https://hgcloud.to/e/vjq8r2pq6t9r"
+      ],
+      "highlights": "https://soccertims.vortexvisionworks.com/embed/318MiOuPscxfF",
+      "page": "https://timesoccertv.com/france-highlights/"
+    }
   },
   {
     "id": "m-irq-nor",
@@ -650,7 +682,11 @@
     "kickoff": "2026-06-16T22:00:00Z",
     "group": "I",
     "bbc": "m002y37z",
-    "fifa": "3EKjirmmC6D2Ss29rPdDph"
+    "fifa": "3EKjirmmC6D2Ss29rPdDph",
+    "tstv": {
+      "highlights": "https://soccertims.vortexvisionworks.com/embed/PyoZ2qVQoDoQV",
+      "page": "https://timesoccertv.com/norway-highlights/"
+    }
   },
   {
     "id": "m-ksa-uru",
@@ -675,7 +711,15 @@
     "kickoff": "2026-06-15T22:00:00Z",
     "group": "H",
     "fifa": "2OO54UvFW7GK8vnsarneGk",
-    "bbc": "m002y37s"
+    "bbc": "m002y37s",
+    "tstv": {
+      "full": [
+        "https://hgcloud.to/e/n0166xq96hvi",
+        "https://hgcloud.to/e/jt5rd2pfsw66"
+      ],
+      "highlights": "https://soccertims.vortexvisionworks.com/embed/2C9om1gc8Izf0",
+      "page": "https://timesoccertv.com/uruguay-highlights/"
+    }
   },
   {
     "id": "m-swe-tun",
