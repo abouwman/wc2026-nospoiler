@@ -553,9 +553,30 @@
     "date": "2026-06-17",
     "home": "ENG",
     "away": "CRO",
-    "videos": {},
+    "videos": {
+      "en": {
+        "extended": {
+          "id": "lGoe9nxRfyU",
+          "geo": "US"
+        }
+      },
+      "nl": {
+        "short": {
+          "id": "dtXMnN56roY",
+          "geo": "NL"
+        }
+      }
+    },
     "kickoff": "2026-06-17T20:00:00Z",
-    "group": "L"
+    "group": "L",
+    "tstv": {
+      "full": [
+        "https://hgcloud.to/e/zpnso7c6dh5n",
+        "https://hgcloud.to/e/dgewoxgk60gi"
+      ],
+      "highlights": "https://soccertims.vortexvisionworks.com/embed/UQQG1FNSQpFmo",
+      "page": "https://timesoccertv.com/england-highlights/"
+    }
   },
   {
     "id": "m-gha-pan",
@@ -1008,7 +1029,15 @@
       }
     },
     "fifa": "1amePIIN9Rt7kvMwQGMPke",
-    "bbc": "m002y30p"
+    "bbc": "m002y30p",
+    "tstv": {
+      "full": [
+        "https://hgcloud.to/e/qknsgb6025xw",
+        "https://hgcloud.to/e/upd7xkb4x12b"
+      ],
+      "highlights": "https://soccertims.vortexvisionworks.com/embed/bFYnI9E5BX1PZ",
+      "page": "https://timesoccertv.com/scotland-highlights/"
+    }
   },
   {
     "id": "m-bra-mar",
