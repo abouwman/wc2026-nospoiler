@@ -1,43 +1,43 @@
-// Throwaway probe: inspect timesoccertv.com structure so we can design the
-// real integration. Prints HTTP status, iframe/embed URLs, detectable video
-// hosts, and a sample of match links. Safe to delete after investigation.
+// Throwaway probe v2: for a team article page, dump each iframe together with
+// the nearby heading/label text so we can tell "full match" vs "highlights",
+// and check whether the opponent is named (to confirm match identity).
 
 const UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36';
 
 const URLS = [
-  'https://timesoccertv.com/full-matches-and-shows-highlights/',
   'https://timesoccertv.com/portugal-highlights/',
+  'https://timesoccertv.com/new-zealand-full-match/',
 ];
+
+const strip = (s) => s.replace(/<[^>]+>/g, ' ').replace(/&[a-z#0-9]+;/gi, ' ').replace(/\s+/g, ' ').trim();
 
 async function probe(url) {
   console.log('\n===== ' + url);
-  let r;
+  let html;
   try {
-    r = await fetch(url, { headers: { 'user-agent': UA, accept: 'text/html,*/*', 'accept-language': 'en-US,en;q=0.9' }, redirect: 'follow' });
-  } catch (e) { console.log('FETCH ERROR:', e.message); return; }
-  console.log('status:', r.status, r.statusText, '-> final url:', r.url);
-  console.log('content-type:', r.headers.get('content-type'));
-  console.log('server:', r.headers.get('server'), '| cf-ray:', r.headers.get('cf-ray'));
-  if (!r.ok) { console.log('body (first 400):', (await r.text()).slice(0, 400).replace(/\s+/g, ' ')); return; }
-  const html = await r.text();
-  console.log('html length:', html.length);
+    const r = await fetch(url, { headers: { 'user-agent': UA, accept: 'text/html,*/*' } });
+    console.log('status', r.status);
+    if (!r.ok) return;
+    html = await r.text();
+  } catch (e) { console.log('ERR', e.message); return; }
 
-  const grab = (re, label, max = 12) => {
-    const set = new Set();
-    let m;
-    while ((m = re.exec(html)) && set.size < max) set.add(m[1]);
-    if (set.size) console.log(`\n-- ${label} (${set.size})`); for (const s of set) console.log('   ', s);
-  };
+  // Each iframe with ~350 chars of preceding context (headings/tab labels).
+  const re = /<iframe[^>]*\ssrc=["']([^"']+)["'][^>]*>/gi;
+  let m;
+  while ((m = re.exec(html))) {
+    const before = strip(html.slice(Math.max(0, m.index - 600), m.index)).slice(-220);
+    console.log('\nIFRAME', m[1]);
+    console.log('  ctx-before:', before);
+  }
 
-  grab(/<iframe[^>]*\ssrc=["']([^"']+)["']/gi, 'iframe src');
-  grab(/["'](https?:\/\/[^"']*(?:embed|player|stream)[^"']*)["']/gi, 'embed/player/stream urls');
-  grab(/["'](https?:\/\/[^"']*\.(?:m3u8|mp4)[^"']*)["']/gi, 'media files');
-  grab(/["'](https?:\/\/(?:ok\.ru|www\.dailymotion\.com|streamable\.com|streamja\.com|dood[^"']*|vk\.com)[^"']+)["']/gi, 'known video hosts');
-  // Article/match links to understand per-match URL structure
-  grab(/<a[^>]*\shref=["'](https:\/\/timesoccertv\.com\/[a-z0-9-]+\/?)["']/gi, 'internal links', 25);
-  // Page <title> (does it leak scores?)
-  const title = html.match(/<title[^>]*>([^<]*)<\/title>/i);
-  console.log('\npage <title>:', title?.[1]);
+  // Opponent / score check: look for "vs" patterns and any digit-dash-digit score.
+  const vs = [...html.matchAll(/([A-Z][a-zA-Z .]+?)\s+(?:vs\.?|v)\s+([A-Z][a-zA-Z .]+?)[\s<|]/g)].slice(0, 6).map((x) => `${x[1].trim()} v ${x[2].trim()}`);
+  console.log('\n  "vs" phrases:', [...new Set(vs)]);
+  const scores = [...html.matchAll(/\b(\d{1,2})\s*[-–]\s*(\d{1,2})\b/g)].slice(0, 8).map((x) => x[0]);
+  console.log('  score-like tokens (spoiler check):', [...new Set(scores)]);
+  // Tab/section labels that may distinguish full vs highlights
+  const labels = [...html.matchAll(/<(?:h[1-4]|button|a|span)[^>]*>([^<]{0,40}(?:full match|extended highlights|highlights|replay)[^<]{0,40})<\//gi)].slice(0, 12).map((x) => strip(x[1]));
+  console.log('  full/highlights labels:', [...new Set(labels)]);
 }
 
 for (const u of URLS) await probe(u);
