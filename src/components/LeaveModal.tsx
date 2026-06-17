@@ -6,6 +6,10 @@ export interface LeaveTarget {
   site: string;
   /** Optional viewing restriction, e.g. 'UK' — shown as a heads-up. */
   geo?: string;
+  /** What's being opened, e.g. 'highlight' (default) or 'full match'. */
+  what?: string;
+  /** Whether the destination is an official rights-holder site (default true). */
+  official?: boolean;
 }
 
 interface LeaveModalProps {
@@ -17,7 +21,7 @@ interface LeaveModalProps {
 // we can't wrap in the spoiler-shield player), so they know how to stay
 // spoiler-free.
 export function LeaveModal({ target, onClose }: LeaveModalProps) {
-  const { url, site, geo } = target;
+  const { url, site, geo, what = 'highlight', official = true } = target;
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') onClose(); };
     window.addEventListener('keydown', onKey);
@@ -29,8 +33,9 @@ export function LeaveModal({ target, onClose }: LeaveModalProps) {
       <div className="leave-modal" onClick={(e) => e.stopPropagation()}>
         <div className="leave-title display">Heads up — opening {site}</div>
         <p className="leave-body">
-          This highlight plays on the official <strong>{site}</strong> site, which we can't wrap in the
-          spoiler-shield player. The score isn't shown straight away, but to stay spoiler-free:
+          This {what} plays on {official ? <>the official <strong>{site}</strong> site</> : <><strong>{site}</strong> (a third-party site)</>},
+          which we can't wrap in the spoiler-shield player. The score isn't shown straight away, but to
+          stay spoiler-free:
         </p>
         <ul className="leave-list">
           <li>Press <strong>play right away</strong>.</li>

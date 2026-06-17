@@ -5,7 +5,7 @@ import { MATCHES, isUpcoming, hasAnySource, fifaUrl, bbcUrl, localDayKey, matchI
 import { DaySection } from './components/DaySection';
 import type { Region } from './components/MatchCard';
 import { PlayerModal } from './components/PlayerModal';
-import { EmbedModal, type EmbedKind } from './components/EmbedModal';
+import { EmbedModal } from './components/EmbedModal';
 import { LeaveModal, type LeaveTarget } from './components/LeaveModal';
 
 const REGIONS: { code: Region; flag: string; label: string }[] = [
@@ -41,7 +41,7 @@ export function App() {
   const [teamFilter, setTeamFilter] = useState('');
   const [regionFilter, setRegionFilter] = useState<Region | null>(null);
   const [active, setActive] = useState<Active | null>(null);
-  const [embed, setEmbed] = useState<{ match: Match; kind: EmbedKind } | null>(null);
+  const [embed, setEmbed] = useState<Match | null>(null);
   const [leave, setLeave] = useState<LeaveTarget | null>(null);
 
   useEffect(() => { try { localStorage.setItem('wcns-mode', JSON.stringify(mode)); } catch { /* noop */ } }, [mode]);
@@ -141,7 +141,8 @@ export function App() {
             onOpen={(m, l, v) => setActive({ match: m, lang: l, variant: v })}
             onInternational={(m) => setLeave({ url: fifaUrl(m), site: 'fifa.com' })}
             onBBC={(m) => setLeave({ url: bbcUrl(m), site: 'BBC iPlayer', geo: 'UK' })}
-            onEmbed={(m, kind) => setEmbed({ match: m, kind })} />
+            onEmbed={(m) => setEmbed(m)}
+            onFullMatch={(m) => m.tstv && setLeave({ url: m.tstv.page, site: 'timesoccertv.com', what: 'full match', official: false })} />
         ))}
 
         <div className="footer-note">
@@ -160,9 +161,7 @@ export function App() {
           onClose={() => setActive(null)} />
       ) : null}
 
-      {embed ? (
-        <EmbedModal match={embed.match} initialKind={embed.kind} onClose={() => setEmbed(null)} />
-      ) : null}
+      {embed ? <EmbedModal match={embed} onClose={() => setEmbed(null)} /> : null}
 
       {leave ? <LeaveModal target={leave} onClose={() => setLeave(null)} /> : null}
     </div>
