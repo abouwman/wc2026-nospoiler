@@ -533,6 +533,9 @@ async function main() {
   const nowMs = Date.now();
   const bbcEps = await bbcEpisodes();
   console.log(`bbc episodes: ${bbcEps.length}`);
+  // Watch ids already in use, so the same fifa.com page can't be attached to two
+  // different matches (the search occasionally returns a shared/hub id).
+  const usedFifa = new Set([...byId.values()].map((m) => m.fifa).filter(Boolean));
   for (const match of byId.values()) {
     const hasVid = Object.values(match.videos).some((c) => c && (c.short || c.extended));
     const played = hasVid || (match.kickoff && new Date(match.kickoff).getTime() < nowMs);
@@ -541,7 +544,7 @@ async function main() {
     if (!hn?.length || !an?.length) continue;
     if (!match.fifa) {
       const id = await fifaWatchId(hn, an);
-      if (id) { match.fifa = id; console.log(`fifa for ${match.id}: ${id}`); }
+      if (id && !usedFifa.has(id)) { match.fifa = id; usedFifa.add(id); console.log(`fifa for ${match.id}: ${id}`); }
     }
     if (!match.bbc && bbcEps.length) {
       const id = bbcEpisodeId(bbcEps, hn, an);

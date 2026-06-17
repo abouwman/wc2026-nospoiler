@@ -5,7 +5,7 @@ import { MatchCard, type Region } from './MatchCard';
 interface DaySectionProps {
   date: string;
   matches: Match[];
-  regionFilter: Region | null;
+  regions: Set<Region>;
   onOpen: (match: Match, lang: LangCode, variant: Variant) => void;
   onInternational: (match: Match) => void;
   onBBC: (match: Match) => void;
@@ -13,7 +13,7 @@ interface DaySectionProps {
   onFullMatch: (match: Match) => void;
 }
 
-export function DaySection({ date, matches, regionFilter, onOpen, onInternational, onBBC, onEmbed, onFullMatch }: DaySectionProps) {
+export function DaySection({ date, matches, regions, onOpen, onInternational, onBBC, onEmbed, onFullMatch }: DaySectionProps) {
   return (
     <section className="day-section" data-screen-label={'Matchday ' + fmtDayShort(date)}>
       <div className="day-head">
@@ -22,7 +22,7 @@ export function DaySection({ date, matches, regionFilter, onOpen, onInternationa
       </div>
       <div className="grid">
         {matches.map((m) => (
-          <MatchCard key={m.id} match={m} regionFilter={regionFilter}
+          <MatchCard key={m.id} match={m} regions={regions}
             onOpen={onOpen} onInternational={onInternational} onBBC={onBBC}
             onEmbed={onEmbed} onFullMatch={onFullMatch} />
         ))}

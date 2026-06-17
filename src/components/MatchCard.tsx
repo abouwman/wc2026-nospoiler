@@ -7,8 +7,8 @@ export type Region = 'US' | 'UK' | 'NL' | 'World';
 
 interface MatchCardProps {
   match: Match;
-  /** When set, only that region's sources are shown (World is always shown). */
-  regionFilter: Region | null;
+  /** Sources whose region is in this set are shown (multi-select; all by default). */
+  regions: Set<Region>;
   onOpen: (match: Match, lang: LangCode, variant: Variant) => void;
   onInternational: (match: Match) => void;
   onBBC: (match: Match) => void;
@@ -27,6 +27,8 @@ interface Src {
   label: string;
   variant?: string;
   external?: boolean;
+  /** Extra class on the button (e.g. 'full' for a distinct colour). */
+  cls?: string;
   title: string;
   onClick: () => void;
 }
@@ -53,8 +55,8 @@ function sourcesOf(
   }
   if (match.bbc) {
     out.push({
-      region: 'UK', label: 'BBC iPlayer', external: true,
-      title: 'Watch on BBC iPlayer (UK only) — opens a heads-up first',
+      region: 'UK', label: 'BBC.co.uk', external: true,
+      title: 'Watch on BBC.co.uk (UK only) — opens a heads-up first',
       onClick: () => onBBC(match),
     });
   }
@@ -62,37 +64,37 @@ function sourcesOf(
   if (nl) {
     (['short', 'extended'] as Variant[]).forEach((v) => {
       if (nl[v]) out.push({
-        region: 'NL', label: 'NOS Sport',
-        title: 'Watch the NOS Sport summary — Netherlands only',
+        region: 'NL', label: 'NOS',
+        title: 'Watch the NOS summary — Netherlands only',
         onClick: () => onOpen(match, 'nl', v),
       });
     });
   }
   if (match.fifa) {
     out.push({
-      region: 'World', label: 'International', external: true,
-      title: 'Watch on fifa.com (international) — opens a heads-up first',
+      region: 'World', label: 'FIFA.com', external: true,
+      title: 'Watch on FIFA.com (international) — opens a heads-up first',
       onClick: () => onInternational(match),
     });
   }
   if (match.tstv?.highlights) {
     out.push({
-      region: 'World', label: 'Highlights', variant: 'Intl',
-      title: 'Watch international highlights (via timesoccertv.com)',
+      region: 'World', label: 'TimeSoccerTV', variant: 'Highlights',
+      title: 'Watch international highlights (via TimeSoccerTV)',
       onClick: () => onEmbed(match),
     });
   }
   if (match.tstv?.full && match.tstv.full.length > 0) {
     out.push({
-      region: 'World', label: 'Full match', external: true,
-      title: 'Open the full match replay on timesoccertv.com — opens a heads-up first',
+      region: 'World', label: 'TimeSoccerTV', variant: 'Full match', external: true, cls: 'full',
+      title: 'Open the full match replay on TimeSoccerTV — opens a heads-up first',
       onClick: () => onFullMatch(match),
     });
   }
   return out;
 }
 
-export function MatchCard({ match, regionFilter, onOpen, onInternational, onBBC, onEmbed, onFullMatch }: MatchCardProps) {
+export function MatchCard({ match, regions, onOpen, onInternational, onBBC, onEmbed, onFullMatch }: MatchCardProps) {
   const stageLabel = match.group ? 'Group ' + match.group : STAGE_LABELS[match.stage];
   const homeT = TEAMS[match.home];
   const awayT = TEAMS[match.away];
@@ -102,17 +104,9 @@ export function MatchCard({ match, regionFilter, onOpen, onInternational, onBBC,
   const when = match.kickoff ? fmtKickoffLocal(match.kickoff) : fmtDayShort(match.date);
 
   const all = sourcesOf(match, onOpen, onInternational, onBBC, onEmbed, onFullMatch);
-  // Apply the region filter. World (fifa.com) is always kept; selecting a
-  // region with no source still shows World plus an "other regions" note.
-  let shown = all;
-  let regionEmpty = false;
-  if (regionFilter === 'World') {
-    shown = all.filter((s) => s.region === 'World');
-  } else if (regionFilter) {
-    const regional = all.filter((s) => s.region === regionFilter);
-    regionEmpty = regional.length === 0;
-    shown = [...regional, ...all.filter((s) => s.region === 'World')];
-  }
+  // Multi-select region filter: show sources whose region is enabled.
+  const shown = all.filter((s) => regions.has(s.region));
+  const regionEmpty = all.length > 0 && shown.length === 0;
 
   return (
     <div className={'card' + (upcoming ? ' upcoming' : available ? ' playable' : '')}>
@@ -145,7 +139,7 @@ export function MatchCard({ match, regionFilter, onOpen, onInternational, onBBC,
             {shown.map((s, i) => (
               <div key={s.region + ':' + i} className="src-item">
                 <span className="src-geo">{REGION_TAG[s.region]}</span>
-                <button className="lang-btn" title={s.title} onClick={s.onClick}>
+                <button className={'lang-btn' + (s.cls ? ' ' + s.cls : '')} title={s.title} onClick={s.onClick}>
                   <span className="lang-main">{s.label}{s.variant ? <span className="variant">{s.variant}</span> : null}</span>
                   {s.external ? <span className="ext-arrow">↗</span> : null}
                 </button>

@@ -7,13 +7,13 @@ select { font: inherit; color: inherit; }
 /* ===================== Theme tokens (Pitch skin) ===================== */
 .app.mode-light {
   --bg:#f6f5f0; --surface:#ffffff; --surface2:#efeee8; --ink:#1b1d18; --muted:#70746a;
-  --line:#e3e2d8; --accent:#2f7d52; --accent-ink:#ffffff; --radius:14px;
+  --line:#e3e2d8; --accent:#297673; --accent-ink:#ffffff; --radius:14px;
   --card-border:1px solid var(--line); --card-shadow:0 1px 2px rgba(27,29,24,0.05);
   --display-font:'Archivo'; --display-weight:800; --display-transform:none; --display-tracking:-0.02em;
 }
 .app.mode-dark {
   --bg:#141613; --surface:#1d201c; --surface2:#232723; --ink:#eceee6; --muted:#989e90;
-  --line:#2d322c; --accent:#6fbd92; --accent-ink:#10271a; --radius:14px;
+  --line:#2d322c; --accent:#297673; --accent-ink:#ffffff; --radius:14px;
   --card-border:1px solid var(--line); --card-shadow:0 1px 2px rgba(0,0,0,0.3);
   --display-font:'Archivo'; --display-weight:800; --display-transform:none; --display-tracking:-0.02em;
 }
@@ -49,7 +49,7 @@ select { font: inherit; color: inherit; }
 .region-filter { display: flex; align-items: center; gap: 4px; }
 .region-flag { width: 34px; height: 32px; display: grid; place-items: center; border-radius: 8px;
   font-size: 16px; line-height: 1; background: var(--surface2); border: 1px solid var(--line);
-  filter: saturate(0.85) opacity(0.7); transition: filter 0.12s, border-color 0.12s, background 0.12s; }
+  transition: filter 0.12s, border-color 0.12s, background 0.12s; }
 .region-flag:hover { filter: none; }
 .region-flag.on { filter: none; background: var(--surface); border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent); }
 .team-select, .stage-select { background: var(--surface); border: 1px solid var(--line); border-radius: 9px;
@@ -101,18 +101,21 @@ select { font: inherit; color: inherit; }
 .lang-row { display: flex; flex-direction: column; gap: 8px; width: 100%; }
 /* Each source is a row: geo/restriction tag on the left, action button on the
    right. Fixed tag width keeps the buttons aligned across stacked sources. */
-.src-item { display: flex; align-items: stretch; gap: 8px; width: 100%; }
+.src-item { display: flex; align-items: stretch; gap: 0px; width: 100%; height: 33px; }
 .src-geo { flex: none; width: 84px; display: inline-flex; align-items: center; justify-content: center;
-  text-align: center; font-size: 9.5px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase;
-  line-height: 1.2; background: var(--surface2); color: var(--muted); border: 1px solid var(--line);
-  border-radius: 9px; padding: 0 6px; }
+  text-align: center; font-size: 10px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase;
+  line-height: 1.2; background: var(--surface2); border: 1px solid #297673; border-right: none;
+  border-radius: 10px 0px 0px 10px; padding: 0 6px; }
 /* All sources share one green action button — internal player and external
    site look identical; only the trailing ↗ marks a link that leaves the site. */
 .lang-btn { flex: 1; display: flex; flex-direction: row; align-items: center; justify-content: flex-start; gap: 10px;
-  padding: 11px 14px; border-radius: 10px; background: var(--accent); color: var(--accent-ink);
+  padding: 0 14px; border-radius: 0px 10px 10px 0px; background: var(--accent); color: var(--accent-ink);
   font-weight: 800; font-size: 14px; line-height: 1.15; text-decoration: none;
   transition: background 0.12s; }
 .lang-btn:hover { background: color-mix(in srgb, var(--accent) 80%, #000); }
+/* Full-match replay (timesoccertv) — distinct colour from the green sources. */
+.lang-btn.full { background: #9a5bd1; }
+.lang-btn.full:hover { background: color-mix(in srgb, #9a5bd1 80%, #000); }
 .lang-main { display: inline-flex; align-items: baseline; gap: 7px; }
 .lang-main .variant { font-weight: 600; font-size: 12px; opacity: 0.78; }
 .ext-arrow { margin-left: auto; font-size: 13px; font-weight: 700; opacity: 0.85; }

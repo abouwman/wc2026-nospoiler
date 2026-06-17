@@ -39,7 +39,12 @@ export function App() {
   const [mode, setMode] = useState<Mode>(() => loadLS('wcns-mode', 'light'));
   const [groupFilter, setGroupFilter] = useState<string | null>(null);
   const [teamFilter, setTeamFilter] = useState('');
-  const [regionFilter, setRegionFilter] = useState<Region | null>(null);
+  const [regions, setRegions] = useState<Set<Region>>(() => new Set(REGIONS.map((r) => r.code)));
+  const toggleRegion = (code: Region) => setRegions((prev) => {
+    const next = new Set(prev);
+    next.has(code) ? next.delete(code) : next.add(code);
+    return next;
+  });
   const [active, setActive] = useState<Active | null>(null);
   const [embed, setEmbed] = useState<Match | null>(null);
   const [leave, setLeave] = useState<LeaveTarget | null>(null);
@@ -100,9 +105,9 @@ export function App() {
           </div>
           <div className="region-filter" role="group" aria-label="Filter by region / language">
             {REGIONS.map((r) => (
-              <button key={r.code} type="button" title={r.label} aria-pressed={regionFilter === r.code}
-                className={'region-flag' + (regionFilter === r.code ? ' on' : '')}
-                onClick={() => setRegionFilter(regionFilter === r.code ? null : r.code)}>
+              <button key={r.code} type="button" title={r.label} aria-pressed={regions.has(r.code)}
+                className={'region-flag' + (regions.has(r.code) ? ' on' : '')}
+                onClick={() => toggleRegion(r.code)}>
                 <span aria-hidden="true">{r.flag}</span>
               </button>
             ))}
@@ -137,7 +142,7 @@ export function App() {
         {days.length === 0 ? (
           <div className="empty-state">No played matches match these filters yet.</div>
         ) : days.map((d) => (
-          <DaySection key={d.date} date={d.date} matches={d.matches} regionFilter={regionFilter}
+          <DaySection key={d.date} date={d.date} matches={d.matches} regions={regions}
             onOpen={(m, l, v) => setActive({ match: m, lang: l, variant: v })}
             onInternational={(m) => setLeave({ url: fifaUrl(m), site: 'fifa.com' })}
             onBBC={(m) => setLeave({ url: bbcUrl(m), site: 'BBC iPlayer', geo: 'UK' })}
