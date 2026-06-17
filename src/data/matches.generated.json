@@ -585,7 +585,8 @@
       }
     },
     "kickoff": "2026-06-16T19:00:00Z",
-    "group": "I"
+    "group": "I",
+    "fifa": "3EKjirmmC6D2Ss29rPdDph"
   },
   {
     "id": "m-irq-nor",
@@ -593,9 +594,17 @@
     "date": "2026-06-16",
     "home": "IRQ",
     "away": "NOR",
-    "videos": {},
+    "videos": {
+      "en": {
+        "extended": {
+          "id": "ku1hsMdKDXQ",
+          "geo": "US"
+        }
+      }
+    },
     "kickoff": "2026-06-16T22:00:00Z",
-    "group": "I"
+    "group": "I",
+    "bbc": "m002y37z"
   },
   {
     "id": "m-ksa-uru",
