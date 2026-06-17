@@ -565,9 +565,17 @@
     "date": "2026-06-17",
     "home": "POR",
     "away": "COD",
-    "videos": {},
+    "videos": {
+      "en": {
+        "extended": {
+          "id": "SjumRdNESKg",
+          "geo": "US"
+        }
+      }
+    },
     "kickoff": "2026-06-17T17:00:00Z",
-    "group": "K"
+    "group": "K",
+    "fifa": "3EKjirmmC6D2Ss29rPdDph"
   },
   {
     "id": "m-irn-nzl",
