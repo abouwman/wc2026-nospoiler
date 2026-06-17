@@ -579,6 +579,12 @@
           "id": "SjumRdNESKg",
           "geo": "US"
         }
+      },
+      "nl": {
+        "short": {
+          "id": "kbDsffQn20I",
+          "geo": "NL"
+        }
       }
     },
     "kickoff": "2026-06-17T17:00:00Z",
@@ -591,7 +597,8 @@
       ],
       "highlights": "https://soccertims.vortexvisionworks.com/embed/oeSS0SzeYsoFf",
       "page": "https://timesoccertv.com/portugal-highlights/"
-    }
+    },
+    "bbc": "m002y384"
   },
   {
     "id": "m-irn-nzl",
@@ -747,7 +754,15 @@
     "kickoff": "2026-06-15T02:00:00Z",
     "group": "F",
     "fifa": "1xJ82g9ocfLQaweWUFgFMw",
-    "bbc": "m002y35n"
+    "bbc": "m002y35n",
+    "tstv": {
+      "full": [
+        "https://hgcloud.to/e/6f3q61tqfhxe",
+        "https://hgcloud.to/e/7qgj4njntbnc"
+      ],
+      "highlights": "https://soccertims.vortexvisionworks.com/embed/vhxCgsAmdOSaC",
+      "page": "https://timesoccertv.com/sweden-full-match/"
+    }
   },
   {
     "id": "m-esp-cpv",
@@ -776,7 +791,15 @@
     "kickoff": "2026-06-15T16:00:00Z",
     "group": "H",
     "fifa": "jLS5YXPMr0XAd5lMHtbiJ",
-    "bbc": "m002y37p"
+    "bbc": "m002y37p",
+    "tstv": {
+      "full": [
+        "https://hgcloud.to/e/92eyulcpcrkq",
+        "https://hgcloud.to/e/wtnx3se6bwrk"
+      ],
+      "highlights": "https://soccertims.vortexvisionworks.com/embed/YbAzAG1YB6edI",
+      "page": "https://timesoccertv.com/spain-highlights/"
+    }
   },
   {
     "id": "m-bel-egy",
@@ -805,7 +828,15 @@
     "kickoff": "2026-06-15T19:00:00Z",
     "group": "G",
     "fifa": "2XSqobMgEwKFuhEozWztJl",
-    "bbc": "m002y37m"
+    "bbc": "m002y37m",
+    "tstv": {
+      "full": [
+        "https://hgcloud.to/e/hjwfrmtua3ht",
+        "https://hgcloud.to/e/is3j2jtbtuwo"
+      ],
+      "highlights": "https://soccertims.vortexvisionworks.com/embed/mPugJYc3ebJ4h",
+      "page": "https://timesoccertv.com/belgium-highlights/"
+    }
   },
   {
     "id": "m-civ-ecu",
@@ -834,7 +865,14 @@
       }
     },
     "fifa": "4P79SuyJHO3ZGVuRYxjots",
-    "bbc": "m002y333"
+    "bbc": "m002y333",
+    "tstv": {
+      "full": [
+        "https://hgcloud.to/e/y0dt93feogea"
+      ],
+      "highlights": "https://hgcloud.to/e/vy59nfkvtm49",
+      "page": "https://timesoccertv.com/ecuador-highlights/"
+    }
   },
   {
     "id": "m-ned-jpn",
@@ -864,7 +902,15 @@
       }
     },
     "fifa": "hfEd1R54PslEMX4Rqb0EP",
-    "bbc": "m002y31z"
+    "bbc": "m002y31z",
+    "tstv": {
+      "full": [
+        "https://hgcloud.to/e/6czmlmko6pk5",
+        "https://hgcloud.to/e/plz1z0gl6t5k"
+      ],
+      "highlights": "https://soccertims.vortexvisionworks.com/embed/8L18qxrAgvvFG",
+      "page": "https://timesoccertv.com/netherlands-highlights/"
+    }
   },
   {
     "id": "m-ger-cuw",
@@ -894,7 +940,15 @@
       }
     },
     "fifa": "3MSlsbd2rcnTGlcG4jhpdR",
-    "bbc": "m002y31x"
+    "bbc": "m002y31x",
+    "tstv": {
+      "full": [
+        "https://hgcloud.to/e/o7stodlubvqq",
+        "https://hgcloud.to/e/t728x52osqrk"
+      ],
+      "highlights": "https://soccertims.vortexvisionworks.com/embed/V4P40gOsvsRDX",
+      "page": "https://timesoccertv.com/germany-highlights/"
+    }
   },
   {
     "id": "m-aus-tur",
