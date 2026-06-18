@@ -508,7 +508,14 @@
     "date": "2026-06-18",
     "home": "SUI",
     "away": "BIH",
-    "videos": {},
+    "videos": {
+      "en": {
+        "extended": {
+          "id": "v08lQx6pThk",
+          "geo": "US"
+        }
+      }
+    },
     "kickoff": "2026-06-18T19:00:00Z",
     "group": "B"
   },
