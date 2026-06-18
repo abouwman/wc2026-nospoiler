@@ -515,6 +515,10 @@
         "extended": {
           "id": "GtyuIf7zykA",
           "geo": "US"
+        },
+        "short": {
+          "id": "N5jKKF4NtIw",
+          "geo": "US"
         }
       },
       "nl": {
@@ -733,6 +737,10 @@
         "extended": {
           "id": "ku1hsMdKDXQ",
           "geo": "US"
+        },
+        "short": {
+          "id": "YVpV0yaiEoo",
+          "geo": "US"
         }
       },
       "nl": {
@@ -748,7 +756,8 @@
     "tstv": {
       "highlights": "https://soccertims.vortexvisionworks.com/embed/PyoZ2qVQoDoQV",
       "page": "https://timesoccertv.com/norway-highlights/"
-    }
+    },
+    "fifa": "SsQRwgoouokLgVYDKitmB"
   },
   {
     "id": "m-ksa-uru",
