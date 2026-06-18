@@ -455,9 +455,23 @@
     "date": "2026-06-18",
     "home": "UZB",
     "away": "COL",
-    "videos": {},
+    "videos": {
+      "en": {
+        "extended": {
+          "id": "Qb3ipZFspnc",
+          "geo": "US"
+        }
+      },
+      "nl": {
+        "short": {
+          "id": "ef2gjbyprLw",
+          "geo": "NL"
+        }
+      }
+    },
     "kickoff": "2026-06-18T02:00:00Z",
-    "group": "K"
+    "group": "K",
+    "bbc": "m002y38b"
   },
   {
     "id": "m-cze-rsa",
@@ -591,10 +605,17 @@
           "id": "hFO9DhasJ2A",
           "geo": "US"
         }
+      },
+      "nl": {
+        "short": {
+          "id": "TfR3EH505Pw",
+          "geo": "NL"
+        }
       }
     },
     "kickoff": "2026-06-17T23:00:00Z",
-    "group": "L"
+    "group": "L",
+    "bbc": "m002y388"
   },
   {
     "id": "m-por-cod",
@@ -672,6 +693,10 @@
       "en": {
         "extended": {
           "id": "SlmYDbzHqjg",
+          "geo": "US"
+        },
+        "short": {
+          "id": "t2cbTyEO080",
           "geo": "US"
         }
       },
