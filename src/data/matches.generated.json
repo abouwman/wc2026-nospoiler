@@ -616,7 +616,8 @@
     },
     "kickoff": "2026-06-17T23:00:00Z",
     "group": "L",
-    "bbc": "m002y388"
+    "bbc": "m002y388",
+    "fifa": "5yGWUJLlTqyvKydpUvLJnU"
   },
   {
     "id": "m-por-cod",
@@ -718,7 +719,8 @@
       ],
       "highlights": "https://soccertims.vortexvisionworks.com/embed/318MiOuPscxfF",
       "page": "https://timesoccertv.com/france-highlights/"
-    }
+    },
+    "fifa": "3EKjirmmC6D2Ss29rPdDph"
   },
   {
     "id": "m-irq-nor",
