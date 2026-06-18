@@ -1,39 +1,27 @@
-// Throwaway probe: why does fifaWatchId find nothing for Czechia v South Africa?
-const WATCH_URL = /fifa\.com\/(?:fifaplus\/)?en\/watch\/([A-Za-z0-9_-]{16,26})/i;
-const OLD_EDITION = /\b(2002|2006|2010|2014|2018|2022)\b/i;
-const norm = (s) => s.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().replace(/\s+/g, ' ').trim();
-const matchNorm = (s) => norm(s).replace(/[^a-z0-9]+/g, ' ').trim();
-const esc = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-function pairTitle(text, homeNames, awayNames) {
-  const t = matchNorm(text);
-  for (const [a, b] of [[homeNames, awayNames], [awayNames, homeNames]])
-    for (const x of a) for (const y of b) {
-      const X = matchNorm(x), Y = matchNorm(y); if (!X || !Y) continue;
-      if (new RegExp(`^${esc(X)} (?:v|vs) ${esc(Y)}(?: |$)`).test(t)) return true;
-    }
-  return false;
-}
-async function search(q) {
-  const u = 'https://api.search.brave.com/res/v1/web/search?count=20&q=' + encodeURIComponent(q);
-  const r = await fetch(u, { headers: { 'X-Subscription-Token': process.env.BRAVE_API_KEY, Accept: 'application/json' } });
-  if (!r.ok) { console.log('  brave', r.status, (await r.text()).slice(0, 150)); return []; }
-  const j = await r.json();
-  return (j.web?.results || []).map((x) => ({ url: x.url, text: `${x.title || ''} ${x.description || ''}` })).filter((x) => x.url);
-}
+// Throwaway probe: does a FIFA article/match-centre page contain the /watch/ id?
+const UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36';
+const WATCH_URL = /fifa\.com\/(?:fifaplus\/)?en\/watch\/([A-Za-z0-9_-]{16,26})/gi;
+const WATCH_PATH = /\/(?:fifaplus\/)?en\/watch\/([A-Za-z0-9_-]{16,26})/gi;
 
-const home = ['czechia', 'czech republic'], away = ['south africa'];
-const queries = [
-  `czechia v south africa highlights site:fifa.com/en/watch`,
-  `czechia v south africa Group highlights FIFA World Cup 2026 site:fifa.com`,
-  `czechia vs south africa highlights FIFA World Cup 2026 watch site:fifa.com`,
+const urls = [
+  'https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/czechia-south-africa-highlights-match-report',
+  'https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/czechia-south-africa-live-stream-team-news-tickets',
+  'https://www.fifa.com/en/match-centre/match/17/285023/289273/400021440',
 ];
-for (const q of queries) {
-  console.log('\n==== q:', q);
-  const res = await search(q);
-  console.log('  results', res.length);
-  for (const { url, text } of res.slice(0, 12)) {
-    const w = String(url).match(WATCH_URL);
-    console.log(`   ${w ? 'WATCH:' + w[1] : 'no-watch'} pair=${pairTitle(text, home, away)} old=${OLD_EDITION.test(text)} | ${url}`);
-    if (w) console.log(`       text: ${text.slice(0, 140)}`);
-  }
+
+for (const url of urls) {
+  console.log('\n==== ' + url);
+  try {
+    const r = await fetch(url, { headers: { 'user-agent': UA, accept: 'text/html,*/*' } });
+    console.log('  status', r.status, '| ctype', r.headers.get('content-type'));
+    if (!r.ok) continue;
+    const html = await r.text();
+    console.log('  html length', html.length);
+    const ids = [...new Set([...html.matchAll(WATCH_URL)].map((m) => m[1]).concat([...html.matchAll(WATCH_PATH)].map((m) => m[1])))];
+    console.log('  watch ids found:', ids.slice(0, 10));
+    console.log('  has __NEXT_DATA__:', html.includes('__NEXT_DATA__'), '| has "videoId":', /["']videoId["']/.test(html), '| has "entryId":', /entryId/.test(html));
+    // any kaltura/entry style ids near "watch"
+    const near = html.match(/watch[^]{0,120}/i);
+    if (near) console.log('  near-watch snippet:', near[0].replace(/\s+/g, ' ').slice(0, 140));
+  } catch (e) { console.log('  err', e.message); }
 }
