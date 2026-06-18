@@ -576,7 +576,8 @@
       ],
       "highlights": "https://soccertims.vortexvisionworks.com/embed/UQQG1FNSQpFmo",
       "page": "https://timesoccertv.com/england-highlights/"
-    }
+    },
+    "fifa": "69ls3TcVt6PIJPxhiREehA"
   },
   {
     "id": "m-gha-pan",
@@ -584,7 +585,14 @@
     "date": "2026-06-17",
     "home": "GHA",
     "away": "PAN",
-    "videos": {},
+    "videos": {
+      "en": {
+        "extended": {
+          "id": "hFO9DhasJ2A",
+          "geo": "US"
+        }
+      }
+    },
     "kickoff": "2026-06-17T23:00:00Z",
     "group": "L"
   },
