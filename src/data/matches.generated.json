@@ -514,10 +514,24 @@
           "id": "v08lQx6pThk",
           "geo": "US"
         }
+      },
+      "nl": {
+        "short": {
+          "id": "uaTufNIuC1g",
+          "geo": "NL"
+        }
       }
     },
     "kickoff": "2026-06-18T19:00:00Z",
-    "group": "B"
+    "group": "B",
+    "tstv": {
+      "full": [
+        "https://hgcloud.to/e/1ji65fdyikxa",
+        "https://hgcloud.to/e/ez2187swch6n"
+      ],
+      "highlights": "https://soccertims.vortexvisionworks.com/embed/5SGQHQlGbUfJx",
+      "page": "https://timesoccertv.com/switzerland-full-match/"
+    }
   },
   {
     "id": "m-can-qat",
