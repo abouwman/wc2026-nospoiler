@@ -480,9 +480,27 @@
     "date": "2026-06-18",
     "home": "CZE",
     "away": "RSA",
-    "videos": {},
+    "videos": {
+      "en": {
+        "extended": {
+          "id": "jijCaWH_IxM",
+          "geo": "US"
+        }
+      },
+      "nl": {
+        "short": {
+          "id": "-oxHwK6aT7A",
+          "geo": "NL"
+        }
+      }
+    },
     "kickoff": "2026-06-18T16:00:00Z",
-    "group": "A"
+    "group": "A",
+    "bbc": "m002y3qk",
+    "tstv": {
+      "highlights": "https://hgcloud.to/e/yx36ho5bkopa",
+      "page": "https://timesoccertv.com/czechia-highlights/"
+    }
   },
   {
     "id": "m-sui-bih",
