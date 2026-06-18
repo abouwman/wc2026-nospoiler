@@ -300,7 +300,6 @@ async function fifaWatchId(homeNames, awayNames) {
   const [home, away] = [homeNames[0], awayNames[0]];
   const queries = [
     `${home} v ${away} highlights site:fifa.com/en/watch`,
-    `${home} v ${away} Group highlights FIFA World Cup 2026 site:fifa.com`,
     `${home} vs ${away} highlights FIFA World Cup 2026 watch site:fifa.com`,
   ];
   for (const q of queries) {
@@ -561,13 +560,21 @@ async function main() {
   // Watch ids already in use, so the same fifa.com page can't be attached to two
   // different matches (the search occasionally returns a shared/hub id).
   const usedFifa = new Set([...byId.values()].map((m) => m.fifa).filter(Boolean));
+  // FIFA watch ids come from a web search; the page is only indexed a while after
+  // kickoff, so we keep retrying recent matches. Bound the Brave usage: only
+  // matches kicked off within the lookback window, capped per run.
+  const fifaCutoff = nowMs - Number(process.env.FIFA_LOOKBACK_DAYS || 5) * 864e5;
+  const fifaMaxPerRun = Number(process.env.FIFA_MAX_PER_RUN || 10);
+  let fifaTries = 0;
   for (const match of byId.values()) {
     const hasVid = Object.values(match.videos).some((c) => c && (c.short || c.extended));
-    const played = hasVid || (match.kickoff && new Date(match.kickoff).getTime() < nowMs);
+    const ko = match.kickoff ? new Date(match.kickoff).getTime() : 0;
+    const played = hasVid || (ko && ko < nowMs);
     if (!played) continue;
     const hn = TEAMS[match.home]?.en, an = TEAMS[match.away]?.en;
     if (!hn?.length || !an?.length) continue;
-    if (!match.fifa) {
+    if (!match.fifa && ko && ko >= fifaCutoff && fifaTries < fifaMaxPerRun) {
+      fifaTries++;
       const id = await fifaWatchId(hn, an);
       if (id && !usedFifa.has(id)) { match.fifa = id; usedFifa.add(id); console.log(`fifa for ${match.id}: ${id}`); }
     }
