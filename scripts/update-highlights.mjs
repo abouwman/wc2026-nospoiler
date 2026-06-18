@@ -275,19 +275,44 @@ const WATCH_URL = /fifa\.com\/(?:fifaplus\/)?en\/watch\/([A-Za-z0-9_-]{16,26})/i
 
 const mentions = (text, names) => names.some((n) => containsName(text, n));
 
-// Resolve a match's fifa.com/watch id. homeNames/awayNames are the known name
-// variants for each team. A result only counts if its title/snippet mentions a
-// variant of BOTH teams and is not an older edition — this stops the search from
-// returning a 2018/2022 clip that merely shares one team name.
+// True when the text STARTS with the exact pairing "home v away" (or the reverse
+// order) — accent/punctuation-insensitive. FIFA's per-match watch titles look
+// like "Uzbekistan v Colombia | Group K | … | Highlights", so anchoring on the
+// pairing rejects roundup/compilation watch pages that merely list many teams
+// (those caused one id to be wrongly attached to several matches).
+function pairTitle(text, homeNames, awayNames) {
+  const t = matchNorm(text);
+  const esc = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  for (const [a, b] of [[homeNames, awayNames], [awayNames, homeNames]]) {
+    for (const x of a) for (const y of b) {
+      const X = matchNorm(x), Y = matchNorm(y);
+      if (!X || !Y) continue;
+      if (new RegExp(`^${esc(X)} (?:v|vs) ${esc(Y)}(?: |$)`).test(t)) return true;
+    }
+  }
+  return false;
+}
+
+// Resolve a match's fifa.com/watch id. Tries a few query forms (coverage varies
+// per match) and accepts only a watch page whose title is the exact pairing and
+// isn't an older edition.
 async function fifaWatchId(homeNames, awayNames) {
   const [home, away] = [homeNames[0], awayNames[0]];
-  const results = await searchResults(`${home} vs ${away} highlights FIFA World Cup 2026 watch site:fifa.com`);
-  for (const { url, text } of results) {
-    const m = String(url).match(WATCH_URL);
-    if (!m) continue;
-    if (OLD_EDITION.test(text)) continue;
-    if (!mentions(text, homeNames) || !mentions(text, awayNames)) continue;
-    return m[1];
+  const queries = [
+    `${home} v ${away} highlights site:fifa.com/en/watch`,
+    `${home} v ${away} Group highlights FIFA World Cup 2026 site:fifa.com`,
+    `${home} vs ${away} highlights FIFA World Cup 2026 watch site:fifa.com`,
+  ];
+  for (const q of queries) {
+    let results = [];
+    try { results = await searchResults(q); } catch { /* try next */ }
+    for (const { url, text } of results) {
+      const m = String(url).match(WATCH_URL);
+      if (!m) continue;
+      if (OLD_EDITION.test(text)) continue;
+      if (!pairTitle(text, homeNames, awayNames)) continue;
+      return m[1];
+    }
   }
   return null;
 }
