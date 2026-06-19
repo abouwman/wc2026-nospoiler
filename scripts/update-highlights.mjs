@@ -433,7 +433,7 @@ async function fetchFifaHighlights() {
     collectFifaItems(data, out, acc);
     if (process.env.DEBUG_FIFA) {
       console.log(`DBG fifa section ${s.entryType} ${s.entryEndpoint} -> +${out.length - before}`);
-      if (out.length > before && !dumped) { dumped = true; console.log('DBG fifa section raw:', JSON.stringify(data).slice(0, 2500)); }
+      if (out.length > before && !dumped && s.entryType === 'sectionPromoCarousel') { dumped = true; console.log('DBG fifa section raw:', JSON.stringify(data).slice(0, 4500)); }
     }
   }
   if (process.env.DEBUG_FIFA) {
