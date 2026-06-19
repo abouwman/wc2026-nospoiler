@@ -272,6 +272,24 @@ async function searchResults(query) {
 const OLD_EDITION = /\b(2002|2006|2010|2014|2018|2022)\b|russia 2018|qatar 2022|brazil 2014|south africa 2010/i;
 // fifa.com serves watch pages as both /en/watch/<id> and /fifaplus/en/watch/<id>.
 const WATCH_URL = /fifa\.com\/(?:fifaplus\/)?en\/watch\/([A-Za-z0-9_-]{16,26})/i;
+// A fifa.com/watch id in isolation (same charset/length as WATCH_URL's capture).
+const WATCH_ID = /^[A-Za-z0-9_-]{16,26}$/;
+
+// FIFA's own highlights hub, served as JSON by the FIFA+ CXM API. The public hub
+// page is JS-rendered and bot-blocks datacenter IPs, but this API lists the new
+// videos shortly after a match ends — far faster than waiting for a web search to
+// index the fifa.com/watch page. Override the endpoint via FIFA_HIGHLIGHTS_API
+// (e.g. to point at a sub-collection endpoint if the page descriptor changes).
+const FIFA_HIGHLIGHTS_API = process.env.FIFA_HIGHLIGHTS_API
+  || 'https://cxm-api.fifa.com/fifaplusweb/api/pages/en/tournaments/mens/worldcup/canadamexicousa2026/highlights';
+// The hub page is only a layout descriptor; its `sections[]` each carry an
+// `entryEndpoint` (relative) for the real content. Resolve those against the CXM
+// API root (…/fifaplusweb/api/) and crawl only the video-bearing section types.
+const FIFA_API_ROOT = (() => {
+  const m = FIFA_HIGHLIGHTS_API.match(/^(https?:\/\/.*?\/api)\//i);
+  return m ? `${m[1]}/` : new URL('./', FIFA_HIGHLIGHTS_API).toString();
+})();
+const FIFA_SECTION_TYPES = new Set(['storyTeller', 'sectionPromoCarousel']);
 
 const mentions = (text, names) => names.some((n) => containsName(text, n));
 
@@ -352,6 +370,84 @@ function bbcEpisodeId(episodes, homeNames, awayNames) {
     if (OLD_EDITION.test(text)) continue;
     if (!mentions(text, homeNames) || !mentions(text, awayNames)) continue;
     return id;
+  }
+  return null;
+}
+
+// --- FIFA highlights hub (worldwide) ----------------------------------------
+// A watch link, absolute or relative: "fifa.com/en/watch/<id>" or "/en/watch/<id>"
+// (CXM video cards carry the latter in readMorePageUrl).
+const WATCH_PATH = /\/(?:fifaplus\/)?(?:[a-z]{2}\/)?watch\/([A-Za-z0-9_-]{16,26})/i;
+
+// Collect { watchId, title } for every *video* object in the FIFA hub JSON,
+// defensively (the CXM schema nests entries under several shapes — same approach
+// as collectBbcEpisodes). A node only counts as a video when it carries a real
+// watch reference: watchDataDto.videoEntryId or a /en/watch/<id> link. Requiring
+// that (rather than any id-like field) skips image sub-objects and section
+// headers — both of which have a title but are not the highlight video — and the
+// id it yields is byte-equal to the public fifa.com/en/watch/<id> link.
+function collectFifaItems(node, out, acc = new Set()) {
+  if (Array.isArray(node)) { for (const x of node) collectFifaItems(x, out, acc); return; }
+  if (!node || typeof node !== 'object') return;
+  const title = [node.title, node.name, node.headline, node.shortTitle, node.displayTitle]
+    .find((x) => typeof x === 'string' && x.trim());
+  let watchId = null;
+  const vid = node.watchDataDto?.videoEntryId;
+  if (typeof vid === 'string' && WATCH_ID.test(vid)) watchId = vid;
+  if (!watchId) {
+    for (const v of Object.values(node)) {
+      if (typeof v !== 'string') continue;
+      const m = v.match(WATCH_PATH);
+      if (m) { watchId = m[1]; break; }
+    }
+  }
+  if (title && watchId && !acc.has(watchId)) { acc.add(watchId); out.push({ watchId, title }); }
+  for (const k of Object.keys(node)) collectFifaItems(node[k], out, acc);
+}
+
+async function fifaJson(url) {
+  const r = await fetch(url, {
+    headers: { 'user-agent': UA, accept: 'application/json', origin: 'https://www.fifa.com' },
+  });
+  if (!r.ok) { console.warn(`fifa ${r.status} ${url}`); return null; }
+  return r.json();
+}
+
+// The hub page is only a layout descriptor: it lists sections, each served from
+// its own sub-endpoint. Fetch the page, then crawl the video-bearing sections and
+// collect every { watchId, title } across them (shared dedup). If the endpoint is
+// overridden to a section URL directly, its entries are collected too.
+async function fetchFifaHighlights() {
+  let page;
+  try { page = await fifaJson(FIFA_HIGHLIGHTS_API); }
+  catch (e) { console.warn('fifa hub failed:', e.message); return []; }
+  if (!page) return [];
+  const out = [], acc = new Set();
+  collectFifaItems(page, out, acc);
+  const sections = Array.isArray(page.sections) ? page.sections : [];
+  for (const s of sections) {
+    if (!s?.entryEndpoint || !FIFA_SECTION_TYPES.has(s.entryType)) continue;
+    let url, data;
+    try { url = new URL(String(s.entryEndpoint).replace(/^\/+/, ''), FIFA_API_ROOT).toString(); } catch { continue; }
+    try { data = await fifaJson(url); } catch { continue; }
+    if (data) collectFifaItems(data, out, acc);
+  }
+  if (process.env.DEBUG_FIFA) {
+    console.log(`DBG fifa total: ${out.length} items`);
+    for (const it of out.slice(0, 50)) console.log(`DBG fifa item: ${it.watchId}  ${it.title}`);
+  }
+  return out;
+}
+
+// Like bbcEpisodeId, but require the exact "home v away" pairing (pairTitle) and a
+// "Highlights" title, so a roundup/compilation, preview or gamified-recap entry
+// can't be attached as a match's highlight.
+function fifaHubMatchId(items, homeNames, awayNames) {
+  for (const { watchId, title } of items) {
+    if (OLD_EDITION.test(title)) continue;
+    if (!/highlights/i.test(title)) continue;
+    if (!pairTitle(title, homeNames, awayNames)) continue;
+    return watchId;
   }
   return null;
 }
@@ -560,11 +656,23 @@ async function main() {
   // Watch ids already in use, so the same fifa.com page can't be attached to two
   // different matches (the search occasionally returns a shared/hub id).
   const usedFifa = new Set([...byId.values()].map((m) => m.fifa).filter(Boolean));
-  // FIFA watch ids come from a web search; the page is only indexed a while after
-  // kickoff, so we keep retrying recent matches. Bound the Brave usage: only
-  // matches kicked off within the lookback window, capped per run.
+  // Only resolve FIFA links once a match has actually finished (kickoff + full
+  // playtime + buffer) and is still within the lookback window. The hub usually
+  // posts within that window; a web search is the slower fallback. Bound the
+  // search usage (it's paid/rate-limited): capped per run.
   const fifaCutoff = nowMs - Number(process.env.FIFA_LOOKBACK_DAYS || 5) * 864e5;
   const fifaMaxPerRun = Number(process.env.FIFA_MAX_PER_RUN || 10);
+  const fifaEndMs = Number(process.env.FIFA_END_HOURS || 2) * 36e5;
+  const fifaEligible = (m) => {
+    const ko = m.kickoff ? new Date(m.kickoff).getTime() : 0;
+    return ko && ko + fifaEndMs < nowMs && ko >= fifaCutoff;
+  };
+  // FIFA's own highlights hub — one crawl per run, matched against every match
+  // below. Skip the crawl entirely unless a finished match still needs a link.
+  const needFifa = [...byId.values()].some((m) => !m.fifa && fifaEligible(m)
+    && TEAMS[m.home]?.en?.length && TEAMS[m.away]?.en?.length);
+  const fifaItems = (needFifa || process.env.DEBUG_FIFA) ? await fetchFifaHighlights() : [];
+  console.log(`fifa hub items: ${fifaItems.length}`);
   let fifaTries = 0;
   for (const match of byId.values()) {
     const hasVid = Object.values(match.videos).some((c) => c && (c.short || c.extended));
@@ -573,7 +681,14 @@ async function main() {
     if (!played) continue;
     const hn = TEAMS[match.home]?.en, an = TEAMS[match.away]?.en;
     if (!hn?.length || !an?.length) continue;
-    if (!match.fifa && ko && ko >= fifaCutoff && fifaTries < fifaMaxPerRun) {
+    const eligible = fifaEligible(match);
+    // FIFA hub first (free — one shared crawl, strict pairing match), then fall
+    // back to the web search only when the hub hasn't posted this match yet.
+    if (!match.fifa && eligible) {
+      const id = fifaHubMatchId(fifaItems, hn, an);
+      if (id && !usedFifa.has(id)) { match.fifa = id; usedFifa.add(id); console.log(`fifa(hub) for ${match.id}: ${id}`); }
+    }
+    if (!match.fifa && eligible && fifaTries < fifaMaxPerRun) {
       fifaTries++;
       const id = await fifaWatchId(hn, an);
       if (id && !usedFifa.has(id)) { match.fifa = id; usedFifa.add(id); console.log(`fifa for ${match.id}: ${id}`); }

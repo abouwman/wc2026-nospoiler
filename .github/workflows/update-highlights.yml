@@ -9,6 +9,10 @@ on:
         description: 'Log EN upload titles + parse results'
         type: boolean
         default: false
+      debug_fifa:
+        description: 'Log FIFA highlights hub items (and raw JSON if empty)'
+        type: boolean
+        default: false
 
 permissions:
   contents: write
@@ -35,6 +39,8 @@ jobs:
           GOOGLE_CSE_KEY: ${{ secrets.GOOGLE_CSE_KEY }}
           GOOGLE_CSE_CX: ${{ vars.GOOGLE_CSE_CX }}
           BRAVE_API_KEY: ${{ secrets.BRAVE_API_KEY }}
+          # Optional override for FIFA's highlights-hub JSON endpoint (CXM API):
+          FIFA_HIGHLIGHTS_API: ${{ vars.FIFA_HIGHLIGHTS_API }}
           # Optional override for the BBC iPlayer World Cup highlights group id:
           BBC_GROUP_ID: ${{ vars.BBC_GROUP_ID }}
           # Optional: football-data.org token to seed upcoming-match kickoff times:
@@ -44,6 +50,7 @@ jobs:
           FOX_HANDLE: ${{ vars.FOX_HANDLE }}
           NOS_HANDLE: ${{ vars.NOS_HANDLE }}
           DEBUG_EN: ${{ inputs.debug_en && '1' || '' }}
+          DEBUG_FIFA: ${{ inputs.debug_fifa && '1' || '' }}
         run: node scripts/update-highlights.mjs
 
       - name: Commit if changed
