@@ -425,9 +425,31 @@
     "date": "2026-06-19",
     "home": "MEX",
     "away": "KOR",
-    "videos": {},
+    "videos": {
+      "en": {
+        "extended": {
+          "id": "F1sMvm6D-0Y",
+          "geo": "US"
+        }
+      },
+      "nl": {
+        "short": {
+          "id": "PONABgf2zt4",
+          "geo": "NL"
+        }
+      }
+    },
     "kickoff": "2026-06-19T01:00:00Z",
-    "group": "A"
+    "group": "A",
+    "bbc": "m002y3r5",
+    "tstv": {
+      "full": [
+        "https://hgcloud.to/e/a3dxotp6vxnc",
+        "https://hgcloud.to/e/uqwk7g1hyyz7"
+      ],
+      "highlights": "https://hgcloud.to/e/mw0hqoubmmp7",
+      "page": "https://timesoccertv.com/mexico-highlights/"
+    }
   },
   {
     "id": "m-usa-aus",
@@ -546,10 +568,25 @@
           "id": "vz9OTeU6gTM",
           "geo": "US"
         }
+      },
+      "nl": {
+        "short": {
+          "id": "NM6jpY7k170",
+          "geo": "NL"
+        }
       }
     },
     "kickoff": "2026-06-18T22:00:00Z",
-    "group": "B"
+    "group": "B",
+    "bbc": "m002y3qw",
+    "tstv": {
+      "full": [
+        "https://hgcloud.to/e/jetb01oa1yns",
+        "https://hgcloud.to/e/vv5zposlt672"
+      ],
+      "highlights": "https://hgcloud.to/e/zxnvcmace6fh",
+      "page": "https://timesoccertv.com/canada-highlights/"
+    }
   },
   {
     "id": "m-arg-alg",
