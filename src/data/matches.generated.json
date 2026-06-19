@@ -462,9 +462,23 @@
     "date": "2026-06-19",
     "home": "USA",
     "away": "AUS",
-    "videos": {},
+    "videos": {
+      "en": {
+        "extended": {
+          "id": "1gMiT5r-K7Q",
+          "geo": "US"
+        }
+      },
+      "nl": {
+        "short": {
+          "id": "LUhPXj7b7s8",
+          "geo": "NL"
+        }
+      }
+    },
     "kickoff": "2026-06-19T19:00:00Z",
-    "group": "D"
+    "group": "D",
+    "fifa": "1uOCG5cpsR45kemo4IdCO3"
   },
   {
     "id": "m-sco-mar",
