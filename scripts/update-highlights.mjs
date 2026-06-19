@@ -375,30 +375,33 @@ function bbcEpisodeId(episodes, homeNames, awayNames) {
 }
 
 // --- FIFA highlights hub (worldwide) ----------------------------------------
-// Collect { watchId, title } for every video-like object in the FIFA hub JSON,
+// A watch link, absolute or relative: "fifa.com/en/watch/<id>" or "/en/watch/<id>"
+// (CXM video cards carry the latter in readMorePageUrl).
+const WATCH_PATH = /\/(?:fifaplus\/)?(?:[a-z]{2}\/)?watch\/([A-Za-z0-9_-]{16,26})/i;
+
+// Collect { watchId, title } for every *video* object in the FIFA hub JSON,
 // defensively (the CXM schema nests entries under several shapes — same approach
-// as collectBbcEpisodes). Prefer ids derived from a real /en/watch/<id> URL on
-// the node (guaranteed equal to the public link the frontend builds); only fall
-// back to id-like fields when no such URL is present.
+// as collectBbcEpisodes). A node only counts as a video when it carries a real
+// watch reference: watchDataDto.videoEntryId or a /en/watch/<id> link. Requiring
+// that (rather than any id-like field) skips image sub-objects and section
+// headers — both of which have a title but are not the highlight video — and the
+// id it yields is byte-equal to the public fifa.com/en/watch/<id> link.
 function collectFifaItems(node, out, acc = new Set()) {
   if (Array.isArray(node)) { for (const x of node) collectFifaItems(x, out, acc); return; }
   if (!node || typeof node !== 'object') return;
   const title = [node.title, node.name, node.headline, node.shortTitle, node.displayTitle]
     .find((x) => typeof x === 'string' && x.trim());
-  if (title) {
-    let watchId = null;
+  let watchId = null;
+  const vid = node.watchDataDto?.videoEntryId;
+  if (typeof vid === 'string' && WATCH_ID.test(vid)) watchId = vid;
+  if (!watchId) {
     for (const v of Object.values(node)) {
       if (typeof v !== 'string') continue;
-      const m = v.match(WATCH_URL);
+      const m = v.match(WATCH_PATH);
       if (m) { watchId = m[1]; break; }
     }
-    if (!watchId) {
-      for (const k of ['id', 'slug', 'videoId', 'entryId', 'guid', 'contentId']) {
-        if (typeof node[k] === 'string' && WATCH_ID.test(node[k])) { watchId = node[k]; break; }
-      }
-    }
-    if (watchId && !acc.has(watchId)) { acc.add(watchId); out.push({ watchId, title }); }
   }
+  if (title && watchId && !acc.has(watchId)) { acc.add(watchId); out.push({ watchId, title }); }
   for (const k of Object.keys(node)) collectFifaItems(node[k], out, acc);
 }
 
@@ -422,19 +425,12 @@ async function fetchFifaHighlights() {
   const out = [], acc = new Set();
   collectFifaItems(page, out, acc);
   const sections = Array.isArray(page.sections) ? page.sections : [];
-  let dumped = false;
   for (const s of sections) {
     if (!s?.entryEndpoint || !FIFA_SECTION_TYPES.has(s.entryType)) continue;
     let url, data;
     try { url = new URL(String(s.entryEndpoint).replace(/^\/+/, ''), FIFA_API_ROOT).toString(); } catch { continue; }
     try { data = await fifaJson(url); } catch { continue; }
-    if (!data) continue;
-    const before = out.length;
-    collectFifaItems(data, out, acc);
-    if (process.env.DEBUG_FIFA) {
-      console.log(`DBG fifa section ${s.entryType} ${s.entryEndpoint} -> +${out.length - before}`);
-      if (out.length > before && !dumped && s.entryType === 'sectionPromoCarousel') { dumped = true; console.log('DBG fifa section raw:', JSON.stringify(data).slice(0, 4500)); }
-    }
+    if (data) collectFifaItems(data, out, acc);
   }
   if (process.env.DEBUG_FIFA) {
     console.log(`DBG fifa total: ${out.length} items`);
@@ -443,11 +439,13 @@ async function fetchFifaHighlights() {
   return out;
 }
 
-// Like bbcEpisodeId, but require the exact "home v away" pairing (pairTitle) so a
-// roundup/compilation entry can't be attached to a single match.
+// Like bbcEpisodeId, but require the exact "home v away" pairing (pairTitle) and a
+// "Highlights" title, so a roundup/compilation, preview or gamified-recap entry
+// can't be attached as a match's highlight.
 function fifaHubMatchId(items, homeNames, awayNames) {
   for (const { watchId, title } of items) {
     if (OLD_EDITION.test(title)) continue;
+    if (!/highlights/i.test(title)) continue;
     if (!pairTitle(title, homeNames, awayNames)) continue;
     return watchId;
   }
