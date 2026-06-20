@@ -385,9 +385,24 @@
     "date": "2026-06-20",
     "home": "BRA",
     "away": "HAI",
-    "videos": {},
+    "videos": {
+      "en": {
+        "extended": {
+          "id": "BphiVajPsFc",
+          "geo": "US"
+        }
+      },
+      "nl": {
+        "short": {
+          "id": "EaibGYzuaZY",
+          "geo": "NL"
+        }
+      }
+    },
     "kickoff": "2026-06-20T00:30:00Z",
-    "group": "C"
+    "group": "C",
+    "fifa": "4B1cORLHftHRri3QzyPvng",
+    "bbc": "m002y3rw"
   },
   {
     "id": "m-tur-par",
@@ -395,9 +410,23 @@
     "date": "2026-06-20",
     "home": "TUR",
     "away": "PAR",
-    "videos": {},
+    "videos": {
+      "en": {
+        "extended": {
+          "id": "HrbIda-C9SE",
+          "geo": "US"
+        }
+      },
+      "nl": {
+        "short": {
+          "id": "ITWvs7Dzxd4",
+          "geo": "NL"
+        }
+      }
+    },
     "kickoff": "2026-06-20T03:00:00Z",
-    "group": "D"
+    "group": "D",
+    "fifa": "6gtrw3fGvuONahHQd4yE67"
   },
   {
     "id": "m-ger-civ",
@@ -493,11 +522,18 @@
           "id": "wff2tvitS-s",
           "geo": "US"
         }
+      },
+      "nl": {
+        "short": {
+          "id": "35pSxhZvTHU",
+          "geo": "NL"
+        }
       }
     },
     "kickoff": "2026-06-19T22:00:00Z",
     "group": "C",
-    "fifa": "lLPqiMKeKkrKkEqOj9dxU"
+    "fifa": "lLPqiMKeKkrKkEqOj9dxU",
+    "bbc": "m002y3rl"
   },
   {
     "id": "m-uzb-col",
