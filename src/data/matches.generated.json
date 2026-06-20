@@ -402,7 +402,15 @@
     "kickoff": "2026-06-20T00:30:00Z",
     "group": "C",
     "fifa": "4B1cORLHftHRri3QzyPvng",
-    "bbc": "m002y3rw"
+    "bbc": "m002y3rw",
+    "tstv": {
+      "full": [
+        "https://hgcloud.to/e/80rbv1gmnz1v",
+        "https://hgcloud.to/e/ubdpvz0sc0jh"
+      ],
+      "highlights": "https://soccertims.vortexvisionworks.com/embed/AGboLCD2kN5Zg",
+      "page": "https://timesoccertv.com/brazil-highlights/"
+    }
   },
   {
     "id": "m-tur-par",
@@ -426,7 +434,8 @@
     },
     "kickoff": "2026-06-20T03:00:00Z",
     "group": "D",
-    "fifa": "6gtrw3fGvuONahHQd4yE67"
+    "fifa": "6gtrw3fGvuONahHQd4yE67",
+    "bbc": "m002y41d"
   },
   {
     "id": "m-ger-civ",
@@ -533,7 +542,15 @@
     "kickoff": "2026-06-19T22:00:00Z",
     "group": "C",
     "fifa": "lLPqiMKeKkrKkEqOj9dxU",
-    "bbc": "m002y3rl"
+    "bbc": "m002y3rl",
+    "tstv": {
+      "full": [
+        "https://hgcloud.to/e/z61vksswx0zo",
+        "https://hgcloud.to/e/vmtk9akhv1fg"
+      ],
+      "highlights": "https://soccertims.vortexvisionworks.com/embed/uH71xrMSnFG6o",
+      "page": "https://timesoccertv.com/scotland-highlights/"
+    }
   },
   {
     "id": "m-uzb-col",
