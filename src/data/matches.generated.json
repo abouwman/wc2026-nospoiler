@@ -487,9 +487,17 @@
     "date": "2026-06-19",
     "home": "SCO",
     "away": "MAR",
-    "videos": {},
+    "videos": {
+      "en": {
+        "extended": {
+          "id": "wff2tvitS-s",
+          "geo": "US"
+        }
+      }
+    },
     "kickoff": "2026-06-19T22:00:00Z",
-    "group": "C"
+    "group": "C",
+    "fifa": "lLPqiMKeKkrKkEqOj9dxU"
   },
   {
     "id": "m-uzb-col",
