@@ -457,9 +457,23 @@
     "date": "2026-06-20",
     "home": "NED",
     "away": "SWE",
-    "videos": {},
+    "videos": {
+      "en": {
+        "extended": {
+          "id": "IRllRLrG7Sg",
+          "geo": "US"
+        }
+      },
+      "nl": {
+        "short": {
+          "id": "18MG_CMnQxY",
+          "geo": "NL"
+        }
+      }
+    },
     "kickoff": "2026-06-20T17:00:00Z",
-    "group": "F"
+    "group": "F",
+    "fifa": "oQAXWFfSFtgXIEhnTdrE6"
   },
   {
     "id": "m-mex-kor",
