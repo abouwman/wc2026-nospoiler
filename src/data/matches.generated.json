@@ -447,9 +447,25 @@
     "date": "2026-06-20",
     "home": "GER",
     "away": "CIV",
-    "videos": {},
+    "videos": {
+      "en": {
+        "extended": {
+          "id": "EL9nHScp4bk",
+          "geo": "US"
+        }
+      }
+    },
     "kickoff": "2026-06-20T20:00:00Z",
-    "group": "E"
+    "group": "E",
+    "fifa": "2ofHeol8LZn44A3ThxLwdE",
+    "tstv": {
+      "full": [
+        "https://hgcloud.to/e/l42rfi20vuf1",
+        "https://hgcloud.to/e/hbjok9fp90km"
+      ],
+      "highlights": "https://soccertims.vortexvisionworks.com/embed/vN0ptzZQ4DCWg",
+      "page": "https://timesoccertv.com/germany-highlights/"
+    }
   },
   {
     "id": "m-ned-swe",
@@ -473,7 +489,16 @@
     },
     "kickoff": "2026-06-20T17:00:00Z",
     "group": "F",
-    "fifa": "oQAXWFfSFtgXIEhnTdrE6"
+    "fifa": "oQAXWFfSFtgXIEhnTdrE6",
+    "bbc": "m002y41p",
+    "tstv": {
+      "full": [
+        "https://hgcloud.to/e/n9e5oxwzq392",
+        "https://hgcloud.to/e/oppabin174qo"
+      ],
+      "highlights": "https://soccertims.vortexvisionworks.com/embed/FjtsVvO5uE8c8",
+      "page": "https://timesoccertv.com/netherlands-highlights/"
+    }
   },
   {
     "id": "m-mex-kor",
