@@ -400,9 +400,24 @@
     "date": "2026-06-21",
     "home": "ESP",
     "away": "KSA",
-    "videos": {},
+    "videos": {
+      "en": {
+        "extended": {
+          "id": "w453UjgtQw4",
+          "geo": "US"
+        }
+      },
+      "nl": {
+        "short": {
+          "id": "neWwzD4PxrY",
+          "geo": "NL"
+        }
+      }
+    },
     "kickoff": "2026-06-21T16:00:00Z",
-    "group": "H"
+    "group": "H",
+    "fifa": "4ZigaLfUmzRMpzV7ETANXM",
+    "bbc": "m002y42c"
   },
   {
     "id": "m-bel-irn",
