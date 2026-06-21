@@ -352,7 +352,14 @@
     "kickoff": "2026-06-21T00:00:00Z",
     "group": "E",
     "fifa": "6lI7ddpjskKW6dYr7nB7I4",
-    "bbc": "m002y422"
+    "bbc": "m002y422",
+    "tstv": {
+      "full": [
+        "https://hgcloud.to/e/hsbi3ehp1h08"
+      ],
+      "highlights": "https://hgcloud.to/e/r5fh0zfbilrx",
+      "page": "https://timesoccertv.com/ecuador-highlights/"
+    }
   },
   {
     "id": "m-tun-jpn",
@@ -366,11 +373,18 @@
           "id": "ATmlGGfCyBA",
           "geo": "US"
         }
+      },
+      "nl": {
+        "short": {
+          "id": "cmhC1y6uoII",
+          "geo": "NL"
+        }
       }
     },
     "kickoff": "2026-06-21T04:00:00Z",
     "group": "F",
-    "fifa": "1nNMGQHe2Ar9v5mv1Q6drf"
+    "fifa": "1nNMGQHe2Ar9v5mv1Q6drf",
+    "bbc": "m002y425"
   },
   {
     "id": "m-esp-ksa",
