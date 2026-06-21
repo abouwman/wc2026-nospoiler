@@ -335,9 +335,24 @@
     "date": "2026-06-21",
     "home": "ECU",
     "away": "CUW",
-    "videos": {},
+    "videos": {
+      "en": {
+        "extended": {
+          "id": "_JQLeADlzXM",
+          "geo": "US"
+        }
+      },
+      "nl": {
+        "short": {
+          "id": "p7PNVbmk9B8",
+          "geo": "NL"
+        }
+      }
+    },
     "kickoff": "2026-06-21T00:00:00Z",
-    "group": "E"
+    "group": "E",
+    "fifa": "6lI7ddpjskKW6dYr7nB7I4",
+    "bbc": "m002y422"
   },
   {
     "id": "m-tun-jpn",
@@ -345,9 +360,17 @@
     "date": "2026-06-21",
     "home": "TUN",
     "away": "JPN",
-    "videos": {},
+    "videos": {
+      "en": {
+        "extended": {
+          "id": "ATmlGGfCyBA",
+          "geo": "US"
+        }
+      }
+    },
     "kickoff": "2026-06-21T04:00:00Z",
-    "group": "F"
+    "group": "F",
+    "fifa": "1nNMGQHe2Ar9v5mv1Q6drf"
   },
   {
     "id": "m-esp-ksa",
