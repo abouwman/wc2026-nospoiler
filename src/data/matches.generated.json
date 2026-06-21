@@ -417,7 +417,15 @@
     "kickoff": "2026-06-21T16:00:00Z",
     "group": "H",
     "fifa": "4ZigaLfUmzRMpzV7ETANXM",
-    "bbc": "m002y42c"
+    "bbc": "m002y42c",
+    "tstv": {
+      "full": [
+        "https://hgcloud.to/e/03odhsm3yitw",
+        "https://hgcloud.to/e/hiuhcl67r8i4"
+      ],
+      "highlights": "https://soccertims.vortexvisionworks.com/embed/AVWn0I64vpwFW",
+      "page": "https://timesoccertv.com/spain-highlights/"
+    }
   },
   {
     "id": "m-bel-irn",
@@ -425,9 +433,23 @@
     "date": "2026-06-21",
     "home": "BEL",
     "away": "IRN",
-    "videos": {},
+    "videos": {
+      "en": {
+        "extended": {
+          "id": "YbiEe9pOV-s",
+          "geo": "US"
+        }
+      },
+      "nl": {
+        "short": {
+          "id": "0MsdyTRus9s",
+          "geo": "NL"
+        }
+      }
+    },
     "kickoff": "2026-06-21T19:00:00Z",
-    "group": "G"
+    "group": "G",
+    "fifa": "2eqX8tJNDvSqLjtLDPgDkT"
   },
   {
     "id": "m-uru-cpv",
