@@ -322,7 +322,15 @@
     "kickoff": "2026-06-22T01:00:00Z",
     "group": "G",
     "fifa": "30AjAOgeWPeCcjnTx6hdH0",
-    "bbc": "m002y42z"
+    "bbc": "m002y42z",
+    "tstv": {
+      "full": [
+        "https://hgcloud.to/e/g048d9bp7rs4",
+        "https://hgcloud.to/e/ogyfwcb2231y"
+      ],
+      "highlights": "https://soccertims.vortexvisionworks.com/embed/Owj4LCrMV4nRi",
+      "page": "https://timesoccertv.com/new-zealand-full-match/"
+    }
   },
   {
     "id": "m-arg-aut",
@@ -465,7 +473,15 @@
     "kickoff": "2026-06-21T19:00:00Z",
     "group": "G",
     "fifa": "2eqX8tJNDvSqLjtLDPgDkT",
-    "bbc": "m002y42l"
+    "bbc": "m002y42l",
+    "tstv": {
+      "full": [
+        "https://hgcloud.to/e/8am9pd6sd2s9",
+        "https://hgcloud.to/e/hgokqh010ygy"
+      ],
+      "highlights": "https://soccertims.vortexvisionworks.com/embed/durviAfcLxB7J",
+      "page": "https://timesoccertv.com/belgium-highlights/"
+    }
   },
   {
     "id": "m-uru-cpv",
@@ -490,7 +506,15 @@
     "kickoff": "2026-06-21T22:00:00Z",
     "group": "H",
     "fifa": "4KLTlmsKLMMlM9IsPFWzj9",
-    "bbc": "m002y42s"
+    "bbc": "m002y42s",
+    "tstv": {
+      "full": [
+        "https://hgcloud.to/e/0ts9rz85ddsi",
+        "https://hgcloud.to/e/ut52i7l0qbrj"
+      ],
+      "highlights": "https://soccertims.vortexvisionworks.com/embed/U90KnqYdOlFZB",
+      "page": "https://timesoccertv.com/uruguay-highlights/"
+    }
   },
   {
     "id": "m-bra-hai",
