@@ -344,11 +344,26 @@
           "id": "JakdhltyECE",
           "geo": "US"
         }
+      },
+      "nl": {
+        "short": {
+          "id": "0jO5qZaGhLI",
+          "geo": "NL"
+        }
       }
     },
     "kickoff": "2026-06-22T17:00:00Z",
     "group": "J",
-    "fifa": "6N4dkwqyP1sUURyCXExX5s"
+    "fifa": "6N4dkwqyP1sUURyCXExX5s",
+    "bbc": "m002y433",
+    "tstv": {
+      "full": [
+        "https://hgcloud.to/e/5n8htvellk2l",
+        "https://hgcloud.to/e/izoayf42npvl"
+      ],
+      "highlights": "https://soccertims.vortexvisionworks.com/embed/7AckmusCHxCQz",
+      "page": "https://timesoccertv.com/argentina-highlights/"
+    }
   },
   {
     "id": "m-fra-irq",
