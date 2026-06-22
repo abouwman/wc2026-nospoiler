@@ -338,9 +338,17 @@
     "date": "2026-06-22",
     "home": "ARG",
     "away": "AUT",
-    "videos": {},
+    "videos": {
+      "en": {
+        "extended": {
+          "id": "JakdhltyECE",
+          "geo": "US"
+        }
+      }
+    },
     "kickoff": "2026-06-22T17:00:00Z",
-    "group": "J"
+    "group": "J",
+    "fifa": "6N4dkwqyP1sUURyCXExX5s"
   },
   {
     "id": "m-fra-irq",
