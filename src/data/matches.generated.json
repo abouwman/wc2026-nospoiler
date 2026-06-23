@@ -280,9 +280,24 @@
     "date": "2026-06-23",
     "home": "JOR",
     "away": "ALG",
-    "videos": {},
+    "videos": {
+      "en": {
+        "extended": {
+          "id": "qq3eMBEUbzY",
+          "geo": "US"
+        }
+      },
+      "nl": {
+        "short": {
+          "id": "0GZfRaV0voE",
+          "geo": "NL"
+        }
+      }
+    },
     "kickoff": "2026-06-23T03:00:00Z",
-    "group": "J"
+    "group": "J",
+    "fifa": "6MH3nU83TBWaW2rJyDG7UM",
+    "bbc": "m002y43r"
   },
   {
     "id": "m-por-uzb",
@@ -403,7 +418,15 @@
     "kickoff": "2026-06-22T21:00:00Z",
     "group": "I",
     "fifa": "5baxscpTWAh30KnlPk6NPK",
-    "bbc": "m002y437"
+    "bbc": "m002y437",
+    "tstv": {
+      "full": [
+        "https://hgcloud.to/e/tzxef1wmqwn0",
+        "https://hgcloud.to/e/3ki6ubt4n4zs"
+      ],
+      "highlights": "https://soccertims.vortexvisionworks.com/embed/wkFWTTIqay7Dl",
+      "page": "https://timesoccertv.com/france-highlights/"
+    }
   },
   {
     "id": "m-ecu-cuw",
