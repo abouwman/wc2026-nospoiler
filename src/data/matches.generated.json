@@ -333,7 +333,8 @@
       ],
       "highlights": "https://soccertims.vortexvisionworks.com/embed/r185vkpQlF6bQ",
       "page": "https://timesoccertv.com/portugal-highlights/"
-    }
+    },
+    "bbc": "m002y43t"
   },
   {
     "id": "m-eng-gha",
@@ -341,10 +342,32 @@
     "date": "2026-06-23",
     "home": "ENG",
     "away": "GHA",
-    "videos": {},
+    "videos": {
+      "en": {
+        "extended": {
+          "id": "ebuYwC7lwCk",
+          "geo": "US"
+        }
+      },
+      "nl": {
+        "short": {
+          "id": "g8DpEuI4hj4",
+          "geo": "NL"
+        }
+      }
+    },
     "kickoff": "2026-06-23T20:00:00Z",
     "group": "L",
-    "bbc": "m002y388"
+    "bbc": "m002y388",
+    "fifa": "YMV6IJCxemtC0s8HtqPn3",
+    "tstv": {
+      "full": [
+        "https://hgcloud.to/e/5gp15khtc349",
+        "https://hgcloud.to/e/19jruy8eajaz"
+      ],
+      "highlights": "https://soccertims.vortexvisionworks.com/embed/1dyzoTQUQuRHG",
+      "page": "https://timesoccertv.com/england-highlights/"
+    }
   },
   {
     "id": "m-pan-cro",
