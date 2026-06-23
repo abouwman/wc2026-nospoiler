@@ -255,9 +255,24 @@
     "date": "2026-06-23",
     "home": "NOR",
     "away": "SEN",
-    "videos": {},
+    "videos": {
+      "en": {
+        "extended": {
+          "id": "vcgzGgM4uJg",
+          "geo": "US"
+        }
+      },
+      "nl": {
+        "short": {
+          "id": "U0n7UQ_zN3w",
+          "geo": "NL"
+        }
+      }
+    },
     "kickoff": "2026-06-23T00:00:00Z",
-    "group": "I"
+    "group": "I",
+    "fifa": "2z83J5vynam1wsTQNemf5u",
+    "bbc": "m002y43g"
   },
   {
     "id": "m-jor-alg",
@@ -371,9 +386,24 @@
     "date": "2026-06-22",
     "home": "FRA",
     "away": "IRQ",
-    "videos": {},
+    "videos": {
+      "en": {
+        "extended": {
+          "id": "Mo7aY61WF9I",
+          "geo": "US"
+        }
+      },
+      "nl": {
+        "short": {
+          "id": "QygOdAXJP5o",
+          "geo": "NL"
+        }
+      }
+    },
     "kickoff": "2026-06-22T21:00:00Z",
-    "group": "I"
+    "group": "I",
+    "fifa": "5baxscpTWAh30KnlPk6NPK",
+    "bbc": "m002y437"
   },
   {
     "id": "m-ecu-cuw",
