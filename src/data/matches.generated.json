@@ -309,9 +309,31 @@
     "date": "2026-06-23",
     "home": "POR",
     "away": "UZB",
-    "videos": {},
+    "videos": {
+      "en": {
+        "extended": {
+          "id": "jqgn-kY0rFA",
+          "geo": "US"
+        }
+      },
+      "nl": {
+        "short": {
+          "id": "Z_CCW0vy5Us",
+          "geo": "NL"
+        }
+      }
+    },
     "kickoff": "2026-06-23T17:00:00Z",
-    "group": "K"
+    "group": "K",
+    "fifa": "4se3Lqdtrvu86pMuaqlUpn",
+    "tstv": {
+      "full": [
+        "https://hgcloud.to/e/h3cbbvsxuske",
+        "https://hgcloud.to/e/99pmhqlgsb5f"
+      ],
+      "highlights": "https://soccertims.vortexvisionworks.com/embed/r185vkpQlF6bQ",
+      "page": "https://timesoccertv.com/portugal-highlights/"
+    }
   },
   {
     "id": "m-eng-gha",
@@ -321,7 +343,8 @@
     "away": "GHA",
     "videos": {},
     "kickoff": "2026-06-23T20:00:00Z",
-    "group": "L"
+    "group": "L",
+    "bbc": "m002y388"
   },
   {
     "id": "m-pan-cro",
