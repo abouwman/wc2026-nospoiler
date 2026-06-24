@@ -245,9 +245,17 @@
     "date": "2026-06-24",
     "home": "COL",
     "away": "COD",
-    "videos": {},
+    "videos": {
+      "en": {
+        "extended": {
+          "id": "C-bTb3K_suE",
+          "geo": "US"
+        }
+      }
+    },
     "kickoff": "2026-06-24T02:00:00Z",
-    "group": "K"
+    "group": "K",
+    "fifa": "26nrhBN70NStG6P9xmqto7"
   },
   {
     "id": "m-nor-sen",
@@ -375,9 +383,24 @@
     "date": "2026-06-23",
     "home": "PAN",
     "away": "CRO",
-    "videos": {},
+    "videos": {
+      "en": {
+        "extended": {
+          "id": "EBWpoly7qiE",
+          "geo": "US"
+        }
+      },
+      "nl": {
+        "short": {
+          "id": "uIvPcAnhAyg",
+          "geo": "NL"
+        }
+      }
+    },
     "kickoff": "2026-06-23T23:00:00Z",
-    "group": "L"
+    "group": "L",
+    "fifa": "5ewcE9E2gBUvXwyGfkEz1n",
+    "bbc": "m002y444"
   },
   {
     "id": "m-nzl-egy",
