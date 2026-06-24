@@ -205,9 +205,24 @@
     "date": "2026-06-24",
     "home": "SUI",
     "away": "CAN",
-    "videos": {},
+    "videos": {
+      "en": {
+        "extended": {
+          "id": "pObYkmGnk24",
+          "geo": "US"
+        }
+      }
+    },
     "kickoff": "2026-06-24T19:00:00Z",
-    "group": "B"
+    "group": "B",
+    "fifa": "1KiU2uFEKhMDYVNebmF5Zg",
+    "tstv": {
+      "full": [
+        "https://hgcloud.to/e/0rw7awb47v2r"
+      ],
+      "highlights": "https://soccertims.vortexvisionworks.com/embed/bTx3GgfpqnwF1",
+      "page": "https://timesoccertv.com/canada-highlights/"
+    }
   },
   {
     "id": "m-bih-qat",
@@ -215,9 +230,23 @@
     "date": "2026-06-24",
     "home": "BIH",
     "away": "QAT",
-    "videos": {},
+    "videos": {
+      "en": {
+        "extended": {
+          "id": "mk6m1LJdkrI",
+          "geo": "US"
+        }
+      },
+      "nl": {
+        "short": {
+          "id": "xvBeX3JSCVI",
+          "geo": "NL"
+        }
+      }
+    },
     "kickoff": "2026-06-24T19:00:00Z",
-    "group": "B"
+    "group": "B",
+    "fifa": "5CVV8X8QSnZDr6uKOh31ff"
   },
   {
     "id": "m-mar-hai",
