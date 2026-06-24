@@ -211,6 +211,12 @@
           "id": "pObYkmGnk24",
           "geo": "US"
         }
+      },
+      "nl": {
+        "short": {
+          "id": "ZQ1IP0ZwewU",
+          "geo": "NL"
+        }
       }
     },
     "kickoff": "2026-06-24T19:00:00Z",
@@ -222,7 +228,8 @@
       ],
       "highlights": "https://soccertims.vortexvisionworks.com/embed/bTx3GgfpqnwF1",
       "page": "https://timesoccertv.com/canada-highlights/"
-    }
+    },
+    "bbc": "m002yd00"
   },
   {
     "id": "m-bih-qat",
@@ -246,7 +253,8 @@
     },
     "kickoff": "2026-06-24T19:00:00Z",
     "group": "B",
-    "fifa": "5CVV8X8QSnZDr6uKOh31ff"
+    "fifa": "5CVV8X8QSnZDr6uKOh31ff",
+    "bbc": "m002yd0p"
   },
   {
     "id": "m-mar-hai",
