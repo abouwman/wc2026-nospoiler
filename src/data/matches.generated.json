@@ -255,7 +255,16 @@
     },
     "kickoff": "2026-06-24T02:00:00Z",
     "group": "K",
-    "fifa": "26nrhBN70NStG6P9xmqto7"
+    "fifa": "26nrhBN70NStG6P9xmqto7",
+    "bbc": "m002y44d",
+    "tstv": {
+      "full": [
+        "https://hgcloud.to/e/5geu7a4x8svw",
+        "https://hgcloud.to/e/f6rwc3okm1oq"
+      ],
+      "highlights": "https://soccertims.vortexvisionworks.com/embed/81Q24h0Y1XHQO",
+      "page": "https://timesoccertv.com/colombia-full-match/"
+    }
   },
   {
     "id": "m-nor-sen",
@@ -400,7 +409,15 @@
     "kickoff": "2026-06-23T23:00:00Z",
     "group": "L",
     "fifa": "5ewcE9E2gBUvXwyGfkEz1n",
-    "bbc": "m002y444"
+    "bbc": "m002y444",
+    "tstv": {
+      "full": [
+        "https://hgcloud.to/e/zn7nu87ba6b3",
+        "https://hgcloud.to/e/w2q4kic0czau"
+      ],
+      "highlights": "https://soccertims.vortexvisionworks.com/embed/D8rDWSsdI039T",
+      "page": "https://timesoccertv.com/croatia-full-match/"
+    }
   },
   {
     "id": "m-nzl-egy",
