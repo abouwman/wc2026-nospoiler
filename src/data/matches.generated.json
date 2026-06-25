@@ -203,9 +203,25 @@
     "date": "2026-06-25",
     "home": "ECU",
     "away": "GER",
-    "videos": {},
+    "videos": {
+      "nl": {
+        "short": {
+          "id": "pOFSwKAp418",
+          "geo": "NL"
+        }
+      }
+    },
     "kickoff": "2026-06-25T20:00:00Z",
-    "group": "E"
+    "group": "E",
+    "fifa": "6zwOi8MRCYL1qFZ0LwyOAD",
+    "tstv": {
+      "full": [
+        "https://hgcloud.to/e/e4ozx7k5xfdq",
+        "https://hgcloud.to/e/a5nr8rlo801a"
+      ],
+      "highlights": "https://soccertims.vortexvisionworks.com/embed/ea4idjKnaiZRw",
+      "page": "https://timesoccertv.com/germany-highlights/"
+    }
   },
   {
     "id": "m-cuw-civ",
@@ -215,7 +231,8 @@
     "away": "CIV",
     "videos": {},
     "kickoff": "2026-06-25T20:00:00Z",
-    "group": "E"
+    "group": "E",
+    "fifa": "450gMxJHBSeV5QctbBsC9o"
   },
   {
     "id": "m-tun-ned",
