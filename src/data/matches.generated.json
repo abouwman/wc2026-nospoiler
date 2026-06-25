@@ -145,9 +145,24 @@
     "date": "2026-06-25",
     "home": "CZE",
     "away": "MEX",
-    "videos": {},
+    "videos": {
+      "en": {
+        "extended": {
+          "id": "IR891e2-JBc",
+          "geo": "US"
+        }
+      },
+      "nl": {
+        "short": {
+          "id": "K_hKXf0a-rE",
+          "geo": "NL"
+        }
+      }
+    },
     "kickoff": "2026-06-25T01:00:00Z",
-    "group": "A"
+    "group": "A",
+    "fifa": "2GE7VJlgfD52khnWAjGpF2",
+    "bbc": "m002yd39"
   },
   {
     "id": "m-rsa-kor",
@@ -155,9 +170,24 @@
     "date": "2026-06-25",
     "home": "RSA",
     "away": "KOR",
-    "videos": {},
+    "videos": {
+      "en": {
+        "extended": {
+          "id": "A7PTebEdius",
+          "geo": "US"
+        }
+      },
+      "nl": {
+        "short": {
+          "id": "kSMcdiAoTUw",
+          "geo": "NL"
+        }
+      }
+    },
     "kickoff": "2026-06-25T01:00:00Z",
-    "group": "A"
+    "group": "A",
+    "fifa": "4rg8eRpXuMQG67utITccQd",
+    "bbc": "m002yd3g"
   },
   {
     "id": "m-ecu-ger",
@@ -268,6 +298,12 @@
           "id": "37c0v5fkCLI",
           "geo": "US"
         }
+      },
+      "nl": {
+        "short": {
+          "id": "RsUzhX2-6cQ",
+          "geo": "NL"
+        }
       }
     },
     "kickoff": "2026-06-24T22:00:00Z",
@@ -287,11 +323,18 @@
           "id": "fWN13Oe4kA0",
           "geo": "US"
         }
+      },
+      "nl": {
+        "short": {
+          "id": "v9Ru94PBVss",
+          "geo": "NL"
+        }
       }
     },
     "kickoff": "2026-06-24T22:00:00Z",
     "group": "C",
-    "fifa": "xuXoaffqDTNw6l4ejzMrz"
+    "fifa": "xuXoaffqDTNw6l4ejzMrz",
+    "bbc": "m002yd15"
   },
   {
     "id": "m-col-cod",
