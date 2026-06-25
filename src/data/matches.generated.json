@@ -162,7 +162,15 @@
     "kickoff": "2026-06-25T01:00:00Z",
     "group": "A",
     "fifa": "2GE7VJlgfD52khnWAjGpF2",
-    "bbc": "m002yd39"
+    "bbc": "m002yd39",
+    "tstv": {
+      "full": [
+        "https://hgcloud.to/e/i99zfp4etq73",
+        "https://hgcloud.to/e/euftsyq7zxb8"
+      ],
+      "highlights": "https://soccertims.vortexvisionworks.com/embed/ztx6TAZr0SOd7",
+      "page": "https://timesoccertv.com/mexico-highlights/"
+    }
   },
   {
     "id": "m-rsa-kor",
@@ -300,6 +308,10 @@
       "en": {
         "extended": {
           "id": "37c0v5fkCLI",
+          "geo": "US"
+        },
+        "short": {
+          "id": "b6VnO6sekm8",
           "geo": "US"
         }
       },
