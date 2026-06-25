@@ -334,7 +334,14 @@
     "kickoff": "2026-06-24T22:00:00Z",
     "group": "C",
     "fifa": "xuXoaffqDTNw6l4ejzMrz",
-    "bbc": "m002yd15"
+    "bbc": "m002yd15",
+    "tstv": {
+      "full": [
+        "https://hgcloud.to/e/9d7ljl12mbob"
+      ],
+      "highlights": "https://soccertims.vortexvisionworks.com/embed/lxogmEmyIhuvK",
+      "page": "https://timesoccertv.com/brazil-highlights/"
+    }
   },
   {
     "id": "m-col-cod",
