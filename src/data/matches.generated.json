@@ -209,6 +209,12 @@
           "id": "pOFSwKAp418",
           "geo": "NL"
         }
+      },
+      "en": {
+        "extended": {
+          "id": "L4AmC_L4Cdw",
+          "geo": "US"
+        }
       }
     },
     "kickoff": "2026-06-25T20:00:00Z",
@@ -229,7 +235,20 @@
     "date": "2026-06-25",
     "home": "CUW",
     "away": "CIV",
-    "videos": {},
+    "videos": {
+      "en": {
+        "extended": {
+          "id": "Vl8LESKw8_Y",
+          "geo": "US"
+        }
+      },
+      "nl": {
+        "short": {
+          "id": "UsdFopi0Rvg",
+          "geo": "NL"
+        }
+      }
+    },
     "kickoff": "2026-06-25T20:00:00Z",
     "group": "E",
     "fifa": "450gMxJHBSeV5QctbBsC9o"
