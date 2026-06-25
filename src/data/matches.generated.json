@@ -262,9 +262,18 @@
     "date": "2026-06-24",
     "home": "MAR",
     "away": "HAI",
-    "videos": {},
+    "videos": {
+      "en": {
+        "extended": {
+          "id": "37c0v5fkCLI",
+          "geo": "US"
+        }
+      }
+    },
     "kickoff": "2026-06-24T22:00:00Z",
-    "group": "C"
+    "group": "C",
+    "fifa": "4lDtvGJGbp8eEdlUUUZo3I",
+    "bbc": "m002yd2b"
   },
   {
     "id": "m-sco-bra",
@@ -272,9 +281,17 @@
     "date": "2026-06-24",
     "home": "SCO",
     "away": "BRA",
-    "videos": {},
+    "videos": {
+      "en": {
+        "extended": {
+          "id": "fWN13Oe4kA0",
+          "geo": "US"
+        }
+      }
+    },
     "kickoff": "2026-06-24T22:00:00Z",
-    "group": "C"
+    "group": "C",
+    "fifa": "xuXoaffqDTNw6l4ejzMrz"
   },
   {
     "id": "m-col-cod",
