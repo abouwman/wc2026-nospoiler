@@ -223,7 +223,8 @@
     },
     "kickoff": "2026-06-26T19:00:00Z",
     "group": "I",
-    "fifa": "THUuOCgcktTdRUWJbCDNL"
+    "fifa": "THUuOCgcktTdRUWJbCDNL",
+    "bbc": "m002yd6v"
   },
   {
     "id": "m-sen-irq",
@@ -237,11 +238,18 @@
           "id": "oR3o61OvWLI",
           "geo": "US"
         }
+      },
+      "nl": {
+        "short": {
+          "id": "yC_oI8pVpvc",
+          "geo": "NL"
+        }
       }
     },
     "kickoff": "2026-06-26T19:00:00Z",
     "group": "I",
-    "fifa": "maf9mo9s3FMRyykghM66d"
+    "fifa": "maf9mo9s3FMRyykghM66d",
+    "bbc": "m002yd6n"
   },
   {
     "id": "m-cze-mex",
