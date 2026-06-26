@@ -207,9 +207,23 @@
     "date": "2026-06-26",
     "home": "NOR",
     "away": "FRA",
-    "videos": {},
+    "videos": {
+      "en": {
+        "extended": {
+          "id": "VB1B9bkj2xc",
+          "geo": "US"
+        }
+      },
+      "nl": {
+        "short": {
+          "id": "2-mzDgP3JII",
+          "geo": "NL"
+        }
+      }
+    },
     "kickoff": "2026-06-26T19:00:00Z",
-    "group": "I"
+    "group": "I",
+    "fifa": "THUuOCgcktTdRUWJbCDNL"
   },
   {
     "id": "m-sen-irq",
@@ -217,9 +231,17 @@
     "date": "2026-06-26",
     "home": "SEN",
     "away": "IRQ",
-    "videos": {},
+    "videos": {
+      "en": {
+        "extended": {
+          "id": "oR3o61OvWLI",
+          "geo": "US"
+        }
+      }
+    },
     "kickoff": "2026-06-26T19:00:00Z",
-    "group": "I"
+    "group": "I",
+    "fifa": "maf9mo9s3FMRyykghM66d"
   },
   {
     "id": "m-cze-mex",
