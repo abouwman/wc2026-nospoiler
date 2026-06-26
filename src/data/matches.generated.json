@@ -117,7 +117,8 @@
     "away": "AUS",
     "videos": {},
     "kickoff": "2026-06-26T02:00:00Z",
-    "group": "D"
+    "group": "D",
+    "fifa": "4NNX3soy5dReiHMd5HxRXA"
   },
   {
     "id": "m-nor-fra",
@@ -227,7 +228,8 @@
       ],
       "highlights": "https://soccertims.vortexvisionworks.com/embed/ea4idjKnaiZRw",
       "page": "https://timesoccertv.com/germany-highlights/"
-    }
+    },
+    "bbc": "m002yd5w"
   },
   {
     "id": "m-cuw-civ",
@@ -251,7 +253,8 @@
     },
     "kickoff": "2026-06-25T20:00:00Z",
     "group": "E",
-    "fifa": "450gMxJHBSeV5QctbBsC9o"
+    "fifa": "450gMxJHBSeV5QctbBsC9o",
+    "bbc": "m002yd5p"
   },
   {
     "id": "m-tun-ned",
@@ -259,9 +262,24 @@
     "date": "2026-06-25",
     "home": "TUN",
     "away": "NED",
-    "videos": {},
+    "videos": {
+      "en": {
+        "extended": {
+          "id": "o0AmHN-XnOs",
+          "geo": "US"
+        }
+      },
+      "nl": {
+        "short": {
+          "id": "4BcqRk0Clh4",
+          "geo": "NL"
+        }
+      }
+    },
     "kickoff": "2026-06-25T23:00:00Z",
-    "group": "F"
+    "group": "F",
+    "fifa": "2YZkJfuTl6nfWtN0Afygpx",
+    "bbc": "m002yd63"
   },
   {
     "id": "m-jpn-swe",
@@ -269,9 +287,24 @@
     "date": "2026-06-25",
     "home": "JPN",
     "away": "SWE",
-    "videos": {},
+    "videos": {
+      "en": {
+        "extended": {
+          "id": "CerrE-MoofY",
+          "geo": "US"
+        }
+      },
+      "nl": {
+        "short": {
+          "id": "9lcICUSH_TM",
+          "geo": "NL"
+        }
+      }
+    },
     "kickoff": "2026-06-25T23:00:00Z",
-    "group": "F"
+    "group": "F",
+    "fifa": "2H1Uv4cmCqxFLfQRHvO2Kq",
+    "bbc": "m002yd5z"
   },
   {
     "id": "m-sui-can",
