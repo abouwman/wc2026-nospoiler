@@ -146,6 +146,10 @@
         "extended": {
           "id": "7JJLMyKBG90",
           "geo": "US"
+        },
+        "short": {
+          "id": "XMcP5lXm4Jo",
+          "geo": "US"
         }
       },
       "nl": {
@@ -170,6 +174,10 @@
       "en": {
         "extended": {
           "id": "NdgZtyReLbY",
+          "geo": "US"
+        },
+        "short": {
+          "id": "0zs8O3N0F4c",
           "geo": "US"
         }
       },
@@ -296,6 +304,10 @@
         "extended": {
           "id": "L4AmC_L4Cdw",
           "geo": "US"
+        },
+        "short": {
+          "id": "Mg2lVDfCXl8",
+          "geo": "US"
         }
       }
     },
@@ -322,6 +334,10 @@
       "en": {
         "extended": {
           "id": "Vl8LESKw8_Y",
+          "geo": "US"
+        },
+        "short": {
+          "id": "Lj60S7gWvWc",
           "geo": "US"
         }
       },
@@ -380,6 +396,10 @@
       "en": {
         "extended": {
           "id": "CerrE-MoofY",
+          "geo": "US"
+        },
+        "short": {
+          "id": "rgWu9nZ2CPQ",
           "geo": "US"
         }
       },
