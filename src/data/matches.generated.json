@@ -78,7 +78,15 @@
     "kickoff": "2026-06-27T00:00:00Z",
     "group": "H",
     "bbc": "m002y42s",
-    "fifa": "2Iw0XHRZ4pZhQeVyekPApR"
+    "fifa": "2Iw0XHRZ4pZhQeVyekPApR",
+    "tstv": {
+      "full": [
+        "https://hgcloud.to/e/3i740dsz8992",
+        "https://hgcloud.to/e/bjdnr990n3vd"
+      ],
+      "highlights": "https://soccertims.vortexvisionworks.com/embed/qpY6LpGKGtzdo",
+      "page": "https://timesoccertv.com/spain-highlights/"
+    }
   },
   {
     "id": "m-egy-irn",
@@ -86,10 +94,31 @@
     "date": "2026-06-27",
     "home": "EGY",
     "away": "IRN",
-    "videos": {},
+    "videos": {
+      "en": {
+        "extended": {
+          "id": "vzUdJ51WH48",
+          "geo": "US"
+        }
+      },
+      "nl": {
+        "short": {
+          "id": "fRgaMJ4WGmE",
+          "geo": "NL"
+        }
+      }
+    },
     "kickoff": "2026-06-27T03:00:00Z",
     "group": "G",
-    "fifa": "4h74CcFsYuSUjg53SPcBvi"
+    "fifa": "4h74CcFsYuSUjg53SPcBvi",
+    "bbc": "m002yd79",
+    "tstv": {
+      "full": [
+        "https://hgcloud.to/e/qqee8tbbnbk2"
+      ],
+      "highlights": "https://soccertims.vortexvisionworks.com/embed/yhByq1zXFQAJC",
+      "page": "https://timesoccertv.com/egypt-full-match/"
+    }
   },
   {
     "id": "m-pan-eng",
@@ -144,7 +173,15 @@
     "kickoff": "2026-06-27T00:00:00Z",
     "group": "H",
     "fifa": "6cEIYSaBZmtelEG6H679Pu",
-    "bbc": "m002yd6z"
+    "bbc": "m002yd6z",
+    "tstv": {
+      "full": [
+        "https://hgcloud.to/e/mbdo9gr3afwc",
+        "https://hgcloud.to/e/mqwp3vp77d1k"
+      ],
+      "highlights": "https://soccertims.vortexvisionworks.com/embed/BwHv7FyDQI6zs",
+      "page": "https://timesoccertv.com/cape-verde-full-match/"
+    }
   },
   {
     "id": "m-nzl-bel",
@@ -152,10 +189,32 @@
     "date": "2026-06-27",
     "home": "NZL",
     "away": "BEL",
-    "videos": {},
+    "videos": {
+      "en": {
+        "extended": {
+          "id": "Rouzq1yDV-Q",
+          "geo": "US"
+        }
+      },
+      "nl": {
+        "short": {
+          "id": "ui-7kzQ9iX0",
+          "geo": "NL"
+        }
+      }
+    },
     "kickoff": "2026-06-27T03:00:00Z",
     "group": "G",
-    "fifa": "4ctyVS6mvtXal2AiNXdYdk"
+    "fifa": "4ctyVS6mvtXal2AiNXdYdk",
+    "bbc": "m002yd7j",
+    "tstv": {
+      "full": [
+        "https://hgcloud.to/e/tziz1jnn464c",
+        "https://hgcloud.to/e/909ch6drio4s"
+      ],
+      "highlights": "https://soccertims.vortexvisionworks.com/embed/O5GmDLHTwS65k",
+      "page": "https://timesoccertv.com/belgium-highlights/"
+    }
   },
   {
     "id": "m-cod-uzb",
