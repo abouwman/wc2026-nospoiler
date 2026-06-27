@@ -63,7 +63,8 @@
     "away": "ESP",
     "videos": {},
     "kickoff": "2026-06-27T00:00:00Z",
-    "group": "H"
+    "group": "H",
+    "bbc": "m002y42s"
   },
   {
     "id": "m-egy-irn",
@@ -224,7 +225,11 @@
     "kickoff": "2026-06-26T19:00:00Z",
     "group": "I",
     "fifa": "THUuOCgcktTdRUWJbCDNL",
-    "bbc": "m002yd6v"
+    "bbc": "m002yd6v",
+    "tstv": {
+      "highlights": "https://soccertims.vortexvisionworks.com/embed/bQO7Ss48tOfYt",
+      "page": "https://timesoccertv.com/france-highlights/"
+    }
   },
   {
     "id": "m-sen-irq",
@@ -249,7 +254,14 @@
     "kickoff": "2026-06-26T19:00:00Z",
     "group": "I",
     "fifa": "maf9mo9s3FMRyykghM66d",
-    "bbc": "m002yd6n"
+    "bbc": "m002yd6n",
+    "tstv": {
+      "full": [
+        "https://hgcloud.to/e/7yzsnt0bi2np"
+      ],
+      "highlights": "https://soccertims.vortexvisionworks.com/embed/8Ma5Xq3YxdNvD",
+      "page": "https://timesoccertv.com/senegal-full-match/"
+    }
   },
   {
     "id": "m-cze-mex",
