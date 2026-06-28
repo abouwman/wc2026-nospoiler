@@ -213,8 +213,24 @@
     "date": "2026-06-28",
     "home": "RSA",
     "away": "CAN",
-    "videos": {},
-    "kickoff": "2026-06-28T19:00:00Z"
+    "videos": {
+      "en": {
+        "short": {
+          "id": "VoCkhiVWDdY",
+          "geo": "US"
+        }
+      }
+    },
+    "kickoff": "2026-06-28T19:00:00Z",
+    "fifa": "6dFyzSCghyabYGJRQk8RYB",
+    "tstv": {
+      "full": [
+        "https://hgcloud.to/e/p6i6aibny9zk",
+        "https://hgcloud.to/e/ui9ss8cleg2o"
+      ],
+      "highlights": "https://soccertims.vortexvisionworks.com/embed/oi5h9xg1bNWZE",
+      "page": "https://timesoccertv.com/canada-highlights/"
+    }
   },
   {
     "id": "m-uru-esp",
