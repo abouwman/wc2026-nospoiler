@@ -134,7 +134,20 @@
     "date": "2026-06-27",
     "home": "PAN",
     "away": "ENG",
-    "videos": {},
+    "videos": {
+      "en": {
+        "extended": {
+          "id": "JOPTAAFb3_s",
+          "geo": "US"
+        }
+      },
+      "nl": {
+        "short": {
+          "id": "hUCI0Vu6Mr0",
+          "geo": "NL"
+        }
+      }
+    },
     "kickoff": "2026-06-27T21:00:00Z",
     "group": "L",
     "bbc": "m002y388",
@@ -153,9 +166,24 @@
     "date": "2026-06-27",
     "home": "CRO",
     "away": "GHA",
-    "videos": {},
+    "videos": {
+      "en": {
+        "extended": {
+          "id": "j4wJ3nGXuas",
+          "geo": "US"
+        }
+      },
+      "nl": {
+        "short": {
+          "id": "j8q2VMexTPg",
+          "geo": "NL"
+        }
+      }
+    },
     "kickoff": "2026-06-27T21:00:00Z",
-    "group": "L"
+    "group": "L",
+    "fifa": "DZ0FHbTgZcLaZe4t8YQew",
+    "bbc": "m002ydly"
   },
   {
     "id": "m-col-por",
