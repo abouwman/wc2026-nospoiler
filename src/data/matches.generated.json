@@ -32,9 +32,24 @@
     "date": "2026-06-28",
     "home": "JOR",
     "away": "ARG",
-    "videos": {},
+    "videos": {
+      "en": {
+        "extended": {
+          "id": "sPJIf3GfNo0",
+          "geo": "US"
+        }
+      },
+      "nl": {
+        "short": {
+          "id": "p71uMqfxA0E",
+          "geo": "NL"
+        }
+      }
+    },
     "kickoff": "2026-06-28T02:00:00Z",
-    "group": "J"
+    "group": "J",
+    "fifa": "5BIvKB59XPeexfnCVgq1on",
+    "bbc": "m002ydmk"
   },
   {
     "id": "m-alg-aut",
@@ -42,9 +57,23 @@
     "date": "2026-06-28",
     "home": "ALG",
     "away": "AUT",
-    "videos": {},
+    "videos": {
+      "en": {
+        "extended": {
+          "id": "fjPH_DXx12M",
+          "geo": "US"
+        }
+      },
+      "nl": {
+        "short": {
+          "id": "ymuF49lDvV0",
+          "geo": "NL"
+        }
+      }
+    },
     "kickoff": "2026-06-28T02:00:00Z",
-    "group": "J"
+    "group": "J",
+    "fifa": "2bOGz6Fht3JL0EejbQh0vv"
   },
   {
     "id": "m-rsa-can",
@@ -191,9 +220,24 @@
     "date": "2026-06-27",
     "home": "COL",
     "away": "POR",
-    "videos": {},
+    "videos": {
+      "en": {
+        "extended": {
+          "id": "cRb6GQEAsU8",
+          "geo": "US"
+        }
+      },
+      "nl": {
+        "short": {
+          "id": "UFtAUTtVuGo",
+          "geo": "NL"
+        }
+      }
+    },
     "kickoff": "2026-06-27T23:30:00Z",
-    "group": "K"
+    "group": "K",
+    "fifa": "8tSsUTDaizPYqH3tPtPym",
+    "bbc": "m002ydm2"
   },
   {
     "id": "m-cpv-ksa",
@@ -271,9 +315,24 @@
     "date": "2026-06-27",
     "home": "COD",
     "away": "UZB",
-    "videos": {},
+    "videos": {
+      "en": {
+        "extended": {
+          "id": "iCaUl2GQ3sQ",
+          "geo": "US"
+        }
+      },
+      "nl": {
+        "short": {
+          "id": "2aZ9uGSwoYI",
+          "geo": "NL"
+        }
+      }
+    },
     "kickoff": "2026-06-27T23:30:00Z",
-    "group": "K"
+    "group": "K",
+    "fifa": "3qv3zdDeGxu5KG6WPOZ9eW",
+    "bbc": "m002ydm4"
   },
   {
     "id": "m-tur-usa",
