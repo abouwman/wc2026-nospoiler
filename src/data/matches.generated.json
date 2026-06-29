@@ -145,7 +145,8 @@
       ],
       "highlights": "https://soccertims.vortexvisionworks.com/embed/MIDnE9aGI5Rk5",
       "page": "https://timesoccertv.com/brazil-highlights/"
-    }
+    },
+    "bbc": "m002yr6t"
   },
   {
     "id": "m-ger-par",
@@ -154,7 +155,8 @@
     "home": "GER",
     "away": "PAR",
     "videos": {},
-    "kickoff": "2026-06-29T20:30:00Z"
+    "kickoff": "2026-06-29T20:30:00Z",
+    "fifa": "ru98yX9opUKFD--ujdjtqQ"
   },
   {
     "id": "m-jor-arg",
