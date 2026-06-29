@@ -122,8 +122,30 @@
     "date": "2026-06-29",
     "home": "BRA",
     "away": "JPN",
-    "videos": {},
-    "kickoff": "2026-06-29T17:00:00Z"
+    "videos": {
+      "en": {
+        "short": {
+          "id": "QgUSOlN0Tt0",
+          "geo": "US"
+        }
+      },
+      "nl": {
+        "short": {
+          "id": "TKxS14h25UQ",
+          "geo": "NL"
+        }
+      }
+    },
+    "kickoff": "2026-06-29T17:00:00Z",
+    "fifa": "2RdUNscru4TZmci6y3Akdp",
+    "tstv": {
+      "full": [
+        "https://hgcloud.to/e/96ctapthjvxt",
+        "https://hgcloud.to/e/kioenhhwo5fi"
+      ],
+      "highlights": "https://soccertims.vortexvisionworks.com/embed/MIDnE9aGI5Rk5",
+      "page": "https://timesoccertv.com/brazil-highlights/"
+    }
   },
   {
     "id": "m-ger-par",
