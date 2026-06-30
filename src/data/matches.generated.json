@@ -154,7 +154,20 @@
     "date": "2026-06-29",
     "home": "GER",
     "away": "PAR",
-    "videos": {},
+    "videos": {
+      "en": {
+        "short": {
+          "id": "-gtI96YhJek",
+          "geo": "US"
+        }
+      },
+      "nl": {
+        "short": {
+          "id": "tHnWclyA7bE",
+          "geo": "NL"
+        }
+      }
+    },
     "kickoff": "2026-06-29T20:30:00Z",
     "fifa": "ru98yX9opUKFD--ujdjtqQ",
     "tstv": {
