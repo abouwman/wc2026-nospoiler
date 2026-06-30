@@ -95,8 +95,23 @@
     "date": "2026-06-30",
     "home": "NED",
     "away": "MAR",
-    "videos": {},
-    "kickoff": "2026-06-30T01:00:00Z"
+    "videos": {
+      "en": {
+        "short": {
+          "id": "DkZtwwbN1YI",
+          "geo": "US"
+        }
+      },
+      "nl": {
+        "short": {
+          "id": "I8kDTa0AH4g",
+          "geo": "NL"
+        }
+      }
+    },
+    "kickoff": "2026-06-30T01:00:00Z",
+    "fifa": "3ypNkN0kvF5ZdsUFlQCJR5",
+    "bbc": "m002yr85"
   },
   {
     "id": "m-civ-nor",
