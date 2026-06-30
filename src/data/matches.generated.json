@@ -9,6 +9,15 @@
     "kickoff": "2026-07-04T01:30:00Z"
   },
   {
+    "id": "m-can-mar",
+    "stage": "r16",
+    "date": "2026-07-04",
+    "home": "CAN",
+    "away": "MAR",
+    "videos": {},
+    "kickoff": "2026-07-04T17:00:00Z"
+  },
+  {
     "id": "m-sui-alg",
     "stage": "r32",
     "date": "2026-07-03",
@@ -111,7 +120,16 @@
     },
     "kickoff": "2026-06-30T01:00:00Z",
     "fifa": "3ypNkN0kvF5ZdsUFlQCJR5",
-    "bbc": "m002yr85"
+    "bbc": "m002yr85",
+    "tstv": {
+      "full": [
+        "https://hgcloud.to/e/3spi92mfmss3",
+        "https://hgcloud.to/e/687qc3apuuvr",
+        "https://hgcloud.to/e/nhwuaamfjd71"
+      ],
+      "highlights": "https://soccertims.vortexvisionworks.com/embed/SKZGDzxPA6vd6",
+      "page": "https://timesoccertv.com/netherlands-highlights/"
+    }
   },
   {
     "id": "m-civ-nor",
