@@ -137,8 +137,22 @@
     "date": "2026-06-30",
     "home": "CIV",
     "away": "NOR",
-    "videos": {},
-    "kickoff": "2026-06-30T17:00:00Z"
+    "videos": {
+      "en": {
+        "short": {
+          "id": "rPebJKCPjK0",
+          "geo": "US"
+        }
+      },
+      "nl": {
+        "short": {
+          "id": "UnNiGcT6Kzg",
+          "geo": "NL"
+        }
+      }
+    },
+    "kickoff": "2026-06-30T17:00:00Z",
+    "fifa": "7gFfhxAHvUxRnTJzE3z842"
   },
   {
     "id": "m-fra-swe",
