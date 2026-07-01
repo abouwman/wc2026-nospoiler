@@ -127,8 +127,30 @@
     "date": "2026-07-01",
     "home": "ENG",
     "away": "COD",
-    "videos": {},
-    "kickoff": "2026-07-01T16:00:00Z"
+    "videos": {
+      "en": {
+        "short": {
+          "id": "x24Ir5Ua4RQ",
+          "geo": "US"
+        }
+      },
+      "nl": {
+        "short": {
+          "id": "aWdku70cR0E",
+          "geo": "NL"
+        }
+      }
+    },
+    "kickoff": "2026-07-01T16:00:00Z",
+    "fifa": "6B2He3tAKrjUSIRJYbFNUV",
+    "tstv": {
+      "full": [
+        "https://hgcloud.to/e/qjwlrny984jp",
+        "https://hgcloud.to/e/bsqb8kupz83e"
+      ],
+      "highlights": "https://soccertims.vortexvisionworks.com/embed/q4QL4wBonUITl",
+      "page": "https://timesoccertv.com/england-highlights/"
+    }
   },
   {
     "id": "m-bel-sen",
