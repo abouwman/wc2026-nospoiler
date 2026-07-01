@@ -111,7 +111,15 @@
     },
     "kickoff": "2026-07-01T01:00:00Z",
     "fifa": "3pQ3bqbgJiqBO8ZCJSS1Pf",
-    "bbc": "m002yr8z"
+    "bbc": "m002yr8z",
+    "tstv": {
+      "full": [
+        "https://hgcloud.to/e/nbkxpsluu3ej",
+        "https://hgcloud.to/e/jhylbhgix2kz"
+      ],
+      "highlights": "https://soccertims.vortexvisionworks.com/embed/UiKfKz8Y020zI",
+      "page": "https://timesoccertv.com/mexico-highlights/"
+    }
   },
   {
     "id": "m-eng-cod",
