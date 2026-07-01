@@ -159,8 +159,24 @@
     "date": "2026-07-01",
     "home": "BEL",
     "away": "SEN",
-    "videos": {},
-    "kickoff": "2026-07-01T20:00:00Z"
+    "videos": {
+      "en": {
+        "short": {
+          "id": "OJ84ZgReAsE",
+          "geo": "US"
+        }
+      }
+    },
+    "kickoff": "2026-07-01T20:00:00Z",
+    "fifa": "3scjQ5v59JVm8ZY4LYKfZX",
+    "tstv": {
+      "full": [
+        "https://hgcloud.to/e/9fg6szinpfm1",
+        "https://hgcloud.to/e/e51prpoxy6vx"
+      ],
+      "highlights": "https://soccertims.vortexvisionworks.com/embed/hVcrBZ5WWaGYM",
+      "page": "https://timesoccertv.com/belgium-highlights/"
+    }
   },
   {
     "id": "m-ned-mar",
