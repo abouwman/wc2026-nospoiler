@@ -1,5 +1,14 @@
 [
   {
+    "id": "m-bra-nor",
+    "stage": "r16",
+    "date": "2026-07-05",
+    "home": "BRA",
+    "away": "NOR",
+    "videos": {},
+    "kickoff": "2026-07-05T20:00:00Z"
+  },
+  {
     "id": "m-col-gha",
     "stage": "r32",
     "date": "2026-07-04",
@@ -16,6 +25,15 @@
     "away": "MAR",
     "videos": {},
     "kickoff": "2026-07-04T17:00:00Z"
+  },
+  {
+    "id": "m-par-fra",
+    "stage": "r16",
+    "date": "2026-07-04",
+    "home": "PAR",
+    "away": "FRA",
+    "videos": {},
+    "kickoff": "2026-07-04T21:00:00Z"
   },
   {
     "id": "m-sui-alg",
@@ -77,8 +95,23 @@
     "date": "2026-07-01",
     "home": "MEX",
     "away": "ECU",
-    "videos": {},
-    "kickoff": "2026-07-01T01:00:00Z"
+    "videos": {
+      "en": {
+        "short": {
+          "id": "UDH9nQPl67k",
+          "geo": "US"
+        }
+      },
+      "nl": {
+        "short": {
+          "id": "O0OtOPyF1hk",
+          "geo": "NL"
+        }
+      }
+    },
+    "kickoff": "2026-07-01T01:00:00Z",
+    "fifa": "3pQ3bqbgJiqBO8ZCJSS1Pf",
+    "bbc": "m002yr8z"
   },
   {
     "id": "m-eng-cod",
@@ -174,6 +207,12 @@
         "short": {
           "id": "II84TKpzJY4",
           "geo": "US"
+        }
+      },
+      "nl": {
+        "short": {
+          "id": "jfQdjZeK9R8",
+          "geo": "NL"
         }
       }
     },
