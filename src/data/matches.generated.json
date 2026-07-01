@@ -153,7 +153,15 @@
     },
     "kickoff": "2026-06-30T17:00:00Z",
     "fifa": "7gFfhxAHvUxRnTJzE3z842",
-    "bbc": "m002yr8m"
+    "bbc": "m002yr8m",
+    "tstv": {
+      "full": [
+        "https://hgcloud.to/e/a7d89ph0j3k4",
+        "https://hgcloud.to/e/zo13fbfd1ppt"
+      ],
+      "highlights": "https://soccertims.vortexvisionworks.com/embed/jVFN8a9ElgRLL",
+      "page": "https://timesoccertv.com/norway-full-match/"
+    }
   },
   {
     "id": "m-fra-swe",
@@ -161,9 +169,25 @@
     "date": "2026-06-30",
     "home": "FRA",
     "away": "SWE",
-    "videos": {},
+    "videos": {
+      "en": {
+        "short": {
+          "id": "II84TKpzJY4",
+          "geo": "US"
+        }
+      }
+    },
     "kickoff": "2026-06-30T21:00:00Z",
-    "fifa": "SQUgNGrNai36KI7q8vHo6"
+    "fifa": "SQUgNGrNai36KI7q8vHo6",
+    "bbc": "m002yr8p",
+    "tstv": {
+      "full": [
+        "https://hgcloud.to/e/w4c3f2i43bmv",
+        "https://hgcloud.to/e/ixf49fmbc26k"
+      ],
+      "highlights": "https://soccertims.vortexvisionworks.com/embed/NlkqEHYGBMVJ1",
+      "page": "https://timesoccertv.com/france-highlights/"
+    }
   },
   {
     "id": "m-bra-jpn",
