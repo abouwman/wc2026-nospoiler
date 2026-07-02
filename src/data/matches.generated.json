@@ -1,5 +1,23 @@
 [
   {
+    "id": "m-usa-bel",
+    "stage": "r16",
+    "date": "2026-07-07",
+    "home": "USA",
+    "away": "BEL",
+    "videos": {},
+    "kickoff": "2026-07-07T00:00:00Z"
+  },
+  {
+    "id": "m-mex-eng",
+    "stage": "r16",
+    "date": "2026-07-06",
+    "home": "MEX",
+    "away": "ENG",
+    "videos": {},
+    "kickoff": "2026-07-06T00:00:00Z"
+  },
+  {
     "id": "m-bra-nor",
     "stage": "r16",
     "date": "2026-07-05",
