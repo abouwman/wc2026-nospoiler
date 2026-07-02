@@ -110,8 +110,24 @@
     "date": "2026-07-02",
     "home": "ESP",
     "away": "AUT",
-    "videos": {},
-    "kickoff": "2026-07-02T19:00:00Z"
+    "videos": {
+      "en": {
+        "extended": {
+          "id": "J9SxUH5VCSU",
+          "geo": "US"
+        }
+      }
+    },
+    "kickoff": "2026-07-02T19:00:00Z",
+    "fifa": "3vt1Bl4M0VL5MPVPi86jsL",
+    "tstv": {
+      "full": [
+        "https://hgcloud.to/e/77ca5sst52pc",
+        "https://hgcloud.to/e/y1b7stluzl41"
+      ],
+      "highlights": "https://soccertims.vortexvisionworks.com/embed/eKRGg0u9hVgDm",
+      "page": "https://timesoccertv.com/spain-highlights/"
+    }
   },
   {
     "id": "m-por-cro",
