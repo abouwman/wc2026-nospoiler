@@ -59,8 +59,31 @@
     "date": "2026-07-03",
     "home": "SUI",
     "away": "ALG",
-    "videos": {},
-    "kickoff": "2026-07-03T03:00:00Z"
+    "videos": {
+      "en": {
+        "extended": {
+          "id": "bSZEbYXssBI",
+          "geo": "US"
+        }
+      },
+      "nl": {
+        "short": {
+          "id": "Ee7yOA-OfLE",
+          "geo": "NL"
+        }
+      }
+    },
+    "kickoff": "2026-07-03T03:00:00Z",
+    "fifa": "6la26pHrweIQnxNsHSFR28",
+    "bbc": "m002yr9v",
+    "tstv": {
+      "full": [
+        "https://hgcloud.to/e/l8gnqshq4tzv",
+        "https://hgcloud.to/e/o20wdau581px"
+      ],
+      "highlights": "https://soccertims.vortexvisionworks.com/embed/FOl1EmXtSDTEK",
+      "page": "https://timesoccertv.com/switzerland-full-match/"
+    }
   },
   {
     "id": "m-aus-egy",
@@ -158,7 +181,15 @@
     },
     "kickoff": "2026-07-02T23:00:00Z",
     "fifa": "1Es87R6QiwEaEPKsHMyipa",
-    "bbc": "m002yr9n"
+    "bbc": "m002yr9n",
+    "tstv": {
+      "full": [
+        "https://hgcloud.to/e/zrpgxa5dvis4",
+        "https://hgcloud.to/e/het0dgveieg0"
+      ],
+      "highlights": "https://soccertims.vortexvisionworks.com/embed/h4r0leWxHQmg8",
+      "page": "https://timesoccertv.com/portugal-highlights/"
+    }
   },
   {
     "id": "m-mex-ecu",
