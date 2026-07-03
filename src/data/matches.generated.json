@@ -95,8 +95,30 @@
     "date": "2026-07-03",
     "home": "AUS",
     "away": "EGY",
-    "videos": {},
-    "kickoff": "2026-07-03T18:00:00Z"
+    "videos": {
+      "en": {
+        "short": {
+          "id": "ACWOG7t8Plk",
+          "geo": "US"
+        }
+      },
+      "nl": {
+        "short": {
+          "id": "W_CHx-S24UY",
+          "geo": "NL"
+        }
+      }
+    },
+    "kickoff": "2026-07-03T18:00:00Z",
+    "fifa": "4TeMy7WxBhiEmfUwHTX0la",
+    "tstv": {
+      "full": [
+        "https://hgcloud.to/e/7pqik19t4xbu",
+        "https://hgcloud.to/e/z33ltt9idmei",
+        "https://hgcloud.to/e/mvhnnlvw62ib"
+      ],
+      "page": "https://timesoccertv.com/egypt-full-match/"
+    }
   },
   {
     "id": "m-arg-cpv",
