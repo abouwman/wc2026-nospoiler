@@ -142,8 +142,23 @@
     "date": "2026-07-02",
     "home": "POR",
     "away": "CRO",
-    "videos": {},
-    "kickoff": "2026-07-02T23:00:00Z"
+    "videos": {
+      "en": {
+        "short": {
+          "id": "J9yS7PsoEck",
+          "geo": "US"
+        }
+      },
+      "nl": {
+        "short": {
+          "id": "S7JOO5Ld_go",
+          "geo": "NL"
+        }
+      }
+    },
+    "kickoff": "2026-07-02T23:00:00Z",
+    "fifa": "1Es87R6QiwEaEPKsHMyipa",
+    "bbc": "m002yr9n"
   },
   {
     "id": "m-mex-ecu",
