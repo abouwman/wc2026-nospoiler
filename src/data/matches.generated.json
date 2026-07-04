@@ -91,8 +91,24 @@
     "date": "2026-07-04",
     "home": "CAN",
     "away": "MAR",
-    "videos": {},
-    "kickoff": "2026-07-04T17:00:00Z"
+    "videos": {
+      "en": {
+        "short": {
+          "id": "QLFucR6SGr4",
+          "geo": "US"
+        }
+      }
+    },
+    "kickoff": "2026-07-04T17:00:00Z",
+    "fifa": "1Yw1ocUULCrvW3PYSDX0pL",
+    "tstv": {
+      "full": [
+        "https://hgcloud.to/e/zrci2ww31vc5",
+        "https://hgcloud.to/e/tw6vka9ji9zh"
+      ],
+      "highlights": "https://soccertims.vortexvisionworks.com/embed/BD8ZRSAEM1XiE",
+      "page": "https://timesoccertv.com/canada-highlights/"
+    }
   },
   {
     "id": "m-par-fra",
