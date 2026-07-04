@@ -75,7 +75,15 @@
     },
     "kickoff": "2026-07-04T01:30:00Z",
     "fifa": "4JaxdQNgyF6wsiYLbU0p2m",
-    "bbc": "m002yrb9"
+    "bbc": "m002yrb9",
+    "tstv": {
+      "full": [
+        "https://hgcloud.to/e/365jj4b28qwx",
+        "https://hgcloud.to/e/sp66xwjufygq"
+      ],
+      "highlights": "https://soccertims.vortexvisionworks.com/embed/M9QOtp7OCHuIg",
+      "page": "https://timesoccertv.com/colombia-full-match/"
+    }
   },
   {
     "id": "m-can-mar",
