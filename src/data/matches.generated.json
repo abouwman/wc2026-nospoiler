@@ -32,8 +32,16 @@
     "date": "2026-07-04",
     "home": "COL",
     "away": "GHA",
-    "videos": {},
-    "kickoff": "2026-07-04T01:30:00Z"
+    "videos": {
+      "en": {
+        "short": {
+          "id": "9TJRhuQOJuE",
+          "geo": "US"
+        }
+      }
+    },
+    "kickoff": "2026-07-04T01:30:00Z",
+    "fifa": "4JaxdQNgyF6wsiYLbU0p2m"
   },
   {
     "id": "m-can-mar",
@@ -136,7 +144,17 @@
       }
     },
     "kickoff": "2026-07-03T22:00:00Z",
-    "fifa": "2MYDEoxhtcLI6AW0hGG1yP"
+    "fifa": "2MYDEoxhtcLI6AW0hGG1yP",
+    "bbc": "m002yrb6",
+    "tstv": {
+      "full": [
+        "https://hgcloud.to/e/e7ogeiv70su0",
+        "https://hgcloud.to/e/0eegkqmsqb2k",
+        "https://hgcloud.to/e/d07o777dcydu"
+      ],
+      "highlights": "https://soccertims.vortexvisionworks.com/embed/dd6roMcJPBzXW",
+      "page": "https://timesoccertv.com/argentina-highlights/"
+    }
   },
   {
     "id": "m-usa-bih",
