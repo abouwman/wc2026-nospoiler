@@ -127,8 +127,16 @@
     "date": "2026-07-03",
     "home": "ARG",
     "away": "CPV",
-    "videos": {},
-    "kickoff": "2026-07-03T22:00:00Z"
+    "videos": {
+      "en": {
+        "short": {
+          "id": "EC2jOKluGRI",
+          "geo": "US"
+        }
+      }
+    },
+    "kickoff": "2026-07-03T22:00:00Z",
+    "fifa": "2MYDEoxhtcLI6AW0hGG1yP"
   },
   {
     "id": "m-usa-bih",
