@@ -123,7 +123,16 @@
     "home": "PAR",
     "away": "FRA",
     "videos": {},
-    "kickoff": "2026-07-04T21:00:00Z"
+    "kickoff": "2026-07-04T21:00:00Z",
+    "fifa": "6cm1kVkhlVgrFkP3Cdiqoh",
+    "tstv": {
+      "full": [
+        "https://hgcloud.to/e/9c80sr9pa2u3",
+        "https://hgcloud.to/e/401uo0el8bce"
+      ],
+      "highlights": "https://soccertims.vortexvisionworks.com/embed/djJuUQejotP3L",
+      "page": "https://timesoccertv.com/france-highlights/"
+    }
   },
   {
     "id": "m-sui-alg",
