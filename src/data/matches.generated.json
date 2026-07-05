@@ -122,7 +122,20 @@
     "date": "2026-07-04",
     "home": "PAR",
     "away": "FRA",
-    "videos": {},
+    "videos": {
+      "en": {
+        "short": {
+          "id": "2ANrnnZEE6c",
+          "geo": "US"
+        }
+      },
+      "nl": {
+        "short": {
+          "id": "kNTNTfRnsOI",
+          "geo": "NL"
+        }
+      }
+    },
     "kickoff": "2026-07-04T21:00:00Z",
     "fifa": "6cm1kVkhlVgrFkP3Cdiqoh",
     "tstv": {
@@ -132,7 +145,8 @@
       ],
       "highlights": "https://soccertims.vortexvisionworks.com/embed/djJuUQejotP3L",
       "page": "https://timesoccertv.com/france-highlights/"
-    }
+    },
+    "bbc": "m002z012"
   },
   {
     "id": "m-sui-alg",
@@ -582,7 +596,8 @@
       ],
       "highlights": "https://soccertims.vortexvisionworks.com/embed/1Bq8qEGPnzpB8",
       "page": "https://timesoccertv.com/germany-highlights/"
-    }
+    },
+    "bbc": "m002z012"
   },
   {
     "id": "m-jor-arg",
