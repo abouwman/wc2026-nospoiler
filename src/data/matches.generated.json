@@ -42,7 +42,7 @@
     "home": "MEX",
     "away": "ENG",
     "videos": {},
-    "kickoff": "2026-07-06T00:00:00Z"
+    "kickoff": "2026-07-06T01:00:00Z"
   },
   {
     "id": "m-por-esp",
@@ -59,7 +59,14 @@
     "date": "2026-07-05",
     "home": "BRA",
     "away": "NOR",
-    "videos": {},
+    "videos": {
+      "en": {
+        "short": {
+          "id": "vpcukTVSD8Q",
+          "geo": "US"
+        }
+      }
+    },
     "kickoff": "2026-07-05T20:00:00Z",
     "fifa": "BP9CSar_0UywJcMkZ7wrlg",
     "tstv": {
