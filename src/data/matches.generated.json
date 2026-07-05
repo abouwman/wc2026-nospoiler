@@ -1,5 +1,14 @@
 [
   {
+    "id": "m-fra-mar",
+    "stage": "qf",
+    "date": "2026-07-09",
+    "home": "FRA",
+    "away": "MAR",
+    "videos": {},
+    "kickoff": "2026-07-09T20:00:00Z"
+  },
+  {
     "id": "m-usa-bel",
     "stage": "r16",
     "date": "2026-07-07",
