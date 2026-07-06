@@ -41,8 +41,21 @@
     "date": "2026-07-06",
     "home": "MEX",
     "away": "ENG",
-    "videos": {},
-    "kickoff": "2026-07-06T01:00:00Z"
+    "videos": {
+      "en": {
+        "short": {
+          "id": "n7cA4k6TJbs",
+          "geo": "US"
+        }
+      }
+    },
+    "kickoff": "2026-07-06T01:00:00Z",
+    "fifa": "UtO24MbZ8ce7YLpu6NMsM",
+    "bbc": "m002z01c",
+    "tstv": {
+      "highlights": "https://soccertims.vortexvisionworks.com/embed/AdSkEGLtcC1oh",
+      "page": "https://timesoccertv.com/england-highlights/"
+    }
   },
   {
     "id": "m-por-esp",
