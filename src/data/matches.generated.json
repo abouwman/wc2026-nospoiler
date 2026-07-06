@@ -1,5 +1,14 @@
 [
   {
+    "id": "m-nor-eng",
+    "stage": "qf",
+    "date": "2026-07-11",
+    "home": "NOR",
+    "away": "ENG",
+    "videos": {},
+    "kickoff": "2026-07-11T21:00:00Z"
+  },
+  {
     "id": "m-fra-mar",
     "stage": "qf",
     "date": "2026-07-09",
@@ -46,6 +55,12 @@
         "short": {
           "id": "n7cA4k6TJbs",
           "geo": "US"
+        }
+      },
+      "nl": {
+        "short": {
+          "id": "TQH6hmEsAr8",
+          "geo": "NL"
         }
       }
     },
