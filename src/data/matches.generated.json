@@ -65,6 +65,12 @@
           "id": "vpcukTVSD8Q",
           "geo": "US"
         }
+      },
+      "nl": {
+        "short": {
+          "id": "mEKtTLp8D1g",
+          "geo": "NL"
+        }
       }
     },
     "kickoff": "2026-07-05T20:00:00Z",
@@ -76,7 +82,8 @@
       ],
       "highlights": "https://soccertims.vortexvisionworks.com/embed/Bv8Umy28VSCeM",
       "page": "https://timesoccertv.com/brazil-highlights/"
-    }
+    },
+    "bbc": "m002z017"
   },
   {
     "id": "m-col-gha",
