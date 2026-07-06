@@ -78,8 +78,23 @@
     "date": "2026-07-06",
     "home": "POR",
     "away": "ESP",
-    "videos": {},
-    "kickoff": "2026-07-06T19:00:00Z"
+    "videos": {
+      "en": {
+        "short": {
+          "id": "xINJD9fo6BM",
+          "geo": "US"
+        }
+      }
+    },
+    "kickoff": "2026-07-06T19:00:00Z",
+    "fifa": "740lMnWHWJZaxv4hYSKFur",
+    "tstv": {
+      "full": [
+        "https://hgcloud.to/e/yel7kdgfacud"
+      ],
+      "highlights": "https://soccertims.vortexvisionworks.com/embed/tQ0z4FKjNBwOy",
+      "page": "https://timesoccertv.com/spain-highlights/"
+    }
   },
   {
     "id": "m-bra-nor",
