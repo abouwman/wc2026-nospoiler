@@ -9,6 +9,15 @@
     "kickoff": "2026-07-11T21:00:00Z"
   },
   {
+    "id": "m-esp-bel",
+    "stage": "qf",
+    "date": "2026-07-10",
+    "home": "ESP",
+    "away": "BEL",
+    "videos": {},
+    "kickoff": "2026-07-10T19:00:00Z"
+  },
+  {
     "id": "m-fra-mar",
     "stage": "qf",
     "date": "2026-07-09",
@@ -38,7 +47,11 @@
       }
     },
     "kickoff": "2026-07-07T00:00:00Z",
-    "fifa": "1m2vueOgvj9cbqE2lMS3dJ"
+    "fifa": "1m2vueOgvj9cbqE2lMS3dJ",
+    "tstv": {
+      "highlights": "https://soccertims.vortexvisionworks.com/embed/nfpOr2MsOC1Nb",
+      "page": "https://timesoccertv.com/belgium-highlights/"
+    }
   },
   {
     "id": "m-arg-egy",
