@@ -91,8 +91,31 @@
     "date": "2026-07-07",
     "home": "SUI",
     "away": "COL",
-    "videos": {},
-    "kickoff": "2026-07-07T20:00:00Z"
+    "videos": {
+      "en": {
+        "short": {
+          "id": "_uEzppRKcd0",
+          "geo": "US"
+        }
+      },
+      "nl": {
+        "short": {
+          "id": "8ceg5Kl1fvo",
+          "geo": "NL"
+        }
+      }
+    },
+    "kickoff": "2026-07-07T20:00:00Z",
+    "fifa": "zF8Mq0Lz06PYDtft7Unm7",
+    "tstv": {
+      "full": [
+        "https://hgcloud.to/e/q7m9a8g3jn3z",
+        "https://hgcloud.to/e/r1qs2x0i3vd3",
+        "https://hgcloud.to/e/hvjr5nsfsdk8"
+      ],
+      "highlights": "https://soccertims.vortexvisionworks.com/embed/l2NjtZ0sYngJE",
+      "page": "https://timesoccertv.com/switzerland-full-match/"
+    }
   },
   {
     "id": "m-mex-eng",
