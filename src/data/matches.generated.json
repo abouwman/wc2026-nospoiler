@@ -59,9 +59,31 @@
     "date": "2026-07-07",
     "home": "ARG",
     "away": "EGY",
-    "videos": {},
+    "videos": {
+      "en": {
+        "short": {
+          "id": "XO3x8vm0Ijc",
+          "geo": "US"
+        }
+      },
+      "nl": {
+        "short": {
+          "id": "fDpuJAqFKJA",
+          "geo": "NL"
+        }
+      }
+    },
     "kickoff": "2026-07-07T16:00:00Z",
-    "fifa": "Hd9-NHzwNUaGTePY5Lk3Ew"
+    "fifa": "Hd9-NHzwNUaGTePY5Lk3Ew",
+    "bbc": "m002z01x",
+    "tstv": {
+      "full": [
+        "https://hgcloud.to/e/5so7flass4p5",
+        "https://hgcloud.to/e/b8lalyc9kjj5"
+      ],
+      "highlights": "https://soccertims.vortexvisionworks.com/embed/KujYuC1SfynJH",
+      "page": "https://timesoccertv.com/argentina-highlights/"
+    }
   },
   {
     "id": "m-sui-col",
