@@ -23,8 +23,22 @@
     "date": "2026-07-07",
     "home": "USA",
     "away": "BEL",
-    "videos": {},
-    "kickoff": "2026-07-07T00:00:00Z"
+    "videos": {
+      "en": {
+        "short": {
+          "id": "QL3kCTgeVKA",
+          "geo": "US"
+        }
+      },
+      "nl": {
+        "short": {
+          "id": "1aHY5A-EgDs",
+          "geo": "NL"
+        }
+      }
+    },
+    "kickoff": "2026-07-07T00:00:00Z",
+    "fifa": "1m2vueOgvj9cbqE2lMS3dJ"
   },
   {
     "id": "m-arg-egy",
