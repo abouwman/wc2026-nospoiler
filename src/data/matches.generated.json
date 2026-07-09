@@ -32,8 +32,30 @@
     "date": "2026-07-09",
     "home": "FRA",
     "away": "MAR",
-    "videos": {},
-    "kickoff": "2026-07-09T20:00:00Z"
+    "videos": {
+      "en": {
+        "short": {
+          "id": "J_1iFnRsHG0",
+          "geo": "US"
+        }
+      },
+      "nl": {
+        "short": {
+          "id": "DwrAGzQIp_w",
+          "geo": "NL"
+        }
+      }
+    },
+    "kickoff": "2026-07-09T20:00:00Z",
+    "fifa": "5hMWkQ5zuaopBunGPcLez5",
+    "tstv": {
+      "full": [
+        "https://hgcloud.to/e/9i2l0fp8xa8d",
+        "https://hgcloud.to/e/vo1x8pseaklb"
+      ],
+      "highlights": "https://soccertims.vortexvisionworks.com/embed/vodEs9J2AdCNR",
+      "page": "https://timesoccertv.com/france-highlights/"
+    }
   },
   {
     "id": "m-usa-bel",
