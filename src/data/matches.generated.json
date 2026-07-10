@@ -23,8 +23,24 @@
     "date": "2026-07-10",
     "home": "ESP",
     "away": "BEL",
-    "videos": {},
-    "kickoff": "2026-07-10T19:00:00Z"
+    "videos": {
+      "en": {
+        "short": {
+          "id": "jqG_pZGkLcc",
+          "geo": "US"
+        }
+      }
+    },
+    "kickoff": "2026-07-10T19:00:00Z",
+    "fifa": "4ILvhnlhpIqtnPHAPekNsM",
+    "tstv": {
+      "full": [
+        "https://hgcloud.to/e/vxmnzbifbraz",
+        "https://hgcloud.to/e/jxxrdxanlc6d"
+      ],
+      "highlights": "https://soccertims.vortexvisionworks.com/embed/KHhObslWVTCGG",
+      "page": "https://timesoccertv.com/spain-highlights/"
+    }
   },
   {
     "id": "m-fra-mar",
