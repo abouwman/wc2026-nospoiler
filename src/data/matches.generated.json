@@ -1,5 +1,14 @@
 [
   {
+    "id": "m-fra-esp",
+    "stage": "sf",
+    "date": "2026-07-14",
+    "home": "FRA",
+    "away": "ESP",
+    "videos": {},
+    "kickoff": "2026-07-14T19:00:00Z"
+  },
+  {
     "id": "m-arg-sui",
     "stage": "qf",
     "date": "2026-07-12",
