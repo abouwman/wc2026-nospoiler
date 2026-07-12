@@ -25,7 +25,16 @@
     "away": "ENG",
     "videos": {},
     "kickoff": "2026-07-11T21:00:00Z",
-    "fifa": "6T8CQyhR0DiS6Drqw1PzXr"
+    "fifa": "6T8CQyhR0DiS6Drqw1PzXr",
+    "tstv": {
+      "full": [
+        "https://hgcloud.to/e/kfj7tqgxlue8",
+        "https://hgcloud.to/e/8d7aa2dnhz7t",
+        "https://hgcloud.to/e/v33e6fy12o30"
+      ],
+      "highlights": "https://soccertims.vortexvisionworks.com/embed/duwRUOqBF7tmH",
+      "page": "https://timesoccertv.com/england-highlights/"
+    }
   },
   {
     "id": "m-esp-bel",
