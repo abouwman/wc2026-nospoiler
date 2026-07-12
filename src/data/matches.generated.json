@@ -1,5 +1,14 @@
 [
   {
+    "id": "m-eng-arg",
+    "stage": "sf",
+    "date": "2026-07-15",
+    "home": "ENG",
+    "away": "ARG",
+    "videos": {},
+    "kickoff": "2026-07-15T19:00:00Z"
+  },
+  {
     "id": "m-fra-esp",
     "stage": "sf",
     "date": "2026-07-14",
@@ -14,9 +23,23 @@
     "date": "2026-07-12",
     "home": "ARG",
     "away": "SUI",
-    "videos": {},
+    "videos": {
+      "en": {
+        "short": {
+          "id": "FGhW41kIpgQ",
+          "geo": "US"
+        }
+      },
+      "nl": {
+        "short": {
+          "id": "8wW7Ym92HjY",
+          "geo": "NL"
+        }
+      }
+    },
     "kickoff": "2026-07-12T01:00:00Z",
-    "fifa": "Fz1GVlTZwUCQCf1D0eEE4w"
+    "fifa": "Fz1GVlTZwUCQCf1D0eEE4w",
+    "bbc": "m002z8r2"
   },
   {
     "id": "m-nor-eng",
@@ -29,6 +52,12 @@
         "short": {
           "id": "dVWBrxpPVuY",
           "geo": "US"
+        }
+      },
+      "nl": {
+        "short": {
+          "id": "Ot_1pu0udKs",
+          "geo": "NL"
         }
       }
     },
