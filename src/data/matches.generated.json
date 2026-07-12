@@ -39,7 +39,16 @@
     },
     "kickoff": "2026-07-12T01:00:00Z",
     "fifa": "Fz1GVlTZwUCQCf1D0eEE4w",
-    "bbc": "m002z8r2"
+    "bbc": "m002z8r2",
+    "tstv": {
+      "full": [
+        "https://hgcloud.to/e/5wim3cr71asf",
+        "https://hgcloud.to/e/xpq8wpyecnpu",
+        "https://hgcloud.to/e/2eilsgdgngqn"
+      ],
+      "highlights": "https://soccertims.vortexvisionworks.com/embed/gowVxs5Rn8Giy",
+      "page": "https://timesoccertv.com/argentina-highlights/"
+    }
   },
   {
     "id": "m-nor-eng",
