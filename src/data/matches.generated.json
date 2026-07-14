@@ -14,8 +14,30 @@
     "date": "2026-07-14",
     "home": "FRA",
     "away": "ESP",
-    "videos": {},
-    "kickoff": "2026-07-14T19:00:00Z"
+    "videos": {
+      "en": {
+        "short": {
+          "id": "3JAZZr3jWD0",
+          "geo": "US"
+        }
+      },
+      "nl": {
+        "short": {
+          "id": "Dg8P-8Gd81E",
+          "geo": "NL"
+        }
+      }
+    },
+    "kickoff": "2026-07-14T19:00:00Z",
+    "fifa": "6Hjp3RWmtqQoTtFlQZ2Etn",
+    "tstv": {
+      "full": [
+        "https://hgcloud.to/e/w19rjpigg14v",
+        "https://hgcloud.to/e/b86qqvrpj0kb"
+      ],
+      "highlights": "https://soccertims.vortexvisionworks.com/embed/hTKkh1VHjOVkL",
+      "page": "https://timesoccertv.com/spain-highlights/"
+    }
   },
   {
     "id": "m-arg-sui",
