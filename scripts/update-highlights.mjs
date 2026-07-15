@@ -270,6 +270,10 @@ async function searchResults(query) {
 
 // Older World Cup editions whose highlights must never be picked for WC 2026.
 const OLD_EDITION = /\b(2002|2006|2010|2014|2018|2022)\b|russia 2018|qatar 2022|brazil 2014|south africa 2010/i;
+// Non-highlight watch pages FIFA publishes for a fixture under the same
+// "home v away | …" title (e.g. a pre-match preview). These carry a spoiler and
+// must never be attached as a match's highlight link.
+const NON_HIGHLIGHT = /\b(preview|line-?ups?|predictions?|build-?up|press conference|how to watch)\b/i;
 // fifa.com serves watch pages as both /en/watch/<id> and /fifaplus/en/watch/<id>.
 const WATCH_URL = /fifa\.com\/(?:fifaplus\/)?en\/watch\/([A-Za-z0-9_-]{16,26})/i;
 // A fifa.com/watch id in isolation (same charset/length as WATCH_URL's capture).
@@ -312,7 +316,8 @@ function pairTitle(text, homeNames, awayNames) {
 }
 
 // Resolve a match's fifa.com/watch id. Tries a few query forms (coverage varies
-// per match) and accepts only a watch page whose title is the exact pairing and
+// per match) and accepts only a watch page whose title is the exact pairing, is a
+// Highlights page (not a preview/line-ups spoiler that shares the same title), and
 // isn't an older edition.
 async function fifaWatchId(homeNames, awayNames) {
   const [home, away] = [homeNames[0], awayNames[0]];
@@ -327,6 +332,8 @@ async function fifaWatchId(homeNames, awayNames) {
       const m = String(url).match(WATCH_URL);
       if (!m) continue;
       if (OLD_EDITION.test(text)) continue;
+      if (NON_HIGHLIGHT.test(text)) continue;
+      if (!/highlights/i.test(text)) continue;
       if (!pairTitle(text, homeNames, awayNames)) continue;
       return m[1];
     }
@@ -445,6 +452,7 @@ async function fetchFifaHighlights() {
 function fifaHubMatchId(items, homeNames, awayNames) {
   for (const { watchId, title } of items) {
     if (OLD_EDITION.test(title)) continue;
+    if (NON_HIGHLIGHT.test(title)) continue;
     if (!/highlights/i.test(title)) continue;
     if (!pairTitle(title, homeNames, awayNames)) continue;
     return watchId;
@@ -656,9 +664,8 @@ async function main() {
   // Watch ids already in use, so the same fifa.com page can't be attached to two
   // different matches (the search occasionally returns a shared/hub id).
   const usedFifa = new Set([...byId.values()].map((m) => m.fifa).filter(Boolean));
-  // Only resolve FIFA links once a match has actually finished (kickoff + full
-  // playtime + buffer) and is still within the lookback window. The hub usually
-  // posts within that window; a web search is the slower fallback. Bound the
+  // Only *search* for FIFA links once a match has actually finished (kickoff +
+  // full playtime + buffer) and is still within the lookback window. Bound the
   // search usage (it's paid/rate-limited): capped per run.
   const fifaCutoff = nowMs - Number(process.env.FIFA_LOOKBACK_DAYS || 5) * 864e5;
   const fifaMaxPerRun = Number(process.env.FIFA_MAX_PER_RUN || 10);
@@ -667,26 +674,35 @@ async function main() {
     const ko = m.kickoff ? new Date(m.kickoff).getTime() : 0;
     return ko && ko + fifaEndMs < nowMs && ko >= fifaCutoff;
   };
-  // FIFA's own highlights hub — one crawl per run, matched against every match
-  // below. Skip the crawl entirely unless a finished match still needs a link.
-  const needFifa = [...byId.values()].some((m) => !m.fifa && fifaEligible(m)
+  const played = (m) => {
+    const hasVid = Object.values(m.videos).some((c) => c && (c.short || c.extended));
+    const ko = m.kickoff ? new Date(m.kickoff).getTime() : 0;
+    return hasVid || (ko && ko < nowMs);
+  };
+  // FIFA's own highlights hub — one crawl per run, matched against every played
+  // match below. The hub lists genuine Highlights only, so it's the source of
+  // truth: we crawl whenever a played match with English names exists (to fill
+  // gaps AND to re-validate ids already stored — an earlier run could have
+  // attached a preview page before the hub posted the real highlight).
+  const anyPlayedNamed = [...byId.values()].some((m) => played(m)
     && TEAMS[m.home]?.en?.length && TEAMS[m.away]?.en?.length);
-  const fifaItems = (needFifa || process.env.DEBUG_FIFA) ? await fetchFifaHighlights() : [];
+  const fifaItems = (anyPlayedNamed || process.env.DEBUG_FIFA) ? await fetchFifaHighlights() : [];
   console.log(`fifa hub items: ${fifaItems.length}`);
   let fifaTries = 0;
   for (const match of byId.values()) {
-    const hasVid = Object.values(match.videos).some((c) => c && (c.short || c.extended));
-    const ko = match.kickoff ? new Date(match.kickoff).getTime() : 0;
-    const played = hasVid || (ko && ko < nowMs);
-    if (!played) continue;
+    if (!played(match)) continue;
     const hn = TEAMS[match.home]?.en, an = TEAMS[match.away]?.en;
     if (!hn?.length || !an?.length) continue;
     const eligible = fifaEligible(match);
-    // FIFA hub first (free — one shared crawl, strict pairing match), then fall
-    // back to the web search only when the hub hasn't posted this match yet.
-    if (!match.fifa && eligible) {
-      const id = fifaHubMatchId(fifaItems, hn, an);
-      if (id && !usedFifa.has(id)) { match.fifa = id; usedFifa.add(id); console.log(`fifa(hub) for ${match.id}: ${id}`); }
+    // The hub is authoritative: whenever it lists this pairing's Highlights,
+    // adopt that id — filling an empty link AND overwriting any stored id that
+    // differs (self-heals a previously-attached preview/stale page). The web
+    // search is only a fallback for a just-finished match the hub hasn't posted.
+    const hubId = fifaHubMatchId(fifaItems, hn, an);
+    if (hubId && hubId !== match.fifa && !usedFifa.has(hubId)) {
+      if (match.fifa) usedFifa.delete(match.fifa);
+      match.fifa = hubId; usedFifa.add(hubId);
+      console.log(`fifa(hub) for ${match.id}: ${hubId}`);
     }
     if (!match.fifa && eligible && fifaTries < fifaMaxPerRun) {
       fifaTries++;
