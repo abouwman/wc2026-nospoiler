@@ -11,9 +11,24 @@
           "id": "NUrwL-isyIU",
           "geo": "NL"
         }
+      },
+      "en": {
+        "short": {
+          "id": "y-4saPWrPt0",
+          "geo": "US"
+        }
       }
     },
-    "kickoff": "2026-07-15T19:00:00Z"
+    "kickoff": "2026-07-15T19:00:00Z",
+    "fifa": "1qEChftHXdWJuKjSjEEZKV",
+    "tstv": {
+      "full": [
+        "https://hgcloud.to/e/w20fhwkn4hyj",
+        "https://hgcloud.to/e/6jao9y9exnef"
+      ],
+      "highlights": "https://soccertims.vortexvisionworks.com/embed/2eFUEyVNsvMnq",
+      "page": "https://timesoccertv.com/argentina-highlights/"
+    }
   },
   {
     "id": "m-fra-esp",
