@@ -270,6 +270,10 @@ async function searchResults(query) {
 
 // Older World Cup editions whose highlights must never be picked for WC 2026.
 const OLD_EDITION = /\b(2002|2006|2010|2014|2018|2022)\b|russia 2018|qatar 2022|brazil 2014|south africa 2010/i;
+// Non-highlight watch pages FIFA publishes for a fixture under the same
+// "home v away | …" title (e.g. a pre-match preview). These carry a spoiler and
+// must never be attached as a match's highlight link.
+const NON_HIGHLIGHT = /\b(preview|line-?ups?|predictions?|build-?up|press conference|how to watch)\b/i;
 // fifa.com serves watch pages as both /en/watch/<id> and /fifaplus/en/watch/<id>.
 const WATCH_URL = /fifa\.com\/(?:fifaplus\/)?en\/watch\/([A-Za-z0-9_-]{16,26})/i;
 // A fifa.com/watch id in isolation (same charset/length as WATCH_URL's capture).
@@ -312,7 +316,8 @@ function pairTitle(text, homeNames, awayNames) {
 }
 
 // Resolve a match's fifa.com/watch id. Tries a few query forms (coverage varies
-// per match) and accepts only a watch page whose title is the exact pairing and
+// per match) and accepts only a watch page whose title is the exact pairing, is a
+// Highlights page (not a preview/line-ups spoiler that shares the same title), and
 // isn't an older edition.
 async function fifaWatchId(homeNames, awayNames) {
   const [home, away] = [homeNames[0], awayNames[0]];
@@ -327,6 +332,8 @@ async function fifaWatchId(homeNames, awayNames) {
       const m = String(url).match(WATCH_URL);
       if (!m) continue;
       if (OLD_EDITION.test(text)) continue;
+      if (NON_HIGHLIGHT.test(text)) continue;
+      if (!/highlights/i.test(text)) continue;
       if (!pairTitle(text, homeNames, awayNames)) continue;
       return m[1];
     }
@@ -445,6 +452,7 @@ async function fetchFifaHighlights() {
 function fifaHubMatchId(items, homeNames, awayNames) {
   for (const { watchId, title } of items) {
     if (OLD_EDITION.test(title)) continue;
+    if (NON_HIGHLIGHT.test(title)) continue;
     if (!/highlights/i.test(title)) continue;
     if (!pairTitle(title, homeNames, awayNames)) continue;
     return watchId;
