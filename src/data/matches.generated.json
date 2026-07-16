@@ -1,5 +1,23 @@
 [
   {
+    "id": "m-esp-arg",
+    "stage": "final",
+    "date": "2026-07-19",
+    "home": "ESP",
+    "away": "ARG",
+    "videos": {},
+    "kickoff": "2026-07-19T19:00:00Z"
+  },
+  {
+    "id": "m-fra-eng",
+    "stage": "third",
+    "date": "2026-07-18",
+    "home": "FRA",
+    "away": "ENG",
+    "videos": {},
+    "kickoff": "2026-07-18T21:00:00Z"
+  },
+  {
     "id": "m-eng-arg",
     "stage": "sf",
     "date": "2026-07-15",
