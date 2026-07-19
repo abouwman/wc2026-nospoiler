@@ -6,7 +6,15 @@
     "home": "ESP",
     "away": "ARG",
     "videos": {},
-    "kickoff": "2026-07-19T19:00:00Z"
+    "kickoff": "2026-07-19T19:00:00Z",
+    "tstv": {
+      "full": [
+        "https://hgcloud.to/e/keghuarj4haw",
+        "https://hgcloud.to/e/vwjn8mq2lfk9"
+      ],
+      "highlights": "https://soccertims.vortexvisionworks.com/embed/JtVbjMUkdwiOp",
+      "page": "https://timesoccertv.com/argentina-highlights/"
+    }
   },
   {
     "id": "m-fra-eng",
