@@ -20,6 +20,12 @@
           "id": "L1SLA0ixeWo",
           "geo": "US"
         }
+      },
+      "nl": {
+        "short": {
+          "id": "cLR8ntes4Xg",
+          "geo": "NL"
+        }
       }
     },
     "kickoff": "2026-07-18T21:00:00Z",
@@ -31,7 +37,8 @@
       ],
       "highlights": "https://soccertims.vortexvisionworks.com/embed/u5FcFtPz2sjV8",
       "page": "https://timesoccertv.com/england-highlights/"
-    }
+    },
+    "bbc": "m002zkn4"
   },
   {
     "id": "m-eng-arg",
