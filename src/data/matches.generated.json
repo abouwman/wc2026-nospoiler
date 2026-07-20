@@ -5,7 +5,20 @@
     "date": "2026-07-19",
     "home": "ESP",
     "away": "ARG",
-    "videos": {},
+    "videos": {
+      "en": {
+        "short": {
+          "id": "d7rRAQPWz6Y",
+          "geo": "US"
+        }
+      },
+      "nl": {
+        "short": {
+          "id": "C4G1Qxk3tW8",
+          "geo": "NL"
+        }
+      }
+    },
     "kickoff": "2026-07-19T19:00:00Z",
     "tstv": {
       "full": [
@@ -14,7 +27,9 @@
       ],
       "highlights": "https://soccertims.vortexvisionworks.com/embed/JtVbjMUkdwiOp",
       "page": "https://timesoccertv.com/argentina-highlights/"
-    }
+    },
+    "fifa": "7rGf4ZlagxiCJ1drrJ8Oeo",
+    "bbc": "m002zkn9"
   },
   {
     "id": "m-fra-eng",
