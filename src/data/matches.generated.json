@@ -1,5 +1,35 @@
 [
   {
+    "id": "m-ecu-gha",
+    "stage": "group",
+    "date": "2026-09-06",
+    "home": "ECU",
+    "away": "GHA",
+    "videos": {
+      "en": {
+        "short": {
+          "id": "w72C041mg7U",
+          "geo": "US"
+        }
+      }
+    }
+  },
+  {
+    "id": "m-fra-kor",
+    "stage": "group",
+    "date": "2026-09-06",
+    "home": "FRA",
+    "away": "KOR",
+    "videos": {
+      "en": {
+        "short": {
+          "id": "URJ8QIQ4LwY",
+          "geo": "US"
+        }
+      }
+    }
+  },
+  {
     "id": "m-can-eng",
     "stage": "group",
     "date": "2026-09-05",
