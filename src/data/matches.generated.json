@@ -1,5 +1,20 @@
 [
   {
+    "id": "m-can-eng",
+    "stage": "group",
+    "date": "2026-09-05",
+    "home": "CAN",
+    "away": "ENG",
+    "videos": {
+      "en": {
+        "short": {
+          "id": "pjaS7IGPTO0",
+          "geo": "US"
+        }
+      }
+    }
+  },
+  {
     "id": "m-esp-arg",
     "stage": "final",
     "date": "2026-07-19",
