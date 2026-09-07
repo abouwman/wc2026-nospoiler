@@ -15,6 +15,36 @@
     }
   },
   {
+    "id": "m-crc-col",
+    "stage": "group",
+    "date": "2026-09-07",
+    "home": "CRC",
+    "away": "COL",
+    "videos": {
+      "en": {
+        "short": {
+          "id": "agoPnEqRUBU",
+          "geo": "US"
+        }
+      }
+    }
+  },
+  {
+    "id": "m-esp-nga",
+    "stage": "group",
+    "date": "2026-09-07",
+    "home": "ESP",
+    "away": "NGA",
+    "videos": {
+      "en": {
+        "short": {
+          "id": "EOQhA7wffSM",
+          "geo": "US"
+        }
+      }
+    }
+  },
+  {
     "id": "m-ecu-gha",
     "stage": "group",
     "date": "2026-09-06",
