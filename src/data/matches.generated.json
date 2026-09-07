@@ -1,5 +1,20 @@
 [
   {
+    "id": "m-kor-por",
+    "stage": "group",
+    "date": "2026-09-07",
+    "home": "KOR",
+    "away": "POR",
+    "videos": {
+      "en": {
+        "short": {
+          "id": "FCZ1IoXhVfM",
+          "geo": "US"
+        }
+      }
+    }
+  },
+  {
     "id": "m-ecu-gha",
     "stage": "group",
     "date": "2026-09-06",
@@ -39,6 +54,21 @@
       "en": {
         "short": {
           "id": "pjaS7IGPTO0",
+          "geo": "US"
+        }
+      }
+    }
+  },
+  {
+    "id": "m-pol-arg",
+    "stage": "group",
+    "date": "2026-09-05",
+    "home": "POL",
+    "away": "ARG",
+    "videos": {
+      "en": {
+        "short": {
+          "id": "ATzAUGR6jU0",
           "geo": "US"
         }
       }
