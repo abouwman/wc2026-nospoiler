@@ -1,5 +1,20 @@
 [
   {
+    "id": "m-pol-mex",
+    "stage": "group",
+    "date": "2026-09-08",
+    "home": "POL",
+    "away": "MEX",
+    "videos": {
+      "en": {
+        "short": {
+          "id": "uHNwf-PTnFc",
+          "geo": "US"
+        }
+      }
+    }
+  },
+  {
     "id": "m-kor-por",
     "stage": "group",
     "date": "2026-09-07",
