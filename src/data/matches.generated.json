@@ -15,6 +15,36 @@
     }
   },
   {
+    "id": "m-fra-ecu",
+    "stage": "group",
+    "date": "2026-09-09",
+    "home": "FRA",
+    "away": "ECU",
+    "videos": {
+      "en": {
+        "short": {
+          "id": "ud1lGSD3Lls",
+          "geo": "US"
+        }
+      }
+    }
+  },
+  {
+    "id": "m-jpn-usa",
+    "stage": "group",
+    "date": "2026-09-09",
+    "home": "JPN",
+    "away": "USA",
+    "videos": {
+      "en": {
+        "short": {
+          "id": "ZxFYWwE_LxM",
+          "geo": "US"
+        }
+      }
+    }
+  },
+  {
     "id": "m-pol-mex",
     "stage": "group",
     "date": "2026-09-08",
