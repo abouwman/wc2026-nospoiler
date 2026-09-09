@@ -1,5 +1,20 @@
 [
   {
+    "id": "m-gha-kor",
+    "stage": "group",
+    "date": "2026-09-09",
+    "home": "GHA",
+    "away": "KOR",
+    "videos": {
+      "en": {
+        "short": {
+          "id": "31FaRWBI-CE",
+          "geo": "US"
+        }
+      }
+    }
+  },
+  {
     "id": "m-pol-mex",
     "stage": "group",
     "date": "2026-09-08",
@@ -9,6 +24,21 @@
       "en": {
         "short": {
           "id": "uHNwf-PTnFc",
+          "geo": "US"
+        }
+      }
+    }
+  },
+  {
+    "id": "m-bra-can",
+    "stage": "group",
+    "date": "2026-09-08",
+    "home": "BRA",
+    "away": "CAN",
+    "videos": {
+      "en": {
+        "short": {
+          "id": "47lBRWLiM_w",
           "geo": "US"
         }
       }
