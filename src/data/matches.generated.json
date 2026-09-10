@@ -1,5 +1,20 @@
 [
   {
+    "id": "m-kor-crc",
+    "stage": "group",
+    "date": "2026-09-10",
+    "home": "KOR",
+    "away": "CRC",
+    "videos": {
+      "en": {
+        "short": {
+          "id": "M10xy9lmhh0",
+          "geo": "US"
+        }
+      }
+    }
+  },
+  {
     "id": "m-gha-kor",
     "stage": "group",
     "date": "2026-09-09",
