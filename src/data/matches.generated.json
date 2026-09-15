@@ -1,5 +1,20 @@
 [
   {
+    "id": "m-col-kor",
+    "stage": "group",
+    "date": "2026-09-13",
+    "home": "COL",
+    "away": "KOR",
+    "videos": {
+      "en": {
+        "short": {
+          "id": "vA3e50JozGA",
+          "geo": "US"
+        }
+      }
+    }
+  },
+  {
     "id": "m-kor-crc",
     "stage": "group",
     "date": "2026-09-10",
