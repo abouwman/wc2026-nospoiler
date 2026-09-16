@@ -15,6 +15,37 @@
     }
   },
   {
+    "id": "m-esp-por",
+    "stage": "group",
+    "date": "2026-09-16",
+    "home": "ESP",
+    "away": "POR",
+    "videos": {
+      "en": {
+        "short": {
+          "id": "SsKpffUpJQo",
+          "geo": "US"
+        }
+      }
+    },
+    "bbc": "m002z01k"
+  },
+  {
+    "id": "m-bra-usa",
+    "stage": "group",
+    "date": "2026-09-16",
+    "home": "BRA",
+    "away": "USA",
+    "videos": {
+      "en": {
+        "short": {
+          "id": "hZRWU2xjPpc",
+          "geo": "US"
+        }
+      }
+    }
+  },
+  {
     "id": "m-col-kor",
     "stage": "group",
     "date": "2026-09-13",
