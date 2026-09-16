@@ -1,5 +1,20 @@
 [
   {
+    "id": "m-arg-kor",
+    "stage": "group",
+    "date": "2026-09-16",
+    "home": "ARG",
+    "away": "KOR",
+    "videos": {
+      "en": {
+        "short": {
+          "id": "wWxhtzd1mg0",
+          "geo": "US"
+        }
+      }
+    }
+  },
+  {
     "id": "m-col-kor",
     "stage": "group",
     "date": "2026-09-13",
