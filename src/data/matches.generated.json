@@ -1,5 +1,65 @@
 [
   {
+    "id": "m-pol-col",
+    "stage": "group",
+    "date": "2026-09-17",
+    "home": "POL",
+    "away": "COL",
+    "videos": {
+      "en": {
+        "short": {
+          "id": "iHtyWGGsHcg",
+          "geo": "US"
+        }
+      }
+    }
+  },
+  {
+    "id": "m-kor-jpn",
+    "stage": "group",
+    "date": "2026-09-17",
+    "home": "KOR",
+    "away": "JPN",
+    "videos": {
+      "en": {
+        "short": {
+          "id": "OvV251Jl0YQ",
+          "geo": "US"
+        }
+      }
+    }
+  },
+  {
+    "id": "m-eng-nga",
+    "stage": "group",
+    "date": "2026-09-17",
+    "home": "ENG",
+    "away": "NGA",
+    "videos": {
+      "en": {
+        "short": {
+          "id": "-6X3EBiAR1g",
+          "geo": "US"
+        }
+      }
+    }
+  },
+  {
+    "id": "m-fra-can",
+    "stage": "group",
+    "date": "2026-09-17",
+    "home": "FRA",
+    "away": "CAN",
+    "videos": {
+      "en": {
+        "short": {
+          "id": "pe0hLsikkJA",
+          "geo": "US"
+        }
+      }
+    }
+  },
+  {
     "id": "m-arg-kor",
     "stage": "group",
     "date": "2026-09-16",
