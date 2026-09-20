@@ -15,6 +15,21 @@
     }
   },
   {
+    "id": "m-kor-can",
+    "stage": "group",
+    "date": "2026-09-20",
+    "home": "KOR",
+    "away": "CAN",
+    "videos": {
+      "en": {
+        "short": {
+          "id": "WITGD4UPib0",
+          "geo": "US"
+        }
+      }
+    }
+  },
+  {
     "id": "m-bra-esp",
     "stage": "group",
     "date": "2026-09-19",
