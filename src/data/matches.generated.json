@@ -30,6 +30,21 @@
     }
   },
   {
+    "id": "m-mar-nzl",
+    "stage": "group",
+    "date": "2026-10-17",
+    "home": "MAR",
+    "away": "NZL",
+    "videos": {
+      "en": {
+        "short": {
+          "id": "LD9ryCjeDUQ",
+          "geo": "US"
+        }
+      }
+    }
+  },
+  {
     "id": "m-esp-kor",
     "stage": "group",
     "date": "2026-09-27",
