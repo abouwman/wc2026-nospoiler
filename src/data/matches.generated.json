@@ -1,5 +1,35 @@
 [
   {
+    "id": "m-pol-nga",
+    "stage": "group",
+    "date": "2026-10-17",
+    "home": "POL",
+    "away": "NGA",
+    "videos": {
+      "en": {
+        "short": {
+          "id": "MFD4CvefLQ4",
+          "geo": "US"
+        }
+      }
+    }
+  },
+  {
+    "id": "m-ger-arg",
+    "stage": "group",
+    "date": "2026-10-17",
+    "home": "GER",
+    "away": "ARG",
+    "videos": {
+      "en": {
+        "short": {
+          "id": "CvPGhRTEXZc",
+          "geo": "US"
+        }
+      }
+    }
+  },
+  {
     "id": "m-esp-kor",
     "stage": "group",
     "date": "2026-09-27",
