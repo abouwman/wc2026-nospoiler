@@ -15,6 +15,21 @@
     }
   },
   {
+    "id": "m-nor-gha",
+    "stage": "group",
+    "date": "2026-10-18",
+    "home": "NOR",
+    "away": "GHA",
+    "videos": {
+      "en": {
+        "short": {
+          "id": "35Z0E1maQic",
+          "geo": "US"
+        }
+      }
+    }
+  },
+  {
     "id": "m-pol-nga",
     "stage": "group",
     "date": "2026-10-17",
