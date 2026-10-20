@@ -1,5 +1,35 @@
 [
   {
+    "id": "m-kor-pol",
+    "stage": "group",
+    "date": "2026-10-20",
+    "home": "KOR",
+    "away": "POL",
+    "videos": {
+      "en": {
+        "short": {
+          "id": "mBFigT96YEA",
+          "geo": "US"
+        }
+      }
+    }
+  },
+  {
+    "id": "m-arg-nzl",
+    "stage": "group",
+    "date": "2026-10-20",
+    "home": "ARG",
+    "away": "NZL",
+    "videos": {
+      "en": {
+        "short": {
+          "id": "FdAXFoK6vb8",
+          "geo": "US"
+        }
+      }
+    }
+  },
+  {
     "id": "m-aus-chi",
     "stage": "group",
     "date": "2026-10-19",
