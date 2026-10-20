@@ -30,6 +30,21 @@
     }
   },
   {
+    "id": "m-mar-ger",
+    "stage": "group",
+    "date": "2026-10-20",
+    "home": "MAR",
+    "away": "GER",
+    "videos": {
+      "en": {
+        "short": {
+          "id": "WW1jLhTcWms",
+          "geo": "US"
+        }
+      }
+    }
+  },
+  {
     "id": "m-aus-chi",
     "stage": "group",
     "date": "2026-10-19",
