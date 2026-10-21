@@ -1,5 +1,20 @@
 [
   {
+    "id": "m-jpn-fra",
+    "stage": "group",
+    "date": "2026-10-21",
+    "home": "JPN",
+    "away": "FRA",
+    "videos": {
+      "en": {
+        "short": {
+          "id": "l5w8mDXjnnA",
+          "geo": "US"
+        }
+      }
+    }
+  },
+  {
     "id": "m-kor-pol",
     "stage": "group",
     "date": "2026-10-20",
