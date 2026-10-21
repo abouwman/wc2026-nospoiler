@@ -15,6 +15,21 @@
     }
   },
   {
+    "id": "m-gha-bra",
+    "stage": "group",
+    "date": "2026-10-21",
+    "home": "GHA",
+    "away": "BRA",
+    "videos": {
+      "en": {
+        "short": {
+          "id": "CTcqZl_v14o",
+          "geo": "US"
+        }
+      }
+    }
+  },
+  {
     "id": "m-kor-pol",
     "stage": "group",
     "date": "2026-10-20",
