@@ -15,6 +15,21 @@
     }
   },
   {
+    "id": "m-chi-mex",
+    "stage": "group",
+    "date": "2026-10-22",
+    "home": "CHI",
+    "away": "MEX",
+    "videos": {
+      "en": {
+        "short": {
+          "id": "Ol9iUNryyI4",
+          "geo": "US"
+        }
+      }
+    }
+  },
+  {
     "id": "m-jpn-fra",
     "stage": "group",
     "date": "2026-10-21",
