@@ -1,5 +1,20 @@
 [
   {
+    "id": "m-esp-aus",
+    "stage": "group",
+    "date": "2026-10-22",
+    "home": "ESP",
+    "away": "AUS",
+    "videos": {
+      "en": {
+        "short": {
+          "id": "KtoR0v4iL6M",
+          "geo": "US"
+        }
+      }
+    }
+  },
+  {
     "id": "m-jpn-fra",
     "stage": "group",
     "date": "2026-10-21",
