@@ -15,6 +15,36 @@
     }
   },
   {
+    "id": "m-nzl-ger",
+    "stage": "group",
+    "date": "2026-10-23",
+    "home": "NZL",
+    "away": "GER",
+    "videos": {
+      "en": {
+        "short": {
+          "id": "nj9dFrUMCEM",
+          "geo": "US"
+        }
+      }
+    }
+  },
+  {
+    "id": "m-arg-mar",
+    "stage": "group",
+    "date": "2026-10-23",
+    "home": "ARG",
+    "away": "MAR",
+    "videos": {
+      "en": {
+        "short": {
+          "id": "rsXFY4SLTH8",
+          "geo": "US"
+        }
+      }
+    }
+  },
+  {
     "id": "m-esp-aus",
     "stage": "group",
     "date": "2026-10-22",
