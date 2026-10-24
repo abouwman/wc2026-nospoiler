@@ -1,5 +1,20 @@
 [
   {
+    "id": "m-gha-can",
+    "stage": "group",
+    "date": "2026-10-24",
+    "home": "GHA",
+    "away": "CAN",
+    "videos": {
+      "en": {
+        "short": {
+          "id": "zRwuZPki5TY",
+          "geo": "US"
+        }
+      }
+    }
+  },
+  {
     "id": "m-nga-kor",
     "stage": "group",
     "date": "2026-10-23",
