@@ -1,5 +1,35 @@
 [
   {
+    "id": "m-chi-esp",
+    "stage": "group",
+    "date": "2026-10-25",
+    "home": "CHI",
+    "away": "ESP",
+    "videos": {
+      "en": {
+        "short": {
+          "id": "Cmz94Pbgf5Q",
+          "geo": "US"
+        }
+      }
+    }
+  },
+  {
+    "id": "m-mex-aus",
+    "stage": "group",
+    "date": "2026-10-25",
+    "home": "MEX",
+    "away": "AUS",
+    "videos": {
+      "en": {
+        "short": {
+          "id": "0CU2dFZZ2kA",
+          "geo": "US"
+        }
+      }
+    }
+  },
+  {
     "id": "m-gha-can",
     "stage": "group",
     "date": "2026-10-24",
