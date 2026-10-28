@@ -1,5 +1,35 @@
 [
   {
+    "id": "m-kor-mar",
+    "stage": "group",
+    "date": "2026-10-28",
+    "home": "KOR",
+    "away": "MAR",
+    "videos": {
+      "en": {
+        "short": {
+          "id": "OrFs27viFuw",
+          "geo": "US"
+        }
+      }
+    }
+  },
+  {
+    "id": "m-arg-gha",
+    "stage": "group",
+    "date": "2026-10-28",
+    "home": "ARG",
+    "away": "GHA",
+    "videos": {
+      "en": {
+        "short": {
+          "id": "-XRmFkzKq5E",
+          "geo": "US"
+        }
+      }
+    }
+  },
+  {
     "id": "m-chi-esp",
     "stage": "group",
     "date": "2026-10-25",
