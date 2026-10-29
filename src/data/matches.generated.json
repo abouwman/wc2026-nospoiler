@@ -15,6 +15,21 @@
     }
   },
   {
+    "id": "m-esp-usa",
+    "stage": "group",
+    "date": "2026-10-29",
+    "home": "ESP",
+    "away": "USA",
+    "videos": {
+      "en": {
+        "short": {
+          "id": "LbfvOpmiA7g",
+          "geo": "US"
+        }
+      }
+    }
+  },
+  {
     "id": "m-kor-mar",
     "stage": "group",
     "date": "2026-10-28",
