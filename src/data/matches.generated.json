@@ -30,6 +30,21 @@
     }
   },
   {
+    "id": "m-bra-pol",
+    "stage": "group",
+    "date": "2026-10-28",
+    "home": "BRA",
+    "away": "POL",
+    "videos": {
+      "en": {
+        "short": {
+          "id": "w3_DwgvmWaE",
+          "geo": "US"
+        }
+      }
+    }
+  },
+  {
     "id": "m-chi-esp",
     "stage": "group",
     "date": "2026-10-25",
