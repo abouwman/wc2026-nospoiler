@@ -1,5 +1,20 @@
 [
   {
+    "id": "m-nga-mex",
+    "stage": "group",
+    "date": "2026-10-29",
+    "home": "NGA",
+    "away": "MEX",
+    "videos": {
+      "en": {
+        "short": {
+          "id": "1e-Yq-GATiY",
+          "geo": "US"
+        }
+      }
+    }
+  },
+  {
     "id": "m-kor-mar",
     "stage": "group",
     "date": "2026-10-28",
