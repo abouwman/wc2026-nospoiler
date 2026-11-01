@@ -1,5 +1,20 @@
 [
   {
+    "id": "m-gha-jpn",
+    "stage": "group",
+    "date": "2026-11-01",
+    "home": "GHA",
+    "away": "JPN",
+    "videos": {
+      "en": {
+        "short": {
+          "id": "qv_KKKjrdi4",
+          "geo": "US"
+        }
+      }
+    }
+  },
+  {
     "id": "m-nga-mex",
     "stage": "group",
     "date": "2026-10-29",
