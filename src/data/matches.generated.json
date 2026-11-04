@@ -1,5 +1,35 @@
 [
   {
+    "id": "m-bra-nga",
+    "stage": "group",
+    "date": "2026-11-04",
+    "home": "BRA",
+    "away": "NGA",
+    "videos": {
+      "en": {
+        "short": {
+          "id": "Bx3eG3fIDP8",
+          "geo": "US"
+        }
+      }
+    }
+  },
+  {
+    "id": "m-jpn-kor",
+    "stage": "group",
+    "date": "2026-11-04",
+    "home": "JPN",
+    "away": "KOR",
+    "videos": {
+      "en": {
+        "short": {
+          "id": "xXUABCjcNZ8",
+          "geo": "US"
+        }
+      }
+    }
+  },
+  {
     "id": "m-gha-jpn",
     "stage": "group",
     "date": "2026-11-01",
