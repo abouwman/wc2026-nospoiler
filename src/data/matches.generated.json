@@ -15,6 +15,22 @@
     }
   },
   {
+    "id": "m-cpv-esp",
+    "stage": "group",
+    "date": "2026-11-01",
+    "home": "CPV",
+    "away": "ESP",
+    "videos": {
+      "en": {
+        "extended": {
+          "id": "4FiOmLfL10g",
+          "geo": "US"
+        }
+      }
+    },
+    "bbc": "m002y42s"
+  },
+  {
     "id": "m-nga-mex",
     "stage": "group",
     "date": "2026-10-29",
