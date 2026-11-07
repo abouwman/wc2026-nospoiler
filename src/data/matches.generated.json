@@ -1,5 +1,20 @@
 [
   {
+    "id": "m-kor-bra",
+    "stage": "group",
+    "date": "2026-11-07",
+    "home": "KOR",
+    "away": "BRA",
+    "videos": {
+      "en": {
+        "short": {
+          "id": "nbJzleYMVH0",
+          "geo": "US"
+        }
+      }
+    }
+  },
+  {
     "id": "m-bra-nga",
     "stage": "group",
     "date": "2026-11-04",
