@@ -1,5 +1,35 @@
 [
   {
+    "id": "m-qat-pan",
+    "stage": "group",
+    "date": "2026-11-19",
+    "home": "QAT",
+    "away": "PAN",
+    "videos": {
+      "en": {
+        "short": {
+          "id": "TVssLLLNxuw",
+          "geo": "US"
+        }
+      }
+    }
+  },
+  {
+    "id": "m-fra-hai",
+    "stage": "group",
+    "date": "2026-11-19",
+    "home": "FRA",
+    "away": "HAI",
+    "videos": {
+      "en": {
+        "short": {
+          "id": "Y4FSkT7G83U",
+          "geo": "US"
+        }
+      }
+    }
+  },
+  {
     "id": "m-kor-bra",
     "stage": "group",
     "date": "2026-11-07",
@@ -3798,6 +3828,10 @@
       "en": {
         "extended": {
           "id": "Tz9R1OYdTSs",
+          "geo": "US"
+        },
+        "short": {
+          "id": "3HO2WNcRSjs",
           "geo": "US"
         }
       },
