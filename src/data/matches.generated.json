@@ -1,5 +1,35 @@
 [
   {
+    "id": "m-civ-uzb",
+    "stage": "group",
+    "date": "2026-11-20",
+    "home": "CIV",
+    "away": "UZB",
+    "videos": {
+      "en": {
+        "short": {
+          "id": "PmA4T3ex-IM",
+          "geo": "US"
+        }
+      }
+    }
+  },
+  {
+    "id": "m-sen-cro",
+    "stage": "group",
+    "date": "2026-11-20",
+    "home": "SEN",
+    "away": "CRO",
+    "videos": {
+      "en": {
+        "short": {
+          "id": "DtXtQjuiWUs",
+          "geo": "US"
+        }
+      }
+    }
+  },
+  {
     "id": "m-qat-pan",
     "stage": "group",
     "date": "2026-11-19",
